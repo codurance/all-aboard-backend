@@ -22,3 +22,5 @@ jobs:
         java-version: 1.11
     - name: Run tests with Maven
       run: mvn clean test
+    - name: AWS cli install action
+        uses: chrislennon/action-aws-cli@1.1
