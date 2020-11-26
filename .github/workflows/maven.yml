@@ -32,7 +32,7 @@ jobs:
       run: mvn package
 
     - name: Create ZIP deployment package
-      run: zip -r deploy.zip ./target/**jar
+      run: zip -r "ver-${{ github.sha }}".zip ./target/**jar
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
