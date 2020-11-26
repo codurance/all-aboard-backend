@@ -22,9 +22,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - name: Run tests with Maven
-      run: mvn clean test
+#    - name: Run tests with Maven
+#      run: mvn clean test
     - name: Packaging with Maven
       run: mvn package
+    - name: Create ZIP deployment package
+      run: zip -r deploy_package.zip ./target/**jar
     - name: Listing dir
       run: ls -la
