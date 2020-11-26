@@ -31,8 +31,8 @@ jobs:
     - name: Packaging with Maven
       run: mvn package
 
-    - name: Create ZIP deployment package
-      run: zip -r deploy.zip ./target/**jar
+#    - name: Create ZIP deployment package
+#      run: zip -r deploy.zip ./target/**jar
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -42,13 +42,13 @@ jobs:
         aws-region: "eu-west-2"
 
     - name: Upload package to S3 bucket
-      run: aws s3 cp deploy.zip s3://all-aboard-be/
+      run: aws s3 cp ./target/allaboard-1.0.0.jar s3://all-aboard-be/
 
     - name: Create new ElasticBeanstalk Application Version
       run: |
         aws elasticbeanstalk create-application-version \
         --application-name all-aboard-be \
-        --source-bundle S3Bucket="all-aboard-be",S3Key="deploy.zip" \
+        --source-bundle S3Bucket="all-aboard-be",S3Key="allaboard-1.0.0.jar" \
         --version-label "ver-${{ github.sha }}" \
         --description "commit-sha-${{ github.sha }}"
 
