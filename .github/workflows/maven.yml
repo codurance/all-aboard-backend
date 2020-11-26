@@ -30,3 +30,11 @@ jobs:
       run: zip -r deploy_package.zip ./target/**jar
     - name: Listing dir
       run: ls -la target
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: "eu-west-1"
+    - name: Upload package to S3 bucket
+      run: aws s3 cp deploy_package.zip s3://all-aboard-be/
