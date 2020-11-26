@@ -45,12 +45,12 @@ jobs:
       run: aws s3 cp "ver-${{ github.sha }}".zip s3://all-aboard-be/
 
     - name: Create new ElasticBeanstalk Application Version
-        run: |
-          aws elasticbeanstalk create-application-version \
-          --application-name all-aboard-be \
-          --source-bundle S3Bucket="all-aboard-be",S3Key="ver-${{ github.sha }}.zip" \
-          --version-label "ver-${{ github.sha }}" \
-          --description "commit-sha-${{ github.sha }}"
+      run: |
+        aws elasticbeanstalk create-application-version \
+        --application-name all-aboard-be \
+        --source-bundle S3Bucket="all-aboard-be",S3Key="ver-${{ github.sha }}.zip" \
+        --version-label "ver-${{ github.sha }}" \
+        --description "commit-sha-${{ github.sha }}"
 
     - name: Deploy new ElasticBeanstalk Application Version
       run: aws elasticbeanstalk update-environment --environment-name all-aboard-be-dev --version-label "ver-${{ github.sha }}"
