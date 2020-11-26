@@ -29,4 +29,4 @@ jobs:
     - name: Create ZIP deployment package
       run: zip -r deploy_package.zip ./target/**jar
     - name: Listing dir
-      run: ls -la
+      run: ls -la target
