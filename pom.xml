@@ -12,11 +12,11 @@
   </parent>
 
   <groupId>com.codurance</groupId>
-  <artifactId>allaboard</artifactId>
+  <artifactId>all-aboard-api</artifactId>
   <version>1.0.0</version>
 
-  <name>all-a-board</name>
-  <description>Final project for the Codurance Academy September 2020 edition</description>
+  <name>all-a-board-api</name>
+  <description>REST api server for the All aboard project for the Codurance Academy September 2020 edition</description>
 
   <properties>
     <java.version>11</java.version>
@@ -35,6 +35,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
