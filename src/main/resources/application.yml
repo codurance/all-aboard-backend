@@ -4,3 +4,6 @@ management:
   endpoint:
     health:
       enabled: true
+
+server:
+  port: 80
