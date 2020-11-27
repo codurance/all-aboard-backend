@@ -16,13 +16,12 @@ jobs:
       - name: AWS cli install action
         uses: chrislennon/action-aws-cli@1.1
 
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "eu-west-2"
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Create an ElasticBeanstalk application
         run: |
@@ -35,15 +34,21 @@ jobs:
         run: |
           aws elasticbeanstalk create-configuration-template \
           --application-name all-aboard-api \
-          --template-name v1 \
+          --template-name ${{ github.sha }} \
           --solution-stack-name "64bit Amazon Linux 2 v3.1.3 running Corretto 11" \
           --tags Key=name,Value=all-aboard-api
 
-      - name: Create an ElasticBeanstalk configuration template
+      - name: Create an ElasticBeanstalk application version
+        run: |
+          aws elasticbeanstalk create-application-version \
+          --application-name all-aboard-api \
+          --version-label ${{ github.sha }} \
+
+      - name: Create an ElasticBeanstalk environment
         run: |
           aws elasticbeanstalk create-environment \
             --application-name all-aboard-api \
             --template-name all-aboard-api-v1 \
             --environment-name all-aboard-api-dev \
-            --version-label dev-v1 \
+            --version-label ${{ github.sha }} \
             --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=aws-elasticbeanstalk-ec2-role
