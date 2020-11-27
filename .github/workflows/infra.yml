@@ -34,7 +34,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-configuration-template \
           --application-name all-aboard-api \
-          --template-name ${{ github.sha }} \
+          --template-name all-aboard-api-v1 \
           --solution-stack-name "64bit Amazon Linux 2 v3.1.3 running Corretto 11" \
           --tags Key=name,Value=all-aboard-api
 
@@ -49,7 +49,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-environment \
             --application-name all-aboard-api \
-            --template-name ${{ github.sha }} \
+            --template-name all-aboard-api-v1 \
             --environment-name all-aboard-api-dev \
             --version-label ${{ github.sha }} \
             --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=aws-elasticbeanstalk-ec2-role
