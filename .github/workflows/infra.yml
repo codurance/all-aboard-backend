@@ -48,7 +48,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-environment \
             --application-name all-aboard-api \
-            --template-name all-aboard-api-v1 \
+            --template-name ${{ github.sha }} \
             --environment-name all-aboard-api-dev \
             --version-label ${{ github.sha }} \
             --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=aws-elasticbeanstalk-ec2-role
