@@ -42,7 +42,8 @@ jobs:
         run: |
           aws elasticbeanstalk create-application-version \
           --application-name all-aboard-api \
-          --version-label ${{ github.sha }} \
+          --version-label "ver-${{ github.sha }}"
+          --description "commit-sha-${{ github.sha }}"
 
       - name: Create an ElasticBeanstalk environment
         run: |

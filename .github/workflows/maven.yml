@@ -31,23 +31,26 @@ jobs:
     - name: Packaging with Maven
       run: mvn package
 
-#    - name: Configure AWS Credentials
-#      uses: aws-actions/configure-aws-credentials@v1
-#      with:
-#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#        aws-region: "eu-west-2"
-#
-#    - name: Upload package to S3 bucket
-#      run: aws s3 cp ./target/all-aboard-api-1.0.0.jar s3://all-aboard-be/
-#
-#    - name: Create new ElasticBeanstalk Application Version
-#      run: |
-#        aws elasticbeanstalk create-application-version \
-#        --application-name all-aboard-api \
-#        --source-bundle S3Bucket="all-aboard-be",S3Key="all-aboard-api-1.0.0.jar" \
-#        --version-label "ver-${{ github.sha }}" \
-#        --description "commit-sha-${{ github.sha }}"
-#
-#    - name: Deploy new ElasticBeanstalk Application Version
-#      run: aws elasticbeanstalk update-environment --environment-name all-aboard-api-dev --version-label "ver-${{ github.sha }}"
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Upload package to S3 bucket
+      run: aws s3 cp ./target/all-aboard-api-1.0.0.jar s3://all-aboard-be/
+
+    - name: Create new ElasticBeanstalk Application Version from S3
+      run: |
+        aws elasticbeanstalk create-application-version \
+        --application-name all-aboard-api \
+        --source-bundle S3Bucket="all-aboard-be",S3Key="all-aboard-api-1.0.0.jar" \
+        --version-label "ver-${{ github.sha }}" \
+        --description "commit-sha-${{ github.sha }}"
+
+    - name: Deploy new ElasticBeanstalk Application Version
+      run: |
+        aws elasticbeanstalk update-environment \
+        --environment-name all-aboard-api-dev \
+        --version-label "ver-${{ github.sha }}"
