@@ -2,7 +2,11 @@
 This is the repo that contains the code for the backend of All Aboard project for the Codurance Academy 2020 September edition.
 
 ## Build status
-![build](https://github.com/codurance/all-aboard-backend/workflows/All%20aboard%20API%20-%20CI/badge.svg?branch=main)
+![CI](https://github.com/codurance/all-aboard-backend/workflows/All%20aboard%20API%20-%20CI/badge.svg?branch=main)
+![Build](https://github.com/codurance/all-aboard-backend/workflows/All%20aboard%20API%20-%20CD/badge.svg)
+
+# Infrastructure
+The application is deployed to AWS Elastic Beanstalk. To do so, it requires an AWS S3 bucket to upload different JAR file versions. These components are provisioned automatically with Github Actions, as mentioned below (see [Infrastructure as code](#infrastructure-as-code)).
 
 ## Infrastructure as code
 This project uses GitHub Actions to provision and tear down environments where the application can be deployed to.
