@@ -49,6 +49,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-environment \
             --application-name all-aboard-api \
+            --cname-prefix all-aboard-api-dev
             --template-name all-aboard-api-v1 \
             --environment-name all-aboard-api-dev \
             --version-label ${{ github.sha }} \
