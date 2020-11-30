@@ -51,5 +51,5 @@ jobs:
             --cname-prefix all-aboard-api-dev \
             --template-name all-aboard-api-v1 \
             --environment-name all-aboard-api-dev \
-            --version-label ${{ github.sha }} \
+            --version-label "ver-${{ github.sha }}" \
             --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=aws-elasticbeanstalk-ec2-role
