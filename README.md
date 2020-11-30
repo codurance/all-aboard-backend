@@ -4,7 +4,7 @@ This is the repo that contains the code for the backend of All Aboard project fo
 ## Build status
 ![All aboard API - CI](https://github.com/codurance/all-aboard-backend/workflows/All%20aboard%20API%20-%20CI/badge.svg?branch=main)
 
-## Infrastructure as code (Provisioning, tear down)
+## Infrastructure as code
 This project uses GitHub Actions to provision and tear down environments where the application can be deployed to.
 They can be triggered with HTTP requests.
  
@@ -37,3 +37,6 @@ curl --location --request POST 'https://api.github.com/repos/codurance/all-aboar
 
 ## CI/CD
 This is executed with GitHub Actions, too. Please, see [ci.yml](./.github/workflows/ci.yml) to view this action's details.
+
+## Tech Stack/Frameworks
+![Java 11](https://img.shields.io/badge/Java-JDK11-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.4.0-blue) ![JUnit](https://img.shields.io/badge/JUnit-5.7.0-blue)
