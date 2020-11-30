@@ -36,7 +36,9 @@ curl --location --request POST 'https://api.github.com/repos/codurance/all-aboar
 ```
 
 ## CI/CD
-This is executed with GitHub Actions, too. Please, see [ci.yml](./.github/workflows/ci.yml) to view this action's details.
+This is executed with GitHub Actions, too. The difference with the other actions lies on the fact that this is executed each time there is a push to the `main` branch.
+
+Please, see [ci.yml](./.github/workflows/ci.yml) to view this action's details.
 
 ## Tech Stack/Frameworks
 ![Java 11](https://img.shields.io/badge/Java-JDK11-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.4.0-blue) ![JUnit](https://img.shields.io/badge/JUnit-5.7.0-blue)
