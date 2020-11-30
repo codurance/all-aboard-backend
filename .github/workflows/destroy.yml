@@ -24,4 +24,4 @@ jobs:
           
       - name: Delete Elastic Beanstalk application
         run: |
-          aws elasticbeanstalk delete-application --application-name all-aboard-api
+          aws elasticbeanstalk delete-application --application-name all-aboard-api --terminate-env-by-force
