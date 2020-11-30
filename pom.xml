@@ -15,7 +15,7 @@
   <artifactId>all-aboard-api</artifactId>
   <version>1.0.0</version>
 
-  <name>all-a-board-api</name>
+  <name>all-aboard-api</name>
   <description>REST api server for the All aboard project for the Codurance Academy September 2020
     edition
   </description>
