@@ -1,6 +1,8 @@
 name: All aboard API - Provisioning
 
-on: repository_dispatch
+on: 
+  repository_dispatch:
+    types: provisioning
 
 jobs:
   manual_deploy:
