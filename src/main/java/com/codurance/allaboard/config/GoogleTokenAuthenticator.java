@@ -16,12 +16,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class GoogleTokenAuthenticator implements HandlerInterceptor {
 
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-      throws Exception {
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
     String token = request.getHeader("Authorization");
     try {
       authenticateToken(token, request);
-    } catch (Exception exception) {
+    } catch (GeneralSecurityException | IOException | NullPointerException exception) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       return false;
     }
