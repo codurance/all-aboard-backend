@@ -18,15 +18,16 @@ public class UserEngagementSurveyFeature {
 
   @LocalServerPort
   private int port;
+  private JSONObject jsonBody;
 
   @BeforeEach
   void setUp() {
     RestAssured.port = port;
+    jsonBody = new JSONObject();
   }
 
   @Test
   void accept_a_user_engagement_survey() {
-    JSONObject jsonBody = new JSONObject();
     jsonBody.put("email", "fabio.damico@codurance.com");
     jsonBody.put("preference", "I like to use Udacity");
 
@@ -42,7 +43,6 @@ public class UserEngagementSurveyFeature {
 
   @Test
   void reject_an_invalid_user_engagement_survey() {
-    JSONObject jsonBody = new JSONObject();
     jsonBody.put("email", "fabio.damico@codurance.com");
 
     given()
