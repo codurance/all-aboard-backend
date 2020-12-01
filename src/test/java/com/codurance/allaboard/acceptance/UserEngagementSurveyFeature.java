@@ -27,11 +27,11 @@ public class UserEngagementSurveyFeature {
   @Test
   void save_a_user_engagement_survey() {
     JSONObject jsonBody = new JSONObject();
-    jsonBody.append("email", "fabio.damico@codurance.com");
-    jsonBody.append("preference", "I like to use Udacity");
+    jsonBody.put("email", "fabio.damico@codurance.com");
+    jsonBody.put("preference", "I like to use Udacity");
 
     given()
-        .body(jsonBody)
+        .body(jsonBody.toString())
         .contentType(ContentType.JSON)
         .post("/survey")
         .then()
