@@ -1,4 +1,4 @@
-package com.codurance.allaboard;
+package com.codurance.allaboard.acceptance;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.not;

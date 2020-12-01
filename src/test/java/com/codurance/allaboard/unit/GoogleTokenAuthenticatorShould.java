@@ -1,4 +1,4 @@
-package com.codurance.allaboard.acceptance.unit;
+package com.codurance.allaboard.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -31,11 +31,9 @@ public class GoogleTokenAuthenticatorShould {
   @Mock
   private GoogleIdTokenVerifier googleIdTokenVerifier;
 
-  private final String INVALID_TOKEN = "";
-  private final String VALID_TOKEN = "VALID_TOKEN";
-
   @Test
   void deny_request_without_authorization() throws GeneralSecurityException, IOException {
+    String INVALID_TOKEN = "";
     given(request.getHeader("Authorization"))
         .willReturn(INVALID_TOKEN);
 
@@ -49,9 +47,6 @@ public class GoogleTokenAuthenticatorShould {
 
   @Test
   void accept_request_with_authorization() {
-    given(request.getHeader("Authorization"))
-        .willReturn(VALID_TOKEN);
-
     GoogleTokenAuthenticator authenticator = new TestableGoogleTokenAuthenticator();
 
     assertThat(authenticator.preHandle(request, response, handler), is(true));
