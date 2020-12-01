@@ -1,6 +1,5 @@
 package com.codurance.allaboard.config;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -16,7 +15,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class GoogleTokenAuthenticator implements HandlerInterceptor {
 
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+      Object handler) {
     String token = request.getHeader("Authorization");
     try {
       authenticateToken(token, request);
@@ -30,11 +30,10 @@ public class GoogleTokenAuthenticator implements HandlerInterceptor {
   private void authenticateToken(String token, HttpServletRequest request)
       throws GeneralSecurityException, IOException {
     GoogleIdTokenVerifier verifier = buildGoogleIdTokenVerifier();
-    GoogleIdToken idToken = verifier.verify(token);
-    request.getSession().setAttribute("name", idToken.getPayload().get("name"));
+    verifier.verify(token);
   }
 
-  private GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
+  protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
     return new GoogleIdTokenVerifier
         .Builder(new NetHttpTransport(), new JacksonFactory())
         .build();
