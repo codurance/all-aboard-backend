@@ -3,8 +3,6 @@ package com.codurance.allaboard.acceptance;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.not;
 
-import java.io.IOException;
-import org.json.JSONException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +17,7 @@ class AuthorizedRequestsAcceptanceTest {
 
   @Test
   @Disabled
-  void authenticated_requests_do_not_get_unauthorized_status_code()
-      throws JSONException, IOException {
+  void authenticated_requests_do_not_get_unauthorized_status_code() {
 
     given()
         .header(
@@ -35,7 +32,7 @@ class AuthorizedRequestsAcceptanceTest {
 
   @Test
   @Disabled
-  void unauthenticated_requests_get_unauthorized_status_code() throws JSONException {
+  void unauthenticated_requests_get_unauthorized_status_code() {
     given()
         .port(port)
         .get("/demo")
