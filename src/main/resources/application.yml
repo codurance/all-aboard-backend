@@ -8,7 +8,6 @@ management:
     health:
       enabled: true
 ---
-
 spring:
   profiles: dev
 
@@ -18,8 +17,3 @@ spring:
 ---
 server:
   port: 5000
-
-
-spring:
-  profiles:
-    active: dev
