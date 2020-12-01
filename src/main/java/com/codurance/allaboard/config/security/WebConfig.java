@@ -1,4 +1,4 @@
-package com.codurance.allaboard.config;
+package com.codurance.allaboard.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
