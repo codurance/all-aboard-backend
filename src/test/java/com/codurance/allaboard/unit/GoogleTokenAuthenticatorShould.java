@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
-import com.codurance.allaboard.config.GoogleTokenAuthenticator;
+import com.codurance.allaboard.config.security.GoogleTokenAuthenticator;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
