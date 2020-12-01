@@ -1,9 +1,25 @@
+spring:
+  profiles: prod
+
 management:
   endpoints:
     enabled-by-default: false
   endpoint:
     health:
       enabled: true
+---
 
+spring:
+  profiles: dev
+
+
+
+
+---
 server:
   port: 5000
+
+
+spring:
+  profiles:
+    active: dev

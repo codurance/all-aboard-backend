@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+@Profile("prod")
 @Component
 public class GoogleTokenAuthenticator implements HandlerInterceptor {
 
