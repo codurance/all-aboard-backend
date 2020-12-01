@@ -32,6 +32,7 @@ public class GoogleTokenAuthenticatorShould {
   private GoogleIdTokenVerifier googleIdTokenVerifier;
 
   private final String INVALID_TOKEN = "";
+  private final String VALID_TOKEN = "VALID_TOKEN";
 
   @Test
   void deny_request_without_authorization() throws GeneralSecurityException, IOException {
@@ -44,6 +45,16 @@ public class GoogleTokenAuthenticatorShould {
     GoogleTokenAuthenticator authenticator = new TestableGoogleTokenAuthenticator();
 
     assertThat(authenticator.preHandle(request, response, handler), is(false));
+  }
+
+  @Test
+  void accept_request_with_authorization() {
+    given(request.getHeader("Authorization"))
+        .willReturn(VALID_TOKEN);
+
+    GoogleTokenAuthenticator authenticator = new TestableGoogleTokenAuthenticator();
+
+    assertThat(authenticator.preHandle(request, response, handler), is(true));
   }
 
   class TestableGoogleTokenAuthenticator extends GoogleTokenAuthenticator {
