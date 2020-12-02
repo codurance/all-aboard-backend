@@ -4,7 +4,9 @@ import com.codurance.allaboard.survey.model.Survey;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class InMemorySurveyRepository implements SurveyRepository {
 
   private Set<Survey> surveys;
