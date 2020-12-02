@@ -1,11 +1,14 @@
 package com.codurance.allaboard.unit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsIterableContaining.hasItem;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
 import com.codurance.allaboard.survey.model.Survey;
 import com.codurance.allaboard.survey.services.SurveyService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,9 +26,15 @@ public class SurveyServiceShould {
 
   private Survey survey;
 
+  final String email = "user@codurance.com";
+
+  @BeforeEach
+  void setUp() {
+    survey = new Survey(email, "any");
+  }
+
   @Test
   void save_a_survey() {
-    survey = new Survey("user@codurace.com", "any");
     surveyService.saveSurvey(survey);
     verify(surveyRepository, atLeastOnce()).save(survey);
   }

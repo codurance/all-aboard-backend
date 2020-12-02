@@ -17,6 +17,6 @@ public class SurveyService {
   }
 
   public Set<Survey> getSurveysByEmail(String email) {
-    throw new UnsupportedOperationException();
+    return surveyRepository.findAllSurveysByEmail(email);
   }
 }
