@@ -5,6 +5,16 @@ This is the repo that contains the code for the backend of All Aboard project fo
 ![CI](https://github.com/codurance/all-aboard-backend/workflows/All%20aboard%20API%20-%20CI/badge.svg?branch=main)
 ![Build](https://github.com/codurance/all-aboard-backend/workflows/All%20aboard%20API%20-%20CD/badge.svg)
 
+## How to run locally
+You'll need to have the following installed:
+- `mvn 3.6.*`
+- `java 11`
+
+```shell script
+mvn clean package
+java -jar -Dspring.profiles.active=dev ./target/all-aboard-api-1.0.0.jar
+```
+
 # Infrastructure
 The application is deployed to AWS Elastic Beanstalk. To do so, it requires an AWS S3 bucket to upload different JAR file versions. These components are provisioned automatically with Github Actions, as mentioned below (see [Infrastructure as code](#infrastructure-as-code)).
 
