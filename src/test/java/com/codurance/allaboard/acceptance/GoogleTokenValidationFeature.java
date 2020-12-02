@@ -37,4 +37,13 @@ public class GoogleTokenValidationFeature {
         .then()
         .statusCode(401);
   }
+
+  @Test
+  void deny_requests_with_invalid_authorization_header() {
+    given()
+        .header("Authorization", "invalid token")
+        .post("/survey")
+        .then()
+        .statusCode(401);
+  }
 }
