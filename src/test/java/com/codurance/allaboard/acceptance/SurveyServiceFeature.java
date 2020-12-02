@@ -25,6 +25,6 @@ public class SurveyServiceFeature {
 
     surveyService.saveSurvey(survey);
 
-    assertThat(surveyService.getSurveysByEmail(email), contains(survey));
+    assertThat(surveyService.getSurveysByEmail(email).getSurveys(), contains(survey));
   }
 }

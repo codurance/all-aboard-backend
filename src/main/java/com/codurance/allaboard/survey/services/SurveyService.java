@@ -2,6 +2,8 @@ package com.codurance.allaboard.survey.services;
 
 import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
 import com.codurance.allaboard.survey.model.Survey;
+import com.codurance.allaboard.survey.model.Surveys;
+import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,8 @@ public class SurveyService {
     surveyRepository.save(survey);
   }
 
-  public Set<Survey> getSurveysByEmail(String email) {
-    return surveyRepository.findAllSurveysByEmail(email);
+  public Surveys getSurveysByEmail(String email) {
+    Set<Survey> allSurveysByEmail = surveyRepository.findAllSurveysByEmail(email);
+    return new Surveys(new ArrayList<>(allSurveysByEmail));
   }
 }

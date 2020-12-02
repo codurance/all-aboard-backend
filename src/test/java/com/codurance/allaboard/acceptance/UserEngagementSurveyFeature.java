@@ -27,21 +27,6 @@ public class UserEngagementSurveyFeature {
     RestAssured.port = port;
     email = "fabio.damico@codurance.com";
     jsonBody = new JSONObject();
-    jsonBody.put("email", email);
-    jsonBody.put("preference", "I like to use Udacity");
-  }
-
-  @Test
-  void accept_a_user_engagement_survey() {
-
-    given()
-        .body(jsonBody.toString())
-        .contentType(ContentType.JSON)
-        .post("/survey")
-        .then()
-        .statusCode(201)
-        .body("preference", is(jsonBody.get("preference")))
-        .contentType(ContentType.JSON);
   }
 
   @Test
@@ -59,7 +44,19 @@ public class UserEngagementSurveyFeature {
   }
 
   @Test
-  void retrieve_surveys_by_email() {
+  void saves_and_retrieves_surveys_by_email() {
+    jsonBody.put("email", email);
+    jsonBody.put("preference", "I like to use Udacity");
+
+    given()
+        .body(jsonBody.toString())
+        .contentType(ContentType.JSON)
+        .post("/survey")
+        .then()
+        .statusCode(201)
+        .body("preference", is(jsonBody.get("preference")))
+        .contentType(ContentType.JSON);
+
     given()
         .queryParam("email", email)
         .get("/survey")
