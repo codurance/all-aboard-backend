@@ -3,7 +3,9 @@ package com.codurance.allaboard.survey.services;
 import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
 import com.codurance.allaboard.survey.model.Survey;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SurveyService {
 
   private final SurveyRepository surveyRepository;
