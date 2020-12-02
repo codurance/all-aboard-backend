@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+    database:
+        image: "mysql"
+        container_name: allaboard-db
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=academy
+            - MYSQL_DATABASE=allaboard
+        volumes:
+            - database-data:/var/lib/mysql
+volumes:
+    database-data:
