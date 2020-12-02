@@ -4,29 +4,27 @@ import com.codurance.allaboard.survey.model.Survey;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public class InMemorySurveyRepository implements SurveyRepository {
 
-  private Set<Survey> surveys;
+  private final Set<Survey> surveys;
 
   public InMemorySurveyRepository() {
     this.surveys = new HashSet<>();
   }
 
   @Override
-  public void save(Survey survey) {
-    surveys.add(survey);
+  public Boolean save(Survey survey) {
+    return surveys.add(survey);
   }
 
   @Override
-  public int count() {
+  public long count() {
     return surveys.size();
   }
 
   @Override
-  public Set<Survey> findAllSurveysByEmail(String email) {
+  public Set<Survey> findSurveysByEmail(String email) {
     return surveys
         .stream()
         .filter(survey -> survey.getEmail().equals(email))

@@ -23,17 +23,17 @@ class InMemorySurveyRepositoryShould {
 
   @Test
   void save_a_survey() {
-    assertThat(surveyRepository.count(), is(0));
+    assertThat(surveyRepository.count(), is(0L));
 
     surveyRepository.save(survey);
 
-    assertThat(surveyRepository.count(), is(1));
+    assertThat(surveyRepository.count(), is(1L));
   }
 
   @Test
   void get_a_survey_by_email() {
     surveyRepository.save(survey);
-    final var allSurveysByEmail = surveyRepository.findAllSurveysByEmail("user@codurance.com");
+    final var allSurveysByEmail = surveyRepository.findSurveysByEmail("user@codurance.com");
     assertThat(allSurveysByEmail, hasItem(survey));
   }
 }

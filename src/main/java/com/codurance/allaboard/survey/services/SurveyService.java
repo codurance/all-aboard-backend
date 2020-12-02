@@ -23,7 +23,7 @@ public class SurveyService {
   }
 
   public Surveys getSurveysByEmail(String email) {
-    Set<Survey> allSurveysByEmail = surveyRepository.findAllSurveysByEmail(email);
+    Set<Survey> allSurveysByEmail = surveyRepository.findSurveysByEmail(email);
     return new Surveys(new ArrayList<>(allSurveysByEmail));
   }
 }
