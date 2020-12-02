@@ -22,7 +22,7 @@ public class GoogleTokenAuthenticator implements HandlerInterceptor {
     String token = request.getHeader("Authorization");
     try {
       authenticateToken(token, request);
-    } catch (GeneralSecurityException | IOException | NullPointerException exception) {
+    } catch (GeneralSecurityException | IOException | NullPointerException | IllegalArgumentException exception) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       return false;
     }
