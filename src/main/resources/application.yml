@@ -17,3 +17,7 @@ spring:
 ---
 server:
   port: 5000
+
+spring:
+  profiles:
+    active: prod
