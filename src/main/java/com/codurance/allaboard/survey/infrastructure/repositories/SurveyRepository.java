@@ -5,5 +5,5 @@ import com.codurance.allaboard.survey.model.Survey;
 public interface SurveyRepository {
   void save(Survey survey);
 
-  String count();
+  int count();
 }
