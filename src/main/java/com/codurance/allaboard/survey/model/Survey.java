@@ -5,13 +5,16 @@ import javax.validation.constraints.NotEmpty;
 
 public class Survey implements Serializable {
   @NotEmpty(message = "cannot be null or empty")
-  private final String email;
+  private String email;
   @NotEmpty(message = "cannot be null or empty")
-  private final String preference;
+  private String preference;
 
   public Survey(String email, String preference) {
     this.email = email;
     this.preference = preference;
+  }
+
+  public Survey() {
   }
 
   public String getEmail() {
@@ -20,5 +23,13 @@ public class Survey implements Serializable {
 
   public String getPreference() {
     return preference;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setPreference(String preference) {
+    this.preference = preference;
   }
 }
