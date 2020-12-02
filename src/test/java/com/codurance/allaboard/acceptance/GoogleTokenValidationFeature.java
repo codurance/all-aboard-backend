@@ -22,8 +22,17 @@ public class GoogleTokenValidationFeature {
   }
 
   @Test
-  void deny_requests_without_authorization() {
+  void deny_requests_without_authorization_header() {
     given()
+        .post("/survey")
+        .then()
+        .statusCode(401);
+  }
+
+  @Test
+  void deny_requests_with_empty_authorization_header() {
+    given()
+        .header("Authorization", "")
         .post("/survey")
         .then()
         .statusCode(401);
