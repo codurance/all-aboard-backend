@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebMvc
-@Profile("prod")
+@Profile({"prod", "test-auth"})
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

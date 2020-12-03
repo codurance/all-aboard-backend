@@ -6,9 +6,9 @@ import java.util.Set;
 
 public interface SurveyRepository {
 
-  void save(Survey survey);
+  Object save(Survey survey);
 
-  int count();
+  long count();
 
-  Set<Survey> findAllSurveysByEmail(String email);
+  Set<Survey> findSurveysByEmail(String email);
 }

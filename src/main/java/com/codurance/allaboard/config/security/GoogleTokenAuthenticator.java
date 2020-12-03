@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-@Profile("prod")
+@Profile({"prod", "test-auth"})
 @Component
 public class GoogleTokenAuthenticator implements HandlerInterceptor {
 

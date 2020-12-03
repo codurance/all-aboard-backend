@@ -1,5 +1,17 @@
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
 
 management:
   endpoints:
@@ -9,10 +21,20 @@ management:
       enabled: true
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: codurance
+    password: password
 
-
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
 
 ---
 server:
