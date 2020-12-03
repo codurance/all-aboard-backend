@@ -1,5 +1,18 @@
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url:
+    driverClassName:
+    username:
+    password:
+
+  jpa:
+    database-platform:
+    hibernate:
+      ddl-auto:
 
 management:
   endpoints:
@@ -9,7 +22,9 @@ management:
       enabled: true
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 
   datasource:
     url: jdbc:h2:mem:testdb
@@ -28,4 +43,4 @@ server:
 
 spring:
   profiles:
-    active: prod
+    active: dev
