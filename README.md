@@ -7,8 +7,8 @@ This is the repo that contains the code for the backend of All Aboard project fo
 
 ## How to run locally
 You'll need to have the following installed:
-- `mvn 3.6.*`
-- `java 11`
+- `Maven 3.6.*`
+- `Java JDK11`
 
 ```shell script
 mvn clean package
