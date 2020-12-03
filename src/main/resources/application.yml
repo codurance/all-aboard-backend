@@ -2,6 +2,9 @@ spring:
   config:
     activate:
       on-profile: prod
+  h2:
+    console:
+      enabled: false
 
   datasource:
     url: ${DB_URL}
@@ -23,7 +26,7 @@ management:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: "dev | test-auth"
 
   datasource:
     url: jdbc:h2:mem:testdb
@@ -38,6 +41,8 @@ spring:
 
 ---
 server:
+  servlet:
+    context-path: "/api/v1"
   port: 5000
 
 spring:
