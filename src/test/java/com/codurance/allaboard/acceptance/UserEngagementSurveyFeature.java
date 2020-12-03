@@ -2,7 +2,6 @@ package com.codurance.allaboard.acceptance;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
