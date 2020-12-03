@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,36 @@ public class UserEngagementSurveyFeature {
         .statusCode(200)
         .body("surveys[0].email", is(jsonBody.get("email")))
         .body("surveys[0].preference", is(jsonBody.get("preference")))
+        .contentType(ContentType.JSON);
+  }
+
+  @Test
+  void save_a_survey_with_a_description_up_to_1500() {
+    jsonBody.put("email", email);
+    jsonBody.put("preference", StringUtils.repeat("f", 1500));
+
+    given()
+        .body(jsonBody.toString())
+        .contentType(ContentType.JSON)
+        .post("api/v1/survey")
+        .then()
+        .statusCode(201)
+        .body("preference", is(jsonBody.get("preference")))
+        .contentType(ContentType.JSON);
+  }
+
+  @Test
+  void reject_a_survey_with_a_description_bigger_than_1500() {
+    jsonBody.put("email", email);
+    jsonBody.put("preference", StringUtils.repeat("f", 1501));
+
+    given()
+        .body(jsonBody.toString())
+        .contentType(ContentType.JSON)
+        .post("api/v1/survey")
+        .then()
+        .statusCode(400)
+        .body("preference", is("Cannot be bigger than 1500 characters"))
         .contentType(ContentType.JSON);
   }
 }

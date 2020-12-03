@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -24,6 +25,7 @@ public class Survey implements Serializable {
 
   @NotEmpty(message = "cannot be null or empty")
   @Column(nullable = false, length = 1500)
+  @Size(max = 1500, message = "Cannot be bigger than 1500 characters")
   private String preference;
 
   public Survey(String email, String preference) {
