@@ -4,15 +4,14 @@ spring:
       on-profile: prod
 
   datasource:
-    url:
-    driverClassName:
-    username:
-    password:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
-    database-platform:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto:
+      ddl-auto: update
 
 management:
   endpoints:
@@ -43,4 +42,4 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: prod
