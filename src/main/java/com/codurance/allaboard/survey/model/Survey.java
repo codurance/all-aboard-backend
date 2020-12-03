@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "surveys")
@@ -22,7 +23,7 @@ public class Survey implements Serializable {
   private String email;
 
   @NotEmpty(message = "cannot be null or empty")
-  @Column(nullable = false)
+  @Column(nullable = false, length = 1500)
   private String preference;
 
   public Survey(String email, String preference) {
