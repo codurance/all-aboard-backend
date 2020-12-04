@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import com.codurance.allaboard.config.security.GoogleTokenAuthenticator;
+import com.codurance.allaboard.config.security.interceptors.GoogleTokenInterceptor;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -22,7 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 @ExtendWith(MockitoExtension.class)
-public class GoogleTokenAuthenticatorShould {
+public class GoogleTokenInterceptorShould {
 
   private final String email = "user@codurance.com";
 
@@ -54,14 +54,14 @@ public class GoogleTokenAuthenticatorShould {
     given(googleIdTokenVerifier.verify(anyString()))
         .willThrow(GeneralSecurityException.class);
 
-    GoogleTokenAuthenticator authenticator = new TestableGoogleTokenAuthenticator();
+    GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
 
-    assertThat(authenticator.preHandle(request, response, handler), is(false));
+    assertThat(interceptor.preHandle(request, response, handler), is(false));
   }
 
   @Test
   void accept_request_with_authorization() throws GeneralSecurityException, IOException {
-    GoogleTokenAuthenticator authenticator = new TestableGoogleTokenAuthenticator();
+    GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
 
     request = new ValidTokenHttpServletRequest();
 
@@ -74,10 +74,10 @@ public class GoogleTokenAuthenticatorShould {
     given(payload.getEmail())
         .willReturn(email);
 
-    assertThat(authenticator.preHandle(request, response, handler), is(true));
+    assertThat(interceptor.preHandle(request, response, handler), is(true));
   }
 
-  class TestableGoogleTokenAuthenticator extends GoogleTokenAuthenticator {
+  class TestableGoogleTokenAuthenticator extends GoogleTokenInterceptor {
 
     @Override
     protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
@@ -87,7 +87,7 @@ public class GoogleTokenAuthenticatorShould {
 
   @Test
   void set_email_in_request_header() throws GeneralSecurityException, IOException {
-    GoogleTokenAuthenticator authenticator = new TestableGoogleTokenAuthenticator();
+    GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
 
     request = new ValidTokenHttpServletRequest();
 
@@ -102,7 +102,7 @@ public class GoogleTokenAuthenticatorShould {
 
     assertThat(request.getAttribute("user_email"), is(nullValue()));
 
-    authenticator.preHandle(request, response, handler);
+    interceptor.preHandle(request, response, handler);
 
     assertThat(request.getAttribute("user_email"), is(email));
   }
