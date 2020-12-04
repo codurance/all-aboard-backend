@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 public class UserEngagementSurveyFeature {
 
   private final String nullOrEmptyMessage = "cannot be null or empty";
+  private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   @LocalServerPort
   private int port;
   private JSONObject jsonBody;
@@ -59,11 +60,11 @@ public class UserEngagementSurveyFeature {
         .contentType(ContentType.JSON);
 
     given()
-        .queryParam("email", email)
+        .queryParam("email", EMAIL_FROM_TOKEN)
         .get("api/v1/survey")
         .then()
         .statusCode(200)
-        .body("surveys[0].email", is(jsonBody.get("email")))
+        .body("surveys[0].email", is(EMAIL_FROM_TOKEN))
         .body("surveys[0].preference", is(jsonBody.get("preference")))
         .contentType(ContentType.JSON);
   }
@@ -80,6 +81,7 @@ public class UserEngagementSurveyFeature {
         .then()
         .statusCode(201)
         .body("preference", is(jsonBody.get("preference")))
+        .body("email", is(EMAIL_FROM_TOKEN))
         .contentType(ContentType.JSON);
   }
 
@@ -97,4 +99,5 @@ public class UserEngagementSurveyFeature {
         .body("preference", is("Cannot be bigger than 1500 characters"))
         .contentType(ContentType.JSON);
   }
+
 }
