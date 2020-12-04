@@ -14,6 +14,12 @@ You'll need to have the following installed:
 mvn clean package
 java -jar -Dspring.profiles.active=dev ./target/all-aboard-api-1.0.0.jar
 ```
+Alternatively, for local development purposes application can be run using maven.
+
+```shell script
+mvn spring-boot:run -Dspring-boot.run.profiles='dev'
+
+```
 
 # Infrastructure
 The application is deployed to AWS Elastic Beanstalk. To do so, it requires an AWS S3 bucket to upload different JAR file versions. These components are provisioned automatically with Github Actions, as mentioned below (see [Infrastructure as code](#infrastructure-as-code)).
