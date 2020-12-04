@@ -22,7 +22,7 @@ public class GoogleTokenAuthenticator implements HandlerInterceptor {
       Object handler) {
     String token = request.getHeader("Authorization");
     try {
-      GoogleIdToken googleIdToken = authenticateToken(token, request);
+      GoogleIdToken googleIdToken = authenticateToken(token);
       request.setAttribute("user_email", googleIdToken.getPayload().getEmail());
     } catch (GeneralSecurityException | IOException | NullPointerException | IllegalArgumentException exception) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -31,7 +31,7 @@ public class GoogleTokenAuthenticator implements HandlerInterceptor {
     return true;
   }
 
-  private GoogleIdToken authenticateToken(String token, HttpServletRequest request)
+  private GoogleIdToken authenticateToken(String token)
       throws GeneralSecurityException, IOException {
     GoogleIdTokenVerifier verifier = buildGoogleIdTokenVerifier();
     return verifier.verify(token);
