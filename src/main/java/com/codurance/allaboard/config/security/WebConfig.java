@@ -1,31 +1,30 @@
 package com.codurance.allaboard.config.security;
 
+import com.codurance.allaboard.config.security.interceptors.TokenInterceptor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebMvc
-@Profile({"prod", "test-auth"})
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-  private final GoogleTokenAuthenticator googleTokenAuthenticator;
+  private final TokenInterceptor tokenInterceptor;
 
   @Autowired
-  public WebConfig(GoogleTokenAuthenticator googleTokenAuthenticator) {
-    this.googleTokenAuthenticator = googleTokenAuthenticator;
+  public WebConfig(TokenInterceptor tokenInterceptor) {
+    this.tokenInterceptor = tokenInterceptor;
   }
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(googleTokenAuthenticator);
+    registry.addInterceptor(tokenInterceptor);
   }
 
   @Bean
