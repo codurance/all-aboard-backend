@@ -1,5 +1,6 @@
 package com.codurance.allaboard.config.security;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -21,7 +22,8 @@ public class GoogleTokenAuthenticator implements HandlerInterceptor {
       Object handler) {
     String token = request.getHeader("Authorization");
     try {
-      authenticateToken(token, request);
+      GoogleIdToken googleIdToken = authenticateToken(token);
+      request.setAttribute("user_email", googleIdToken.getPayload().getEmail());
     } catch (GeneralSecurityException | IOException | NullPointerException | IllegalArgumentException exception) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       return false;
@@ -29,10 +31,10 @@ public class GoogleTokenAuthenticator implements HandlerInterceptor {
     return true;
   }
 
-  private void authenticateToken(String token, HttpServletRequest request)
+  private GoogleIdToken authenticateToken(String token)
       throws GeneralSecurityException, IOException {
     GoogleIdTokenVerifier verifier = buildGoogleIdTokenVerifier();
-    verifier.verify(token);
+    return verifier.verify(token);
   }
 
   protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
