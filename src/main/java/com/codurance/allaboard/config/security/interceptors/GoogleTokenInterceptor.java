@@ -1,4 +1,4 @@
-package com.codurance.allaboard.config.security;
+package com.codurance.allaboard.config.security.interceptors;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.stereotype.Service;
 
 @Profile({"prod", "test-auth"})
-@Component
-public class GoogleTokenAuthenticator implements HandlerInterceptor {
+@Service
+public class GoogleTokenInterceptor implements TokenInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
