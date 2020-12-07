@@ -1,8 +1,12 @@
 package com.codurance.allaboard.acceptance;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,27 +27,42 @@ public class GoogleTokenValidationFeature {
 
   @Test
   void deny_requests_without_authorization_header() {
-    given()
-        .post("api/v1/survey")
-        .then()
-        .statusCode(401);
+    RequestSpecification request = httpRequestWithoutAuthorizationHeader();
+
+    Response response = request.post("api/v1/survey");
+
+    assertThat(response.statusCode(), is(401));
   }
 
   @Test
   void deny_requests_with_empty_authorization_header() {
-    given()
-        .header("Authorization", "")
-        .post("api/v1/survey")
-        .then()
-        .statusCode(401);
+    RequestSpecification request = httpRequestWithEmptyAuthorizationHeader();
+
+    Response response = request.post("api/v1/survey");
+
+    assertThat(response.statusCode(), is(401));
   }
 
   @Test
   void deny_requests_with_invalid_authorization_header() {
-    given()
-        .header("Authorization", "invalid token")
-        .post("api/v1/survey")
-        .then()
-        .statusCode(401);
+    RequestSpecification request = httpRequestWithInvalidAuthorizationHeader();
+
+    Response response = request.post("api/v1/survey");
+
+    assertThat(response.statusCode(), is(401));
+  }
+
+  private RequestSpecification httpRequestWithoutAuthorizationHeader() {
+    return given();
+  }
+
+  private RequestSpecification httpRequestWithEmptyAuthorizationHeader() {
+    return given()
+        .header("Authorization", "");
+  }
+
+  private RequestSpecification httpRequestWithInvalidAuthorizationHeader() {
+    return given()
+        .header("Authorization", "invalid token");
   }
 }
