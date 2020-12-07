@@ -1,4 +1,4 @@
-package com.codurance.allaboard.web.controllers.learningPath;
+package com.codurance.allaboard.web.controllers.learningpath;
 
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
 import com.codurance.allaboard.web.views.Catalogue;
