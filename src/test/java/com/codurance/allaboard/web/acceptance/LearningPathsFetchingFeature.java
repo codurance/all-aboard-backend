@@ -21,7 +21,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static io.restassured.RestAssured.given;
 
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LearningPathsFetchingFeature {
 

@@ -15,7 +15,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @DataJpaTest
 @Sql(scripts = "classpath:stub-catalogue.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class CatalogueRepositoryShould {
