@@ -1,4 +1,4 @@
-package com.codurance.allaboard.config.security.interceptors;
+package com.codurance.allaboard.web.infrastructure.interceptors.token;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;

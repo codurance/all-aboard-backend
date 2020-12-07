@@ -1,6 +1,5 @@
-package com.codurance.allaboard.survey.infrastructure.repositories;
+package com.codurance.allaboard.core.model.survey;
 
-import com.codurance.allaboard.survey.model.Survey;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.codurance.allaboard.acceptance;
+package com.codurance.allaboard.web.acceptance;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
