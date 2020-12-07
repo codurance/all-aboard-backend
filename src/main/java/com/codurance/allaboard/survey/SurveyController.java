@@ -26,7 +26,7 @@ public class SurveyController {
       @Valid @RequestBody Survey survey) {
     String email = (String) request.getAttribute("user_email");
     survey.setEmail(email);
-    saveSurvey.saveSurvey(survey);
+    saveSurvey.save(survey);
     return new ResponseEntity<>(survey, HttpStatus.CREATED);
   }
 }

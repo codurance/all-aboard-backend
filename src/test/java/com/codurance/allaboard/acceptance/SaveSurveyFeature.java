@@ -26,7 +26,7 @@ public class SaveSurveyFeature {
     final String email = "user@codurance.com";
     final Survey survey = new Survey(email, "I prefer Udacity.");
 
-    saveSurvey.saveSurvey(survey);
+    saveSurvey.save(survey);
 
     verify(surveys, atLeastOnce()).save(survey);
   }

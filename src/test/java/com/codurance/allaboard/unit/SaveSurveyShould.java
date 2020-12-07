@@ -33,7 +33,7 @@ public class SaveSurveyShould {
 
   @Test
   void save_a_survey() {
-    saveSurvey.saveSurvey(survey);
+    saveSurvey.save(survey);
     verify(surveys, atLeastOnce()).save(survey);
   }
 }

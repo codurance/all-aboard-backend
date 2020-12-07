@@ -15,7 +15,7 @@ public class SaveSurvey {
     this.surveys = surveys;
   }
 
-  public void saveSurvey(Survey survey) {
+  public void save(Survey survey) {
     surveys.save(survey);
   }
 }
