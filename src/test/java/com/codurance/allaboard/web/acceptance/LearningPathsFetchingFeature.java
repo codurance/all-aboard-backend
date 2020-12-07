@@ -50,7 +50,7 @@ public class LearningPathsFetchingFeature {
 
     private String expectedResponseBody() throws IOException {
       StringBuilder sb = new StringBuilder();
-      Path filePath = Paths.get("src", "main", "resources", "stub-catalogue.json");
+      Path filePath = Paths.get("src", "test", "resources", "stub-catalogue.json");
 
       try (BufferedReader br = Files.newBufferedReader(
           filePath)) {
