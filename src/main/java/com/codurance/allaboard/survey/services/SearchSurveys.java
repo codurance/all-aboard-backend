@@ -9,21 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SurveyService {
+public class SearchSurveys {
 
   private final SurveyRepository surveyRepository;
 
   @Autowired
-  public SurveyService(SurveyRepository surveyRepository) {
+  public SearchSurveys(
+      SurveyRepository surveyRepository) {
     this.surveyRepository = surveyRepository;
-  }
-
-  public void saveSurvey(Survey survey) {
-    surveyRepository.save(survey);
   }
 
   public Surveys getSurveysByEmail(String email) {
     Set<Survey> allSurveysByEmail = surveyRepository.findSurveysByEmail(email);
     return new Surveys(new ArrayList<>(allSurveysByEmail));
   }
+
 }

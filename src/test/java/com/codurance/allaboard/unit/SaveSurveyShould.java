@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
 import com.codurance.allaboard.survey.model.Survey;
-import com.codurance.allaboard.survey.services.SurveyService;
+import com.codurance.allaboard.survey.services.SaveSurvey;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,13 +16,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class SurveyServiceShould {
+public class SaveSurveyShould {
 
   @Mock
   private SurveyRepository surveyRepository;
 
   @InjectMocks
-  private SurveyService surveyService;
+  private SaveSurvey saveSurvey;
 
   private Survey survey;
 
@@ -35,7 +35,7 @@ public class SurveyServiceShould {
 
   @Test
   void save_a_survey() {
-    surveyService.saveSurvey(survey);
+    saveSurvey.saveSurvey(survey);
     verify(surveyRepository, atLeastOnce()).save(survey);
   }
 }
