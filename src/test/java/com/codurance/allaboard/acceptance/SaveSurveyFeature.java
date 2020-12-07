@@ -1,27 +1,25 @@
 package com.codurance.allaboard.acceptance;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
+import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
 import com.codurance.allaboard.survey.model.Survey;
 import com.codurance.allaboard.survey.services.SaveSurvey;
-import com.codurance.allaboard.survey.services.SearchSurveys;
-import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@ActiveProfiles("dev")
+@ExtendWith(MockitoExtension.class)
 public class SaveSurveyFeature {
 
-  @Autowired
-  private SearchSurveys searchSurveys;
-  @Autowired
-  private SaveSurvey saveSurvey;
+  @Mock
+  private SurveyRepository surveyRepository;
 
+  @InjectMocks
+  private SaveSurvey saveSurvey;
 
   @Test
   void should_save_a_survey() {
@@ -30,10 +28,6 @@ public class SaveSurveyFeature {
 
     saveSurvey.saveSurvey(survey);
 
-    final var dbSurvey = searchSurveys.getSurveysByEmail(email)
-        .getSurveys()
-        .get(0);
-
-    assertThat(dbSurvey.getEmail(), is("user@codurance.com"));
+    verify(surveyRepository, atLeastOnce()).save(survey);
   }
 }
