@@ -36,7 +36,6 @@ public class LearningPathsFetchingFeature {
     @Test
     @Sql(scripts = "classpath:stub-catalogue.sql")
     void given_get_fetch_catalogue() throws IOException {
-        ;
         RequestSpecification httpRequest = httpRequest();
         Response response = httpRequest.get("api/v1/learningpath");
 
