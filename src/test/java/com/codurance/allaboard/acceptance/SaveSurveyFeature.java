@@ -3,7 +3,7 @@ package com.codurance.allaboard.acceptance;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
-import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
+import com.codurance.allaboard.survey.infrastructure.repositories.Surveys;
 import com.codurance.allaboard.survey.model.Survey;
 import com.codurance.allaboard.survey.services.SaveSurvey;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class SaveSurveyFeature {
 
   @Mock
-  private SurveyRepository surveyRepository;
+  private Surveys surveys;
 
   @InjectMocks
   private SaveSurvey saveSurvey;
@@ -28,6 +28,6 @@ public class SaveSurveyFeature {
 
     saveSurvey.saveSurvey(survey);
 
-    verify(surveyRepository, atLeastOnce()).save(survey);
+    verify(surveys, atLeastOnce()).save(survey);
   }
 }

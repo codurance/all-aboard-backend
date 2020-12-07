@@ -1,6 +1,6 @@
 package com.codurance.allaboard.survey.services;
 
-import com.codurance.allaboard.survey.infrastructure.repositories.SurveyRepository;
+import com.codurance.allaboard.survey.infrastructure.repositories.Surveys;
 import com.codurance.allaboard.survey.model.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,16 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class SaveSurvey {
 
-  private final SurveyRepository surveyRepository;
+  private final Surveys surveys;
 
   @Autowired
-  public SaveSurvey(SurveyRepository surveyRepository) {
-    this.surveyRepository = surveyRepository;
+  public SaveSurvey(Surveys surveys) {
+    this.surveys = surveys;
   }
 
   public void saveSurvey(Survey survey) {
-    surveyRepository.save(survey);
+    surveys.save(survey);
   }
-
-
 }
