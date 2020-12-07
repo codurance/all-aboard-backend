@@ -1,4 +1,4 @@
-package com.codurance.allaboard.unit;
+package com.codurance.allaboard.core.unit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
