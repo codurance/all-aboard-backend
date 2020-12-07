@@ -49,7 +49,7 @@ public class UserEngagementSurveyFeature {
   }
 
   @Test
-  void saves_and_retrieves_surveys_by_email() {
+  void saves_a_survey() {
     requestBody.put("email", email);
     requestBody.put("preference", "I like to use Udacity");
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
