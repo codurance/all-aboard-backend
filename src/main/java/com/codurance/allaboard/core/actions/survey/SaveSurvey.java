@@ -1,7 +1,7 @@
-package com.codurance.allaboard.survey.services;
+package com.codurance.allaboard.core.actions.survey;
 
-import com.codurance.allaboard.survey.infrastructure.repositories.Surveys;
-import com.codurance.allaboard.survey.model.Survey;
+import com.codurance.allaboard.core.model.survey.Surveys;
+import com.codurance.allaboard.core.model.survey.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

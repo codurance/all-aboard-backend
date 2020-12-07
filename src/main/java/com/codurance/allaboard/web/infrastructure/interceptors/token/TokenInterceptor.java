@@ -1,4 +1,4 @@
-package com.codurance.allaboard.config.security.interceptors;
+package com.codurance.allaboard.web.infrastructure.interceptors.token;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 

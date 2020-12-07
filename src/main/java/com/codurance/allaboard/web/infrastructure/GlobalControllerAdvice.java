@@ -1,4 +1,4 @@
-package com.codurance.allaboard.survey;
+package com.codurance.allaboard.web.infrastructure;
 
 import java.util.HashMap;
 import java.util.Map;

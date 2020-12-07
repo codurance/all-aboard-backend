@@ -1,4 +1,4 @@
-package com.codurance.allaboard.survey.model;
+package com.codurance.allaboard.core.model.survey;
 
 import java.io.Serializable;
 import javax.persistence.Column;
