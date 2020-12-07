@@ -38,23 +38,23 @@ public class Survey implements Serializable {
     return email;
   }
 
-  public String getPreference() {
-    return preference;
-  }
-
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getPreference() {
+    return preference;
   }
 
   public void setPreference(String preference) {
     this.preference = preference;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
   public Long getId() {
     return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

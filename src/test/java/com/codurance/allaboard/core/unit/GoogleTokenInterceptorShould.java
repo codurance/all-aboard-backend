@@ -1,4 +1,4 @@
-package com.codurance.allaboard.unit;
+package com.codurance.allaboard.core.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -77,14 +77,6 @@ public class GoogleTokenInterceptorShould {
     assertThat(interceptor.preHandle(request, response, handler), is(true));
   }
 
-  class TestableGoogleTokenAuthenticator extends GoogleTokenInterceptor {
-
-    @Override
-    protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
-      return googleIdTokenVerifier;
-    }
-  }
-
   @Test
   void set_email_in_request_header() throws GeneralSecurityException, IOException {
     GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
@@ -107,11 +99,19 @@ public class GoogleTokenInterceptorShould {
     assertThat(request.getAttribute("user_email"), is(email));
   }
 
-  class ValidTokenHttpServletRequest extends MockHttpServletRequest {
+  static class ValidTokenHttpServletRequest extends MockHttpServletRequest {
 
     @Override
     public String getHeader(String name) {
       return "some valid token";
+    }
+  }
+
+  class TestableGoogleTokenAuthenticator extends GoogleTokenInterceptor {
+
+    @Override
+    protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
+      return googleIdTokenVerifier;
     }
   }
 }

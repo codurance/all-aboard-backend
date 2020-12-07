@@ -1,4 +1,4 @@
-package com.codurance.allaboard.acceptance;
+package com.codurance.allaboard.web.acceptance;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -20,10 +20,9 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserEngagementSurveyFeature {
 
+  private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   @LocalServerPort
   private int port;
-
-  private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   private JSONObject requestBody;
   private String email;
 
@@ -100,5 +99,4 @@ public class UserEngagementSurveyFeature {
         .contentType(ContentType.JSON)
         .body(jsonBody.toString());
   }
-
 }

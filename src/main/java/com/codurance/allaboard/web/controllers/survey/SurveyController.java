@@ -1,7 +1,7 @@
 package com.codurance.allaboard.web.controllers.survey;
 
-import com.codurance.allaboard.core.model.survey.Survey;
 import com.codurance.allaboard.core.actions.survey.SaveSurvey;
+import com.codurance.allaboard.core.model.survey.Survey;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

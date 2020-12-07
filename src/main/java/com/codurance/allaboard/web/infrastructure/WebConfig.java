@@ -1,7 +1,7 @@
 package com.codurance.allaboard.web.infrastructure;
 
-import com.codurance.allaboard.web.infrastructure.security.cors.CorsFilterConfiguration;
 import com.codurance.allaboard.web.infrastructure.interceptors.token.TokenInterceptor;
+import com.codurance.allaboard.web.infrastructure.security.cors.CorsFilterConfiguration;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
