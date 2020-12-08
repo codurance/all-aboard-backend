@@ -1,4 +1,4 @@
-package com.codurance.allaboard.unit;
+package com.codurance.allaboard.core.integration;
 
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
