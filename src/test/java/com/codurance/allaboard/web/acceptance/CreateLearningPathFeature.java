@@ -20,7 +20,8 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CreateLearningPathFeature extends RestAssuredUtils {
 
-  @LocalServerPort private int port;
+  @LocalServerPort
+  private int port;
   private JSONObject requestBody;
   private String name;
   private String description;
@@ -42,9 +43,22 @@ public class CreateLearningPathFeature extends RestAssuredUtils {
     Response response = httpRequest.post("api/v1/learningpath");
     JSONObject responseBody = buildResponseBody(response);
 
-    assertThat(response.statusCode(),is(201));
+    assertThat(response.statusCode(), is(201));
     assertThat(response.contentType(), is(ContentType.JSON.toString()));
     assertThat(responseBody.get("name"), is(name));
-    assertThat(responseBody.get("description"),is(description));
+    assertThat(responseBody.get("description"), is(description));
+  }
+
+  @Test
+  void error_on_invalid_request() {
+    RequestSpecification httpRequest = httpRequestWithJSONContentType(requestBody);
+
+    Response response = httpRequest.post("api/v1/learningpath");
+    JSONObject responseBody = buildResponseBody(response);
+
+    assertThat(response.statusCode(), is(400));
+    assertThat(response.contentType(), is(ContentType.JSON.toString()));
+    assertThat(responseBody.get("description"), is("Cannot be null or empty"));
+    assertThat(responseBody.get("name"), is("Cannot be null or empty"));
   }
 }

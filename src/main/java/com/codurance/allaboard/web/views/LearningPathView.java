@@ -1,13 +1,13 @@
 package com.codurance.allaboard.web.views;
 
 import java.io.Serializable;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 public class LearningPathView implements Serializable {
 
-  @NotNull
+  @NotEmpty(message = "Cannot be null or empty")
   private String name;
-  @NotNull
+  @NotEmpty(message = "Cannot be null or empty")
   private String description;
 
   public LearningPathView(String name, String description) {
