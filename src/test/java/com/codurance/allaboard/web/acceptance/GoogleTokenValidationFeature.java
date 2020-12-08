@@ -1,9 +1,9 @@
 package com.codurance.allaboard.web.acceptance;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import com.codurance.allaboard.web.acceptance.utils.RestAssuredUtils;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test-auth")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GoogleTokenValidationFeature {
+public class GoogleTokenValidationFeature extends RestAssuredUtils {
 
   @LocalServerPort
   private int port;
@@ -50,19 +50,5 @@ public class GoogleTokenValidationFeature {
     Response response = request.post("api/v1/survey");
 
     assertThat(response.statusCode(), is(401));
-  }
-
-  private RequestSpecification httpRequestWithoutAuthorizationHeader() {
-    return given();
-  }
-
-  private RequestSpecification httpRequestWithEmptyAuthorizationHeader() {
-    return given()
-        .header("Authorization", "");
-  }
-
-  private RequestSpecification httpRequestWithInvalidAuthorizationHeader() {
-    return given()
-        .header("Authorization", "invalid token");
   }
 }

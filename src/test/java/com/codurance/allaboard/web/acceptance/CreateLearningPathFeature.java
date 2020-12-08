@@ -1,9 +1,9 @@
 package com.codurance.allaboard.web.acceptance;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.codurance.allaboard.web.acceptance.utils.RestAssuredUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class CreateLearningPathFeature {
+public class CreateLearningPathFeature extends RestAssuredUtils {
 
   @LocalServerPort private int port;
   private JSONObject requestBody;
@@ -47,15 +47,4 @@ public class CreateLearningPathFeature {
     assertThat(responseBody.get("name"), is(name));
     assertThat(responseBody.get("description"),is(description));
   }
-
-  private JSONObject buildResponseBody(Response response) {
-    return new JSONObject(response.getBody().print());
-  }
-
-  private RequestSpecification httpRequestWithJSONContentType(JSONObject jsonObject) {
-    return given()
-        .contentType(ContentType.JSON)
-        .body(jsonObject.toString());
-  }
-
 }
