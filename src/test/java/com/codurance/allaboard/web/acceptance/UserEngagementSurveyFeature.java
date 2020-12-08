@@ -20,7 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserEngagementSurveyFeature extends RestAssuredUtils {
 
-  private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   @LocalServerPort
   private int port;
   private JSONObject requestBody;
@@ -35,7 +34,6 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
 
   @Test
   void reject_an_invalid_user_engagement_survey() {
-    requestBody.put("email", email);
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
     Response response = request.post("api/v1/survey");
@@ -73,7 +71,6 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     assertThat(response.statusCode(), is(201));
     assertThat(response.getContentType(), is(ContentType.JSON.toString()));
     assertThat(responseBody.get("preference"), is(requestBody.get("preference")));
-    assertThat(responseBody.get("email"), is(EMAIL_FROM_TOKEN));
   }
 
   @Test

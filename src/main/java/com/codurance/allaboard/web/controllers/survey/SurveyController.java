@@ -2,6 +2,7 @@ package com.codurance.allaboard.web.controllers.survey;
 
 import com.codurance.allaboard.core.actions.survey.SaveSurvey;
 import com.codurance.allaboard.core.model.survey.Survey;
+import com.codurance.allaboard.web.views.SurveyView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,10 @@ public class SurveyController {
   }
 
   @PostMapping("/survey")
-  public ResponseEntity<Survey> saveSurvey(HttpServletRequest request,
-      @Valid @RequestBody Survey survey) {
-    String email = (String) request.getAttribute("user_email");
-    survey.setEmail(email);
-    saveSurvey.save(survey);
-    return new ResponseEntity<>(survey, HttpStatus.CREATED);
+  public ResponseEntity<SurveyView> saveSurvey(HttpServletRequest request,
+      @Valid @RequestBody SurveyView survey) {
+    String emailFromToken = (String) request.getAttribute("user_email");
+    saveSurvey.save(new Survey(emailFromToken, survey.getPreference()));
+    return new ResponseEntity<SurveyView>(survey, HttpStatus.CREATED);
   }
 }
