@@ -30,7 +30,7 @@ public class FetchAllLearningPathsShould {
     given(learningPathsRepo.findAll())
         .willReturn(learningPathsFromRepository);
 
-    List<LearningPath> retrievedLearningPaths = fetchAllLearningPaths.execute();
+    List<LearningPath> retrievedLearningPaths = fetchAllLearningPaths.getAll();
 
     verify(learningPathsRepo, atLeastOnce()).findAll();
     assertThat(retrievedLearningPaths, is(learningPathsFromRepository));

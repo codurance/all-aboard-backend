@@ -29,7 +29,7 @@ public class LearningPathController {
 
   @GetMapping("/learningpath")
   public ResponseEntity<Catalogue> provideCatalog() {
-    Catalogue catalogue = new Catalogue(fetchAllLearningPaths.execute());
+    Catalogue catalogue = new Catalogue(fetchAllLearningPaths.getAll());
     return ResponseEntity.ok(catalogue);
   }
 
