@@ -8,6 +8,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,5 +61,19 @@ public class CreateLearningPathFeature extends RestAssuredUtils {
     assertThat(response.contentType(), is(ContentType.JSON.toString()));
     assertThat(responseBody.get("description"), is("Cannot be null or empty"));
     assertThat(responseBody.get("name"), is("Cannot be null or empty"));
+  }
+
+  @Test
+  void reject_learningpath_with_a_long_description() {
+    requestBody.put("name", name);
+    requestBody.put("description", StringUtils.repeat("f", 1501));
+    RequestSpecification request = httpRequestWithJSONContentType(requestBody);
+
+    Response response = request.post("api/v1/learningpath");
+
+    JSONObject responseBody = buildResponseBody(response);
+    assertThat(response.getStatusCode(), is(400));
+    assertThat(responseBody.get("description"), is("Cannot be bigger than 1500 characters"));
+    assertThat(response.contentType(), is(ContentType.JSON.toString()));
   }
 }
