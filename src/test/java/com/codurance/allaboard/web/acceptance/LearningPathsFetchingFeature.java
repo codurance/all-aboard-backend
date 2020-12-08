@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,6 +36,7 @@ public class LearningPathsFetchingFeature extends RestAssuredUtils {
 
   @Test
   @Sql(scripts = "classpath:stub-catalogue.sql")
+  @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void given_get_fetch_catalogue() throws IOException {
     RequestSpecification httpRequest = httpRequestWithoutAuthorizationHeader();
     Response response = httpRequest.get("api/v1/learningpath");
