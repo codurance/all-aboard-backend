@@ -1,6 +1,8 @@
 package com.codurance.allaboard.web.controllers.learningpath;
 
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
+import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
+import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.web.views.Catalogue;
 import com.codurance.allaboard.web.views.LearningPathView;
 import javax.validation.Valid;
@@ -16,10 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class LearningPathController {
 
   private final FetchAllLearningPaths fetchAllLearningPaths;
+  private final SaveLearningPath saveLearningPath;
 
   @Autowired
-  public LearningPathController(FetchAllLearningPaths fetchAllLearningPaths) {
+  public LearningPathController(FetchAllLearningPaths fetchAllLearningPaths,
+      SaveLearningPath saveLearningPath) {
     this.fetchAllLearningPaths = fetchAllLearningPaths;
+    this.saveLearningPath = saveLearningPath;
   }
 
   @GetMapping("/learningpath")
@@ -31,6 +36,8 @@ public class LearningPathController {
   @PostMapping("/learningpath")
   public ResponseEntity<LearningPathView> createLearningPath(
       @Valid @RequestBody LearningPathView learningPathView) {
+    saveLearningPath
+        .save(new LearningPath(learningPathView.getName(), learningPathView.getDescription()));
     return new ResponseEntity<>(learningPathView, HttpStatus.CREATED);
   }
 }
