@@ -1,9 +1,9 @@
 package com.codurance.allaboard.web.acceptance;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import com.codurance.allaboard.web.acceptance.utils.RestAssuredUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("dev")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserEngagementSurveyFeature {
+public class UserEngagementSurveyFeature extends RestAssuredUtils {
 
   private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   @LocalServerPort
@@ -88,15 +88,5 @@ public class UserEngagementSurveyFeature {
     assertThat(response.getStatusCode(), is(400));
     assertThat(responseBody.get("preference"), is("Cannot be bigger than 1500 characters"));
     assertThat(response.contentType(), is(ContentType.JSON.toString()));
-  }
-
-  private JSONObject buildResponseBody(Response response) {
-    return new JSONObject(response.getBody().print());
-  }
-
-  private RequestSpecification httpRequestWithJSONContentType(JSONObject jsonBody) {
-    return given()
-        .contentType(ContentType.JSON)
-        .body(jsonBody.toString());
   }
 }

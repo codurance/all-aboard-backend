@@ -1,8 +1,10 @@
 package com.codurance.allaboard.web.acceptance;
 
-import io.restassured.RestAssured;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import com.codurance.allaboard.web.acceptance.utils.RestAssuredUtils;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.io.BufferedReader;
@@ -18,55 +20,46 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-
-import static io.restassured.RestAssured.given;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LearningPathsFetchingFeature {
+public class LearningPathsFetchingFeature extends RestAssuredUtils {
 
-    @LocalServerPort
-    private int port;
+  @LocalServerPort
+  private int port;
 
-    @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
-    }
+  @BeforeEach
+  void setUp() {
+    RestAssured.port = port;
+  }
 
-    @Test
-    @Sql(scripts = "classpath:stub-catalogue.sql")
-    void given_get_fetch_catalogue() throws IOException {
-        RequestSpecification httpRequest = httpRequest();
-        Response response = httpRequest.get("api/v1/learningpath");
+  @Test
+  @Sql(scripts = "classpath:stub-catalogue.sql")
+  @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+  void given_get_fetch_catalogue() throws IOException {
+    RequestSpecification httpRequest = httpRequestWithoutAuthorizationHeader();
+    Response response = httpRequest.get("api/v1/learningpath");
 
-        JSONObject responseBody = buildResponseBody(response);
-        JSONArray learningPaths = responseBody.getJSONArray("learningPaths");
+    JSONObject responseBody = buildResponseBody(response);
+    JSONArray learningPaths = responseBody.getJSONArray("learningPaths");
 
-        assertThat(response.statusCode(), is(200));
-        assertThat(learningPaths.length(), is(2));
-        assertThat(responseBody.toString(), is(expectedResponseBody()));
-    }
+    assertThat(response.statusCode(), is(200));
+    assertThat(learningPaths.length(), is(2));
+    assertThat(responseBody.toString(), is(expectedResponseBody()));
+  }
 
-    private String expectedResponseBody() throws IOException {
-      StringBuilder sb = new StringBuilder();
-      Path filePath = Paths.get("src", "test", "resources", "stub-catalogue.json");
+  private String expectedResponseBody() throws IOException {
+    StringBuilder sb = new StringBuilder();
+    Path filePath = Paths.get("src", "test", "resources", "stub-catalogue.json");
 
-      try (BufferedReader br = Files.newBufferedReader(
-          filePath)) {
-        String line;
-        while ((line = br.readLine()) != null) {
-          sb.append(line);
-        }
+    try (BufferedReader br = Files.newBufferedReader(
+        filePath)) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        sb.append(line);
       }
-
-      return sb.toString();
     }
-
-    private RequestSpecification httpRequest() {
-        return given();
-    }
-
-    private JSONObject buildResponseBody(Response response) {
-        return new JSONObject(response.getBody().print());
-    }
+    return sb.toString();
+  }
 }
