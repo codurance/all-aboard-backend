@@ -52,7 +52,7 @@ public class LearningPathController {
   public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
     LearningPath learningPath = fetchLearningPathById.findById(id);
     if (learningPath == null) {
-      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     LearningPathDetailView learningPathDetailView = new LearningPathDetailView(learningPath.getId(),
         learningPath.getName(),
