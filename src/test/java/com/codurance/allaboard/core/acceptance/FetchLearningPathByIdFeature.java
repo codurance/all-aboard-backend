@@ -2,17 +2,19 @@ package com.codurance.allaboard.core.acceptance;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
 import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
+import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
 import com.codurance.allaboard.web.views.LearningPathView;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -47,6 +49,25 @@ public class FetchLearningPathByIdFeature {
     ResponseEntity<LearningPathView> response = learningPathController.getById(id);
 
     assertThat(response.getStatusCodeValue(), is(404));
+    verify(learningPaths, atLeastOnce()).findById(id);
+  }
+
+  @Test
+  void answers_with_learning_path_if_asked_for_an_existent_one() {
+    long id = 1;
+    LearningPath learningPath = new LearningPath(id, "some title", "some description");
+
+    given(learningPaths.findById(id))
+        .willReturn(Optional.of(learningPath));
+
+    ResponseEntity<LearningPathView> response = learningPathController.getById(id);
+
+    LearningPathView learningPathView = response.getBody();
+
+    assertThat(response.getStatusCodeValue(), is(200));
+    assertThat(learningPathView.getId(), is(learningPath.getId()));
+    assertThat(learningPathView.getName(), is(learningPath.getName()));
+    assertThat(learningPathView.getDescription(), is(learningPath.getDescription()));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }
