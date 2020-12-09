@@ -21,13 +21,16 @@ public class LearningPathController {
 
   private final FetchAllLearningPaths fetchAllLearningPaths;
   private final SaveLearningPath saveLearningPath;
+  private final FetchLearningPathById fetchLearningPathById;
 
   @Autowired
-  public LearningPathController(FetchAllLearningPaths fetchAllLearningPaths,
+  public LearningPathController(
+      FetchAllLearningPaths fetchAllLearningPaths,
       SaveLearningPath saveLearningPath,
       FetchLearningPathById fetchLearningPathById) {
     this.fetchAllLearningPaths = fetchAllLearningPaths;
     this.saveLearningPath = saveLearningPath;
+    this.fetchLearningPathById = fetchLearningPathById;
   }
 
   @GetMapping("/learningpath")
@@ -39,13 +42,19 @@ public class LearningPathController {
   @PostMapping("/learningpath")
   public ResponseEntity<LearningPathView> createLearningPath(
       @Valid @RequestBody LearningPathView learningPathView) {
-    saveLearningPath
-        .save(new LearningPath(learningPathView.getName(), learningPathView.getDescription()));
+    saveLearningPath.save(
+        new LearningPath(learningPathView.getName(), learningPathView.getDescription()));
     return new ResponseEntity<>(learningPathView, HttpStatus.CREATED);
   }
-  
+
   @GetMapping("/learningpath/{id}")
-  public ResponseEntity<LearningPathView> getById(@PathVariable int id) {
-    throw new UnsupportedOperationException();
+  public ResponseEntity<LearningPathView> getById(@PathVariable Long id) {
+    LearningPath learningPath = fetchLearningPathById.findById(id);
+    if (learningPath == null) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    LearningPathView learningPathView = new LearningPathView(learningPath.getName(),
+        learningPath.getDescription());
+    return new ResponseEntity<>(learningPathView, HttpStatus.OK);
   }
 }

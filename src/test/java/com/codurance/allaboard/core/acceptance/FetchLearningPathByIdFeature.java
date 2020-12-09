@@ -2,6 +2,8 @@ package com.codurance.allaboard.core.acceptance;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
 import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
@@ -18,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-@Disabled
 public class FetchLearningPathByIdFeature {
 
   @Mock
@@ -42,8 +43,10 @@ public class FetchLearningPathByIdFeature {
 
   @Test
   void answers_not_found_if_asked_for_a_nonexistent_learning_path() {
-    ResponseEntity<LearningPathView> response = learningPathController.getById(1);
+    long id = 1;
+    ResponseEntity<LearningPathView> response = learningPathController.getById(id);
 
-    assertThat(response.getStatusCode(), is(404));
+    assertThat(response.getStatusCodeValue(), is(404));
+    verify(learningPaths, atLeastOnce()).findById(id);
   }
 }
