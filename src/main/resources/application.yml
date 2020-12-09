@@ -26,25 +26,7 @@ management:
 spring:
   config:
     activate:
-      on-profile: "dev"
-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: codurance
-    password: password
-    platform: h2
-
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create
-
----
-spring:
-  config:
-    activate:
-      on-profile: "test | test-auth"
+      on-profile: "test | dev | test-auth"
 
   datasource:
     url: jdbc:h2:mem:testdb
@@ -55,7 +37,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 
 ---
 server:
