@@ -53,7 +53,8 @@ public class LearningPathController {
     if (learningPath == null) {
       return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
-    LearningPathView learningPathView = new LearningPathView(learningPath.getName(),
+    LearningPathView learningPathView = new LearningPathView(learningPath.getId(),
+        learningPath.getName(),
         learningPath.getDescription());
     return new ResponseEntity<>(learningPathView, HttpStatus.OK);
   }
