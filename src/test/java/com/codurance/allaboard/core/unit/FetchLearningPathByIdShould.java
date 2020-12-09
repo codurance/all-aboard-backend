@@ -34,4 +34,16 @@ public class FetchLearningPathByIdShould {
     assertThat(learningPath, is(nullValue()));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
+
+  @Test
+  void return_existing_learningpath_when_requested_by_id() {
+    LearningPath expectedLearningPath = new LearningPath(id, "some title", "some description");
+    given(learningPaths.findById(id))
+        .willReturn(Optional.of(expectedLearningPath));
+
+    LearningPath learningPath = fetchLearningPathById.findById(id);
+
+    assertThat(learningPath, is(expectedLearningPath));
+    verify(learningPaths, atLeastOnce()).findById(id);
+  }
 }
