@@ -1,6 +1,7 @@
 package com.codurance.allaboard.web.controllers.learningpath;
 
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
+import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.web.views.Catalogue;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +24,8 @@ public class LearningPathController {
 
   @Autowired
   public LearningPathController(FetchAllLearningPaths fetchAllLearningPaths,
-      SaveLearningPath saveLearningPath) {
+      SaveLearningPath saveLearningPath,
+      FetchLearningPathById fetchLearningPathById) {
     this.fetchAllLearningPaths = fetchAllLearningPaths;
     this.saveLearningPath = saveLearningPath;
   }
@@ -39,5 +42,10 @@ public class LearningPathController {
     saveLearningPath
         .save(new LearningPath(learningPathView.getName(), learningPathView.getDescription()));
     return new ResponseEntity<>(learningPathView, HttpStatus.CREATED);
+  }
+  
+  @GetMapping("/learningpath/{id}")
+  public ResponseEntity<LearningPathView> getById(@PathVariable int id) {
+    throw new UnsupportedOperationException();
   }
 }
