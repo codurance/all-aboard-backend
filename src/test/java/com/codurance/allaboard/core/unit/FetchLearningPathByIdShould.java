@@ -29,7 +29,7 @@ public class FetchLearningPathByIdShould {
   private long id = 1L;
 
   @Test
-  void return_null_when_learningpath_with_give_id_does_not_exist() {
+  void return_no_learningpath_if_requested_id_does_not_exist() {
     given(learningPaths.findById(id)).willReturn(Optional.empty());
     LearningPath learningPath = fetchLearningPathById.findById(id);
     assertThat(learningPath, is(nullValue()));
