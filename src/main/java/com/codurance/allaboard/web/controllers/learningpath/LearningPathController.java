@@ -5,6 +5,7 @@ import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.web.views.Catalogue;
+import com.codurance.allaboard.web.views.LearningPathDetailView;
 import com.codurance.allaboard.web.views.LearningPathView;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +49,15 @@ public class LearningPathController {
   }
 
   @GetMapping("/learningpath/{id}")
-  public ResponseEntity<LearningPathView> getById(@PathVariable Long id) {
+  public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
     LearningPath learningPath = fetchLearningPathById.findById(id);
     if (learningPath == null) {
       return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
-    LearningPathView learningPathView = new LearningPathView(learningPath.getId(),
+    LearningPathDetailView learningPathDetailView = new LearningPathDetailView(learningPath.getId(),
         learningPath.getName(),
-        learningPath.getDescription());
-    return new ResponseEntity<>(learningPathView, HttpStatus.OK);
+        learningPath.getDescription(),
+        learningPath.getTopics());
+    return new ResponseEntity<>(learningPathDetailView, HttpStatus.OK);
   }
 }

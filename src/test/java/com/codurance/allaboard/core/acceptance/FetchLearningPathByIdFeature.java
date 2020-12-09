@@ -12,7 +12,7 @@ import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
-import com.codurance.allaboard.web.views.LearningPathView;
+import com.codurance.allaboard.web.views.LearningPathDetailView;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,17 +36,14 @@ public class FetchLearningPathByIdFeature {
     fetchAllLearningPaths = new FetchAllLearningPaths(learningPaths);
     saveLearningPath = new SaveLearningPath(learningPaths);
     fetchLearningPathById = new FetchLearningPathById(learningPaths);
-    learningPathController = new LearningPathController(
-        fetchAllLearningPaths,
-        saveLearningPath,
-        fetchLearningPathById
-    );
+    learningPathController =
+        new LearningPathController(fetchAllLearningPaths, saveLearningPath, fetchLearningPathById);
   }
 
   @Test
   void answers_not_found_if_asked_for_a_nonexistent_learning_path() {
     long id = 1;
-    ResponseEntity<LearningPathView> response = learningPathController.getById(id);
+    ResponseEntity<LearningPathDetailView> response = learningPathController.getById(id);
 
     assertThat(response.getStatusCodeValue(), is(404));
     verify(learningPaths, atLeastOnce()).findById(id);
@@ -57,17 +54,16 @@ public class FetchLearningPathByIdFeature {
     long id = 1;
     LearningPath learningPath = new LearningPath(id, "some title", "some description");
 
-    given(learningPaths.findById(id))
-        .willReturn(Optional.of(learningPath));
+    given(learningPaths.findById(id)).willReturn(Optional.of(learningPath));
 
-    ResponseEntity<LearningPathView> response = learningPathController.getById(id);
+    ResponseEntity<LearningPathDetailView> response = learningPathController.getById(id);
 
-    LearningPathView learningPathView = response.getBody();
+    LearningPathDetailView learningPathDetailView = response.getBody();
 
     assertThat(response.getStatusCodeValue(), is(200));
-    assertThat(learningPathView.getId(), is(learningPath.getId()));
-    assertThat(learningPathView.getName(), is(learningPath.getName()));
-    assertThat(learningPathView.getDescription(), is(learningPath.getDescription()));
+    assertThat(learningPathDetailView.getId(), is(learningPath.getId()));
+    assertThat(learningPathDetailView.getName(), is(learningPath.getName()));
+    assertThat(learningPathDetailView.getDescription(), is(learningPath.getDescription()));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }

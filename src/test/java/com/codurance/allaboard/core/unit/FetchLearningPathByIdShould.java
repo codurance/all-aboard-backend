@@ -3,7 +3,6 @@ package com.codurance.allaboard.core.unit;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -11,7 +10,9 @@ import static org.mockito.Mockito.verify;
 import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
+import com.codurance.allaboard.core.model.topic.Topic;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,7 +38,9 @@ public class FetchLearningPathByIdShould {
 
   @Test
   void return_existing_learningpath_when_requested_by_id() {
-    LearningPath expectedLearningPath = new LearningPath(id, "some title", "some description");
+    LearningPath expectedLearningPath =
+        new LearningPath(id, "some title", "some description", Set
+            .of(new Topic(1L, "title", "description")));
     given(learningPaths.findById(id))
         .willReturn(Optional.of(expectedLearningPath));
 
