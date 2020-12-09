@@ -38,6 +38,7 @@ public class LearningPath implements Serializable {
   private Set<Topic> topics;
 
   public LearningPath(long id, String name, String description, Set<Topic> topics) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.topics = topics;
