@@ -1,6 +1,7 @@
 package com.codurance.allaboard.core.acceptance;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
@@ -11,9 +12,11 @@ import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
+import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,9 +55,12 @@ public class FetchLearningPathByIdFeature {
   @Test
   void answers_with_learning_path_if_asked_for_an_existent_one() {
     long id = 1;
-    LearningPath learningPath = new LearningPath(id, "some title", "some description");
+    Topic topic = new Topic(1L, "topic name", "topic description");
+    LearningPath learningPath = new LearningPath(id, "some title", "some description", Set.of(
+        topic));
 
-    given(learningPaths.findById(id)).willReturn(Optional.of(learningPath));
+    given(learningPaths.findById(id))
+        .willReturn(Optional.of(learningPath));
 
     ResponseEntity<LearningPathDetailView> response = learningPathController.getById(id);
 
@@ -64,6 +70,7 @@ public class FetchLearningPathByIdFeature {
     assertThat(learningPathDetailView.getId(), is(learningPath.getId()));
     assertThat(learningPathDetailView.getName(), is(learningPath.getName()));
     assertThat(learningPathDetailView.getDescription(), is(learningPath.getDescription()));
+    assertThat(learningPathDetailView.getTopics(), contains(topic));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }
