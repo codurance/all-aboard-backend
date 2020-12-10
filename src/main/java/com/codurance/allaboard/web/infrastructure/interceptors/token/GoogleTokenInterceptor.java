@@ -20,6 +20,10 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
       Object handler) {
     String token = request.getHeader("Authorization");
+    if((token == null) || token.isEmpty()){
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      return false;
+    }
     try {
       GoogleIdToken googleIdToken = authenticateToken(token);
       request.setAttribute("user_email", googleIdToken.getPayload().getEmail());
