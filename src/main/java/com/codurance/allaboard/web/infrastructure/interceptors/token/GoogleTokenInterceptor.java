@@ -29,8 +29,13 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
       Object handler) {
     String token = request.getHeader("Authorization");
 
-    if (tokenIsEmptyOrNull(token)) {
-      logger.info("Caused by empty or null Authorization token provided");
+    if (token == null) {
+      logger.info("Caused by null Authorization token provided");
+      return createUnauthorizedResponse(response);
+    }
+
+    if (token.isEmpty()) {
+      logger.info("Caused by empty Authorization token provided");
       return createUnauthorizedResponse(response);
     }
 
@@ -41,10 +46,6 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
       return createAuthorizedResponse(request, googleAuthenticationResult);
     }
     return createUnauthorizedResponse(response);
-  }
-
-  private boolean tokenIsEmptyOrNull(String token) {
-    return (token == null) || token.isEmpty();
   }
 
   private boolean createAuthorizedResponse(HttpServletRequest request,
