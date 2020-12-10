@@ -1,4 +1,4 @@
-package com.codurance.allaboard.web.infrastructure.security.cors;
+package com.codurance.allaboard.web.infrastructure.security;
 
 import java.util.Collections;
 import java.util.List;

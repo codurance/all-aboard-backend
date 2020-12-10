@@ -7,8 +7,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verifyNoInteractions;
 
-import com.codurance.allaboard.web.infrastructure.interceptors.token.GoogleTokenInterceptor;
-import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleTokenAuthenticator;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.GoogleTokenAuthenticator;
+import com.codurance.allaboard.web.infrastructure.security.interceptors.GoogleTokenInterceptor;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;

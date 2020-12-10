@@ -1,6 +1,10 @@
-package com.codurance.allaboard.web.infrastructure.security.token.model;
+package com.codurance.allaboard.web.infrastructure.security.authenticators;
 
-import com.codurance.allaboard.web.infrastructure.interceptors.token.GoogleTokenInterceptor;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.model.GoogleAuthenticationExpired;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.model.GoogleAuthenticationInvalid;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.model.GoogleAuthenticationResult;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.model.GoogleAuthenticationValid;
+import com.codurance.allaboard.web.infrastructure.security.interceptors.GoogleTokenInterceptor;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;

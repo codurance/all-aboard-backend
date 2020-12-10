@@ -1,7 +1,7 @@
-package com.codurance.allaboard.web.infrastructure.interceptors.token;
+package com.codurance.allaboard.web.infrastructure.security.interceptors;
 
-import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleAuthenticationResult;
-import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleTokenAuthenticator;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.GoogleTokenAuthenticator;
+import com.codurance.allaboard.web.infrastructure.security.authenticators.model.GoogleAuthenticationResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;

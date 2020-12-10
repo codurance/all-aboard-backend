@@ -1,4 +1,4 @@
-package com.codurance.allaboard.web.infrastructure.interceptors.token;
+package com.codurance.allaboard.web.infrastructure.security.interceptors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

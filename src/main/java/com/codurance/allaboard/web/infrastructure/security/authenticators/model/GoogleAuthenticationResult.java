@@ -1,4 +1,4 @@
-package com.codurance.allaboard.web.infrastructure.security.token.model;
+package com.codurance.allaboard.web.infrastructure.security.authenticators.model;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.util.Optional;
