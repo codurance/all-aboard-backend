@@ -1,6 +1,9 @@
 package com.codurance.allaboard.web.infrastructure.interceptors.token;
 
-import com.codurance.allaboard.web.infrastructure.security.GoogleAuthenticationResult;
+import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleAuthenticationExpired;
+import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleAuthenticationInvalid;
+import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleAuthenticationResult;
+import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleAuthenticationValid;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -41,8 +44,11 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
 
   private boolean createAuthorizedResponse(HttpServletRequest request,
       GoogleAuthenticationResult googleAuthenticationResult) {
-    GoogleIdToken googleIdToken = googleAuthenticationResult.getGoogleIdToken();
-    request.setAttribute("user_email", googleIdToken.getPayload().getEmail());
+    googleAuthenticationResult
+        .getToken()
+        .ifPresent(token -> {
+          request.setAttribute("user_email", token.getPayload().getEmail());
+        });
     return true;
   }
 
@@ -57,18 +63,18 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
 
   private GoogleAuthenticationResult authenticateToken(String token) {
     GoogleIdTokenVerifier verifier = buildGoogleIdTokenVerifier();
-    GoogleIdToken googleIdToken = null;
-    boolean isAuthenticated = false;
-
+    GoogleIdToken googleIdToken;
     try {
       googleIdToken = verifier.verify(token);
-      if (googleIdToken != null) {
-        isAuthenticated = true;
+      if (googleIdToken == null) {
+        logger.info("Caused by expired Authorization token");
+        return new GoogleAuthenticationExpired();
       }
     } catch (GeneralSecurityException | IOException | IllegalArgumentException exception) {
-      logger.info("Caused by invalid Authorization token provided");
+      logger.info("Caused by invalid Authorization token");
+      return new GoogleAuthenticationInvalid();
     }
-    return new GoogleAuthenticationResult(googleIdToken, isAuthenticated);
+    return new GoogleAuthenticationValid(googleIdToken);
   }
 
   protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
