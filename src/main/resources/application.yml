@@ -16,6 +16,11 @@ spring:
     hibernate:
       ddl-auto: update
 
+logging:
+  level:
+    root: INFO
+
+
 management:
   endpoints:
     enabled-by-default: false
@@ -39,6 +44,21 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
+logging:
+  level:
+    org.springframework.web: DEBUG
+    guru.springframework.controllers: DEBUG
+    org.hibernate: DEBUG
+    com.codurance.allaboard: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: loggers
+  endpoint:
+    loggers:
+      enabled: true
 ---
 server:
   servlet:
