@@ -4,6 +4,7 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
+import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
@@ -27,12 +28,16 @@ public class FetchAllLearningPathFeature {
 
   private LearningPathController learningPathController;
 
+  @InjectMocks
+  private FetchLearningPathById fetchLearningPathById;
+
 
   @BeforeEach
   void setUp() {
     saveLearningPath = new SaveLearningPath(learningPaths);
     fetchAllLearningPaths = new FetchAllLearningPaths(learningPaths);
-    learningPathController = new LearningPathController(fetchAllLearningPaths, saveLearningPath);
+    learningPathController = new LearningPathController(fetchAllLearningPaths, saveLearningPath,
+        fetchLearningPathById);
   }
 
   @Test

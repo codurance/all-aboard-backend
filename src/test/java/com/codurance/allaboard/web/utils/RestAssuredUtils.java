@@ -15,23 +15,27 @@ public class RestAssuredUtils {
     return new JSONObject(response.getBody().print());
   }
 
+  public RequestSpecification httpRequest() {
+    return given();
+  }
+
   public RequestSpecification httpRequestWithJSONContentType(JSONObject jsonObject) {
-    return given()
+    return httpRequest()
         .contentType(ContentType.JSON)
         .body(jsonObject.toString());
   }
 
   public RequestSpecification httpRequestWithoutAuthorizationHeader() {
-    return given();
+    return httpRequest();
   }
 
   public RequestSpecification httpRequestWithEmptyAuthorizationHeader() {
-    return given()
+    return httpRequest()
         .header(authorization, "");
   }
 
   public RequestSpecification httpRequestWithInvalidAuthorizationHeader() {
-    return given()
+    return httpRequest()
         .header(authorization, "invalid token");
   }
 }

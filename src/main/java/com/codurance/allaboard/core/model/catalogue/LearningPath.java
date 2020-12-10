@@ -1,11 +1,16 @@
 package com.codurance.allaboard.core.model.catalogue;
 
+import com.codurance.allaboard.core.model.topic.Topic;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
@@ -25,12 +30,32 @@ public class LearningPath implements Serializable {
   @Column(nullable = false, name = "lp_description")
   private String description;
 
-  public LearningPath(String name, String description) {
+  @ManyToMany
+  @JoinTable(
+      name = "catalogue_topic",
+      joinColumns = @JoinColumn(name = "t_id"),
+      inverseJoinColumns = @JoinColumn(name = "lp_id"))
+  private Set<Topic> topics;
+
+  public LearningPath(long id, String name, String description, Set<Topic> topics) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.topics = topics;
+  }
+
+  public LearningPath() {
+  }
+
+  public LearningPath(long id, String name, String description) {
+    this.id = id;
     this.name = name;
     this.description = description;
   }
 
-  public LearningPath() {
+  public LearningPath(String name, String description) {
+    this.name = name;
+    this.description = description;
   }
 
   public Long getId() {
@@ -47,6 +72,14 @@ public class LearningPath implements Serializable {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Set<Topic> getTopics() {
+    return topics;
+  }
+
+  public void setTopics(Set<Topic> topics) {
+    this.topics = topics;
   }
 
   public String getDescription() {
