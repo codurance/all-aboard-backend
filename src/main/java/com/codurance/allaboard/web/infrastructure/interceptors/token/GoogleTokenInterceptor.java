@@ -26,7 +26,8 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
       Object handler) {
     String token = request.getHeader("Authorization");
 
-    if(tokenIsEmptyOrNull(token)){
+    if (tokenIsEmptyOrNull(token)) {
+      logger.info("Caused by empty or null Authorization token provided");
       return createUnauthorizedResponse(response);
     }
 
@@ -35,7 +36,6 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
     if (googleAuthenticationResult.isAuthenticated()) {
       return createAuthorizedResponse(request, googleAuthenticationResult);
     }
-
     return createUnauthorizedResponse(response);
   }
 
@@ -62,11 +62,12 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
 
     try {
       googleIdToken = verifier.verify(token);
-      isAuthenticated = true;
+      if (googleIdToken != null) {
+        isAuthenticated = true;
+      }
     } catch (GeneralSecurityException | IOException | IllegalArgumentException exception) {
-      logger.error("Error");
+      logger.info("Caused by invalid Authorization token provided");
     }
-
     return new GoogleAuthenticationResult(googleIdToken, isAuthenticated);
   }
 
@@ -75,5 +76,4 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
         .Builder(new NetHttpTransport(), new JacksonFactory())
         .build();
   }
-
 }
