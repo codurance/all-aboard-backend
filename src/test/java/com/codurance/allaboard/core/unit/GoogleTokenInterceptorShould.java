@@ -5,9 +5,10 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.codurance.allaboard.web.infrastructure.interceptors.token.GoogleTokenInterceptor;
+import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleTokenAuthenticator;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -26,6 +28,7 @@ public class GoogleTokenInterceptorShould {
 
   private final String email = "user@codurance.com";
 
+  @Mock
   private HttpServletRequest request;
 
   @Mock
@@ -42,27 +45,27 @@ public class GoogleTokenInterceptorShould {
 
   @Mock
   private Payload payload;
+  private GoogleTokenInterceptor interceptor;
+
+  @BeforeEach
+  void setUp() {
+    interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
+  }
 
   @Test
-  void deny_request_without_authorization() throws GeneralSecurityException, IOException {
-    String INVALID_TOKEN = "";
+  void not_verify_an_empty_token() {
+    var EMPTY_TOKEN = "";
 
-    request = mock(HttpServletRequest.class);
     given(request.getHeader("Authorization"))
-        .willReturn(INVALID_TOKEN);
-
-    given(googleIdTokenVerifier.verify(anyString()))
-        .willThrow(GeneralSecurityException.class);
-
-    GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
+        .willReturn(EMPTY_TOKEN);
 
     assertThat(interceptor.preHandle(request, response, handler), is(false));
+
+    verifyNoInteractions(googleIdTokenVerifier);
   }
 
   @Test
   void accept_request_with_authorization() throws GeneralSecurityException, IOException {
-    GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
-
     request = new ValidTokenHttpServletRequest();
 
     given(googleIdTokenVerifier.verify(anyString()))
@@ -79,8 +82,6 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void set_email_in_request_header() throws GeneralSecurityException, IOException {
-    GoogleTokenInterceptor interceptor = new TestableGoogleTokenAuthenticator();
-
     request = new ValidTokenHttpServletRequest();
 
     given(googleIdTokenVerifier.verify(anyString()))
@@ -107,7 +108,7 @@ public class GoogleTokenInterceptorShould {
     }
   }
 
-  class TestableGoogleTokenAuthenticator extends GoogleTokenInterceptor {
+  class TestableGoogleAuthenticator extends GoogleTokenAuthenticator {
 
     @Override
     protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
