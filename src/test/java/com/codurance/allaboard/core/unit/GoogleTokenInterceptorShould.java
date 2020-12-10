@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.codurance.allaboard.web.infrastructure.interceptors.token.GoogleTokenInterceptor;
+import com.codurance.allaboard.web.infrastructure.security.token.model.GoogleTokenAuthenticator;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -46,7 +47,7 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void not_verify_an_empty_token() {
-    var interceptor = new TestableGoogleTokenInterceptor();
+    var interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
     var EMPTY_TOKEN = "";
 
     given(request.getHeader("Authorization"))
@@ -59,7 +60,7 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void accept_request_with_authorization() throws GeneralSecurityException, IOException {
-    GoogleTokenInterceptor interceptor = new TestableGoogleTokenInterceptor();
+    GoogleTokenInterceptor interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
 
     request = new ValidTokenHttpServletRequest();
 
@@ -77,7 +78,7 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void set_email_in_request_header() throws GeneralSecurityException, IOException {
-    GoogleTokenInterceptor interceptor = new TestableGoogleTokenInterceptor();
+    GoogleTokenInterceptor interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
 
     request = new ValidTokenHttpServletRequest();
 
@@ -105,7 +106,7 @@ public class GoogleTokenInterceptorShould {
     }
   }
 
-  class TestableGoogleTokenInterceptor extends GoogleTokenInterceptor {
+  class TestableGoogleAuthenticator extends GoogleTokenAuthenticator {
 
     @Override
     protected GoogleIdTokenVerifier buildGoogleIdTokenVerifier() {
