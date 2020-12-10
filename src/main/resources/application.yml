@@ -20,7 +20,6 @@ logging:
   level:
     root: INFO
 
-
 management:
   endpoints:
     enabled-by-default: false
@@ -43,22 +42,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
-
-logging:
-  level:
-    org.springframework.web: DEBUG
-    org.springframework.controllers: DEBUG
-    org.hibernate: DEBUG
-    com.codurance.allaboard: DEBUG
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: loggers
-  endpoint:
-    loggers:
-      enabled: true
 ---
 server:
   servlet:
