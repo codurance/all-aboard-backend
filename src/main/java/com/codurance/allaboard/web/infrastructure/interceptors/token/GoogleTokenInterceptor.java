@@ -30,12 +30,12 @@ public class GoogleTokenInterceptor implements TokenInterceptor {
     String token = request.getHeader("Authorization");
 
     if (token == null) {
-      logger.info("Caused by null Authorization token provided");
+      logger.info("Caused by missing Authorization token");
       return createUnauthorizedResponse(response);
     }
 
     if (token.isEmpty()) {
-      logger.info("Caused by empty Authorization token provided");
+      logger.info("Caused by empty Authorization token");
       return createUnauthorizedResponse(response);
     }
 
