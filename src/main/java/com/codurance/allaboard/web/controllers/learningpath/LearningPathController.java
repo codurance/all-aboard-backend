@@ -9,6 +9,8 @@ import com.codurance.allaboard.web.views.LearningPathDetailView;
 import com.codurance.allaboard.web.views.LearningPathView;
 import java.util.Optional;
 import javax.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LearningPathController {
+
+  private static final Logger logger = LoggerFactory.getLogger(LearningPathController.class);
 
   private final FetchAllLearningPaths fetchAllLearningPaths;
   private final SaveLearningPath saveLearningPath;
@@ -53,6 +57,7 @@ public class LearningPathController {
   public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
     Optional<LearningPath> optional = fetchLearningPathById.findById(id);
     if (optional.isEmpty()) {
+      logger.info("Learning path with id: [{}] not found", id.toString());
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     LearningPath learningPath = optional.get();
