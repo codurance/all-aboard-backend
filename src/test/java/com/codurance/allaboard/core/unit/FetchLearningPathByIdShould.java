@@ -30,9 +30,13 @@ public class FetchLearningPathByIdShould {
 
   @Test
   void return_no_learningpath_if_requested_id_does_not_exist() {
-    given(learningPaths.findById(id)).willReturn(Optional.empty());
-    LearningPath learningPath = fetchLearningPathById.findById(id);
-    assertThat(learningPath, is(nullValue()));
+    Optional<LearningPath> optional = Optional.empty();
+    given(learningPaths.findById(id))
+        .willReturn(optional);
+
+    Optional<LearningPath> retrievedOptional = fetchLearningPathById.findById(id);
+
+    assertThat(retrievedOptional, is(optional));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 
@@ -41,12 +45,13 @@ public class FetchLearningPathByIdShould {
     LearningPath expectedLearningPath =
         new LearningPath(id, "some title", "some description", Set
             .of(new Topic(1L, "title", "description")));
+    Optional<LearningPath> optional = Optional.of(expectedLearningPath);
     given(learningPaths.findById(id))
-        .willReturn(Optional.of(expectedLearningPath));
+        .willReturn(optional);
 
-    LearningPath learningPath = fetchLearningPathById.findById(id);
+    Optional<LearningPath> retrievedOptional = fetchLearningPathById.findById(id);
 
-    assertThat(learningPath, is(expectedLearningPath));
+    assertThat(retrievedOptional, is(optional));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }

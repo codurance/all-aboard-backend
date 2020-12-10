@@ -16,12 +16,7 @@ public class FetchLearningPathById {
     this.learningPaths = learningPaths;
   }
 
-  public LearningPath findById(Long id) {
-    Optional<LearningPath> optionalLearningPath = learningPaths.findById(id);
-
-    if (optionalLearningPath.isEmpty()) {
-      return null;
-    }
-    return optionalLearningPath.get();
+  public Optional<LearningPath> findById(Long id) {
+    return learningPaths.findById(id);
   }
 }
