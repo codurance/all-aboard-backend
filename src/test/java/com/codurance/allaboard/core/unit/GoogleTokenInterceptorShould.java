@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -44,10 +45,15 @@ public class GoogleTokenInterceptorShould {
 
   @Mock
   private Payload payload;
+  private GoogleTokenInterceptor interceptor;
+
+  @BeforeEach
+  void setUp() {
+    interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
+  }
 
   @Test
   void not_verify_an_empty_token() {
-    var interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
     var EMPTY_TOKEN = "";
 
     given(request.getHeader("Authorization"))
@@ -60,8 +66,6 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void accept_request_with_authorization() throws GeneralSecurityException, IOException {
-    GoogleTokenInterceptor interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
-
     request = new ValidTokenHttpServletRequest();
 
     given(googleIdTokenVerifier.verify(anyString()))
@@ -78,8 +82,6 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void set_email_in_request_header() throws GeneralSecurityException, IOException {
-    GoogleTokenInterceptor interceptor = new GoogleTokenInterceptor(new TestableGoogleAuthenticator());
-
     request = new ValidTokenHttpServletRequest();
 
     given(googleIdTokenVerifier.verify(anyString()))
