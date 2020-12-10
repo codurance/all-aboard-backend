@@ -25,7 +25,7 @@ public class GlobalControllerAdvice {
         .forEach((error) -> {
           String fieldName = ((FieldError) error).getField();
           String errorMessage = error.getDefaultMessage();
-          logger.error("Error on field: [{}] caused by: [{}]", fieldName, errorMessage);
+          logger.info("Error on field: [{}] caused by: [{}]", fieldName, errorMessage);
           errors.put(fieldName, errorMessage);
         });
     return errors;
