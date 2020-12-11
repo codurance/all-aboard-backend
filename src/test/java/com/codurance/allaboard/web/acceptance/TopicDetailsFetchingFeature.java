@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
@@ -30,7 +31,7 @@ public class TopicDetailsFetchingFeature extends RestAssuredUtils {
     @Test
     void given_get_can_access_endpoint() {
         RequestSpecification httpRequest = httpRequest();
-        Response response = httpRequest.get(String.format("api/v1/topic/%s", EXISTING_TOPIC_ID));
+        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s)",EXISTING_TOPIC_ID)));
         assertThat(response.statusCode(), is(200));
     }
 

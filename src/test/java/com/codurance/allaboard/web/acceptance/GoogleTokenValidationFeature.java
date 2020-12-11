@@ -29,7 +29,7 @@ public class GoogleTokenValidationFeature extends RestAssuredUtils {
   void deny_requests_without_authorization_header() {
     RequestSpecification request = httpRequestWithoutAuthorizationHeader();
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     assertThat(response.statusCode(), is(401));
   }
@@ -38,7 +38,7 @@ public class GoogleTokenValidationFeature extends RestAssuredUtils {
   void deny_requests_with_empty_authorization_header() {
     RequestSpecification request = httpRequestWithEmptyAuthorizationHeader();
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     assertThat(response.statusCode(), is(401));
   }
@@ -47,7 +47,7 @@ public class GoogleTokenValidationFeature extends RestAssuredUtils {
   void deny_requests_with_invalid_authorization_header() {
     RequestSpecification request = httpRequestWithInvalidAuthorizationHeader();
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     assertThat(response.statusCode(), is(401));
   }

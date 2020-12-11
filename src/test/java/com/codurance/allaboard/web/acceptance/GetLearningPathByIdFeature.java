@@ -37,7 +37,7 @@ public class GetLearningPathByIdFeature extends RestAssuredUtils {
   void answers_not_found_if_asked_for_a_nonexistent_learning_path() {
     RequestSpecification request = httpRequest();
 
-    Response response = request.get("api/v1/learningpath/1");
+    Response response = request.get(apiV1Endpoint("learningpath/1"));
 
     assertThat(response.statusCode(), is(404));
   }
@@ -48,7 +48,7 @@ public class GetLearningPathByIdFeature extends RestAssuredUtils {
   void answers_with_learning_path_if_asked_for_an_existent_one() throws IOException {
     RequestSpecification request = httpRequest();
 
-    Response response = request.get("api/v1/learningpath/1");
+    Response response = request.get(apiV1Endpoint("/learningpath/1"));
     JSONObject responseBody = buildResponseBody(response);
 
     assertThat(response.statusCode(), is(200));
