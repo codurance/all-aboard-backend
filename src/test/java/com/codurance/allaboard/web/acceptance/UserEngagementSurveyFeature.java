@@ -38,7 +38,7 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     requestBody.put("email", email);
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     JSONObject responseBody = buildResponseBody(response);
 
@@ -67,7 +67,7 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     requestBody.put("preference", StringUtils.repeat("f", 1500));
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     JSONObject responseBody = buildResponseBody(response);
     assertThat(response.statusCode(), is(201));
@@ -82,7 +82,7 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     requestBody.put("preference", StringUtils.repeat("f", 1501));
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     JSONObject responseBody = buildResponseBody(response);
     assertThat(response.getStatusCode(), is(400));

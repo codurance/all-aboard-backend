@@ -41,7 +41,7 @@ public class CreateLearningPathFeature extends RestAssuredUtils {
     requestBody.put("description", description);
     RequestSpecification httpRequest = httpRequestWithJSONContentType(requestBody);
 
-    Response response = httpRequest.post("api/v1/learningpath");
+    Response response = httpRequest.post(apiV1Endpoint("learningpath"));
     JSONObject responseBody = buildResponseBody(response);
 
     assertThat(response.statusCode(), is(201));
@@ -54,7 +54,7 @@ public class CreateLearningPathFeature extends RestAssuredUtils {
   void error_on_invalid_request() {
     RequestSpecification httpRequest = httpRequestWithJSONContentType(requestBody);
 
-    Response response = httpRequest.post("api/v1/learningpath");
+    Response response = httpRequest.post(apiV1Endpoint("learningpath"));
     JSONObject responseBody = buildResponseBody(response);
 
     assertThat(response.statusCode(), is(400));
@@ -69,7 +69,7 @@ public class CreateLearningPathFeature extends RestAssuredUtils {
     requestBody.put("description", StringUtils.repeat("f", 1501));
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/learningpath");
+    Response response = request.post(apiV1Endpoint("learningpath"));
 
     JSONObject responseBody = buildResponseBody(response);
     assertThat(response.getStatusCode(), is(400));

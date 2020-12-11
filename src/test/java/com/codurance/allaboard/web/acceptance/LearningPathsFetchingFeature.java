@@ -39,7 +39,7 @@ public class LearningPathsFetchingFeature extends RestAssuredUtils {
   @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void given_get_fetch_catalogue() throws IOException {
     RequestSpecification httpRequest = httpRequestWithoutAuthorizationHeader();
-    Response response = httpRequest.get("api/v1/learningpath");
+    Response response = httpRequest.get(apiV1Endpoint("learningpath"));
 
     JSONObject responseBody = buildResponseBody(response);
     JSONArray learningPaths = responseBody.getJSONArray("learningPaths");
