@@ -20,8 +20,10 @@ public class TopicController {
     }
 
     @GetMapping("topic/{id}")
-    public ResponseEntity<Optional<Topic>> fetchTopicsById(@PathVariable long id) {
+    public ResponseEntity<Topic> fetchTopicsById(@PathVariable long id) {
         Optional<Topic> optionalTopic = fetchTopicById.findById(id);
-        return ResponseEntity.ok(optionalTopic);
+        return optionalTopic
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
