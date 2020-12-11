@@ -1,12 +1,11 @@
 package com.codurance.allaboard.web.acceptance;
 
-import com.codurance.allaboard.web.utils.RestAssuredUtils;
+import com.codurance.allaboard.core.unit.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TopicDetailsFetchingFeature extends RestAssuredUtils {
+public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @LocalServerPort
     private int port;

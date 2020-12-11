@@ -3,7 +3,7 @@ package com.codurance.allaboard.web.acceptance;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.codurance.allaboard.web.utils.RestAssuredUtils;
+import com.codurance.allaboard.core.unit.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class CreateLearningPathFeature extends RestAssuredUtils {
+public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
 
   @LocalServerPort
   private int port;
