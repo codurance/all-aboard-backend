@@ -4,6 +4,13 @@ import com.codurance.allaboard.core.unit.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.hamcrest.Matcher;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,10 +35,28 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
     }
 
     @Test
-    void given_get_can_access_endpoint() {
+    void given_get_can_access_endpoint() throws IOException {
         RequestSpecification httpRequest = httpRequest();
-        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s)",EXISTING_TOPIC_ID)));
+
+        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s)", EXISTING_TOPIC_ID)));
+        JSONObject responseBody = buildResponseBody(response);
+
         assertThat(response.statusCode(), is(200));
+        assertThat(responseBody.toString(), is(expectedResponseBody()));
+    }
+
+    private String expectedResponseBody() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        Path filePath = Paths.get("src", "test", "resources", "stub-topic.json");
+
+        try (BufferedReader br = Files.newBufferedReader(
+            filePath)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        }
+        return sb.toString();
     }
 
 }
