@@ -20,27 +20,27 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-@Disabled
 public class FetchTopicByIdFeature {
 
   @Mock
-  private Topics topics;
+  private FetchTopicById fetchTopicById;
+
   private TopicController topicController;
   private final long NON_EXISTENT_TOPIC_ID = 9L;
 
   @BeforeEach
   void setUp() {
-    topicController = new TopicController(new FetchTopicById(topics));
+    topicController = new TopicController(fetchTopicById);
   }
 
   @Test
   void answers_not_found_if_asked_for_a_nonexistent_topic() {
-    given(topics.findById(NON_EXISTENT_TOPIC_ID))
+    given(fetchTopicById.findById(NON_EXISTENT_TOPIC_ID))
         .willReturn(Optional.empty());
 
-    ResponseEntity<Optional<Topic>> responseEntity = topicController.fetchTopicsById(NON_EXISTENT_TOPIC_ID);
+    ResponseEntity<Topic> responseEntity = topicController.fetchTopicsById(NON_EXISTENT_TOPIC_ID);
 
-    verify(topics, atLeastOnce()).findById(NON_EXISTENT_TOPIC_ID);
+    verify(fetchTopicById, atLeastOnce()).findById(NON_EXISTENT_TOPIC_ID);
     assertThat(responseEntity.getStatusCode().value(), is(404));
   }
 }
