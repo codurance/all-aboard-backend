@@ -12,6 +12,7 @@ import com.codurance.allaboard.core.model.topic.Topics;
 import com.codurance.allaboard.web.controllers.topic.TopicController;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
+@Disabled
 public class FetchTopicByIdFeature {
 
   @Mock

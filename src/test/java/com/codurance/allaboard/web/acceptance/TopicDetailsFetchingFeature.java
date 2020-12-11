@@ -1,6 +1,6 @@
 package com.codurance.allaboard.web.acceptance;
 
-import com.codurance.allaboard.core.unit.WebAcceptanceTestTemplate;
+import com.codurance.allaboard.web.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.hamcrest.Matcher;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -22,6 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Disabled
 public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @LocalServerPort
