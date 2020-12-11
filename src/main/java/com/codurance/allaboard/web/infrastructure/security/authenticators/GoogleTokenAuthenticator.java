@@ -26,11 +26,11 @@ public class GoogleTokenAuthenticator {
     try {
       googleIdToken = verifier.verify(token);
       if (googleIdToken == null) {
-        logger.info("Caused by expired Authorization token");
+        logger.info("Authorization token provided is expired");
         return new GoogleAuthenticationExpired();
       }
     } catch (GeneralSecurityException | IOException | IllegalArgumentException exception) {
-      logger.info("Caused by invalid Authorization token");
+      logger.info("Authorization token provided is invalid");
       return new GoogleAuthenticationInvalid();
     }
     return new GoogleAuthenticationValid(googleIdToken);
