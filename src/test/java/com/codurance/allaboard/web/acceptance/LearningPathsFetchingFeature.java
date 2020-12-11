@@ -3,7 +3,7 @@ package com.codurance.allaboard.web.acceptance;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.codurance.allaboard.core.unit.WebAcceptanceTestTemplate;
+import com.codurance.allaboard.web.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;

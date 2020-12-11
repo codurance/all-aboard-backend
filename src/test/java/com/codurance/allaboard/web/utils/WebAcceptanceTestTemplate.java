@@ -1,4 +1,4 @@
-package com.codurance.allaboard.core.unit;
+package com.codurance.allaboard.web.utils;
 
 import static io.restassured.RestAssured.given;
 
