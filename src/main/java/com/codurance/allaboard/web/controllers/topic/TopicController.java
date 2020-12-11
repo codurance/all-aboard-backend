@@ -3,6 +3,8 @@ package com.codurance.allaboard.web.controllers.topic;
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
 import com.codurance.allaboard.core.model.topic.Topic;
 import java.util.Optional;
+
+import com.codurance.allaboard.web.views.TopicDetailView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +22,8 @@ public class TopicController {
     }
 
     @GetMapping("topic/{id}")
-    public ResponseEntity<Topic> fetchTopicsById(@PathVariable long id) {
-        Optional<Topic> optionalTopic = fetchTopicById.findById(id);
+    public ResponseEntity<TopicDetailView> fetchTopicsById(@PathVariable long id) {
+        Optional<TopicDetailView> optionalTopic = fetchTopicById.execute(id);
         return optionalTopic
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
