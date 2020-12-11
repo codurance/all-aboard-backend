@@ -3,7 +3,7 @@ package com.codurance.allaboard.web.acceptance;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.codurance.allaboard.web.utils.RestAssuredUtils;
+import com.codurance.allaboard.core.unit.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("dev")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserEngagementSurveyFeature extends RestAssuredUtils {
+public class UserEngagementSurveyFeature extends WebAcceptanceTestTemplate {
 
   private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   @LocalServerPort

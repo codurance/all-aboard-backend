@@ -1,4 +1,4 @@
-package com.codurance.allaboard.web.utils;
+package com.codurance.allaboard.core.unit;
 
 import static io.restassured.RestAssured.given;
 
@@ -8,14 +8,14 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
-public class RestAssuredUtils {
+public class WebAcceptanceTestTemplate {
 
   @Value("${server.servlet.context-path}")
   private String apiUrlPrefix;
 
   private final String authorization = "Authorization";
 
-  protected String apiV1Endpoint(String endpoint) {
+  public String apiV1Endpoint(String endpoint) {
     if (endpoint != null && endpoint.length() > 0) {
       if (endpoint.endsWith("/")) {
           endpoint = endpoint.substring(0, endpoint.length() - 1);
