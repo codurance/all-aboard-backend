@@ -16,20 +16,20 @@ public class LearningPathDetailView implements Serializable {
   @NotEmpty(message = "Cannot be null or empty")
   @Size(max = 1500, message = "Cannot be bigger than 1500 characters")
   private String description;
-  private List<TopicOverviewView> topics;
+  private List<TopicView> topics;
 
   private LearningPathDetailView() {
   }
 
-  private LearningPathDetailView(long id, String name, String description, List<TopicOverviewView> topics) {
+  private LearningPathDetailView(long id, String name, String description, List<TopicView> topics) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.topics = topics;
   }
 
-  //[] in here pass TopicOverviewView insetad of Topic - also List not Set -> we care about ordering.
-  // check parts in which we're returning topics inside of view -> should be using dedicated view.
+  //[X] in here pass TopicOverviewView insetad of Topic - also List not Set -> we care about ordering.
+  //[X] check parts in which we're returning topics inside of view -> should be using dedicated view.
   // once done @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
   // get back to FetchTopicByIdShould TDD. <- this is potentially misleading (BECAUSE TOPIC MEANS NOW TWO THINGS: overview & details)
   // to be still implemented Subtopics (currently has only name propery)
@@ -39,7 +39,7 @@ public class LearningPathDetailView implements Serializable {
       learningPath.getId(),
       learningPath.getName(),
       learningPath.getDescription(),
-      learningPath.getTopics().stream().map(TopicOverviewView::from).collect(toList())
+      learningPath.getTopics().stream().map(TopicView::from).collect(toList())
     );
   }
 
@@ -55,7 +55,7 @@ public class LearningPathDetailView implements Serializable {
     return id;
   }
 
-  public List<TopicOverviewView> getTopics() {
+  public List<TopicView> getTopics() {
     return topics;
   }
 }
