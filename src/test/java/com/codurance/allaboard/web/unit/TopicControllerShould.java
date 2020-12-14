@@ -1,14 +1,12 @@
-package com.codurance.allaboard.core.acceptance;
+package com.codurance.allaboard.web.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
-import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.topic.TopicController;
 import java.util.Optional;
 
@@ -21,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-public class FetchTopicByIdFeature {
+public class TopicControllerShould {
 
   @Mock
   private FetchTopicById fetchTopicById;

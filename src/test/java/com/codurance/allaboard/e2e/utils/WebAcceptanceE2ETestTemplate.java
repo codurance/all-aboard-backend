@@ -1,4 +1,4 @@
-package com.codurance.allaboard.web.utils;
+package com.codurance.allaboard.e2e.utils;
 
 import static io.restassured.RestAssured.given;
 
@@ -8,7 +8,7 @@ import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
-public class WebAcceptanceTestTemplate {
+public class WebAcceptanceE2ETestTemplate {
 
   @Value("${server.servlet.context-path}")
   private String apiUrlPrefix;

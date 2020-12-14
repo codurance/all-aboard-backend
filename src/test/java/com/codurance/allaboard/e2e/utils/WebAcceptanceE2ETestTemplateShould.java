@@ -1,6 +1,5 @@
-package com.codurance.allaboard.core.unit;
+package com.codurance.allaboard.e2e.utils;
 
-import com.codurance.allaboard.web.utils.WebAcceptanceTestTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -8,13 +7,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class WebAcceptanceTestTemplateShould {
+public class WebAcceptanceE2ETestTemplateShould {
 
-    WebAcceptanceTestTemplate utils;
+    WebAcceptanceE2ETestTemplate utils;
 
     @BeforeEach
     private void setUp() {
-        this.utils = new WebAcceptanceTestTemplate();
+        this.utils = new WebAcceptanceE2ETestTemplate();
         ReflectionTestUtils.setField(utils, "apiUrlPrefix", "apiVersion");
     }
 
