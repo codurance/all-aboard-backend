@@ -46,20 +46,4 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
         assertThat(response.statusCode(), is(200));
         assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-no-resources.json")));
     }
-
-    // todo: can be possibly extracted to e2e parent
-    private String expectedResponseBody(String jsonFileName) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        Path filePath = Paths.get("src", "test", "resources", jsonFileName);
-
-        try (BufferedReader br = Files.newBufferedReader(
-            filePath)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-        }
-        return sb.toString();
-    }
-
 }
