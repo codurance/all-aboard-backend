@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
@@ -36,9 +37,6 @@ public class TopicControllerShould {
 
   @Test
   void answers_not_found_if_asked_for_a_nonexistent_topic() {
-    given(fetchTopicById.execute(NON_EXISTENT_TOPIC_ID))
-        .willReturn(Optional.empty());
-
     ResponseEntity<TopicDetailView> responseEntity = topicController.fetchTopicsById(NON_EXISTENT_TOPIC_ID);
 
     verify(fetchTopicById, atLeastOnce()).execute(NON_EXISTENT_TOPIC_ID);
@@ -47,9 +45,8 @@ public class TopicControllerShould {
 
   @Test
   void answers_ok_when_found_if_asked_for_a_existing_topic() {
-
     given(fetchTopicById.execute(EXISTING_TOPIC_ID))
-            .willReturn(Optional.of(new Topic()));
+      .willReturn(Optional.of(mock(Topic.class)));
 
     ResponseEntity<TopicDetailView> responseEntity = topicController.fetchTopicsById(EXISTING_TOPIC_ID);
 
