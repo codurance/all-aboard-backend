@@ -4,9 +4,9 @@ import com.codurance.allaboard.core.model.topic.Topic;
 
 public class TopicOverviewView {
 
-    private Long id;
-    private String name;
-    private String description;
+    private final Long id;
+    private final String name;
+    private final String description;
 
     private TopicOverviewView(Long id, String name, String description) {
         this.id = id;
