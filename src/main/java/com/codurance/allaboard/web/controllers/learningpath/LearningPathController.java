@@ -4,7 +4,7 @@ import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
 import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
-import com.codurance.allaboard.web.views.Catalogue;
+import com.codurance.allaboard.web.views.CatalogueView;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
 import com.codurance.allaboard.web.views.LearningPathView;
 import java.util.Optional;
@@ -40,8 +40,8 @@ public class LearningPathController {
   }
 
   @GetMapping("/learningpath")
-  public ResponseEntity<Catalogue> provideCatalog() {
-    Catalogue catalogue = new Catalogue(fetchAllLearningPaths.getAll());
+  public ResponseEntity<CatalogueView> provideCatalog() {
+    CatalogueView catalogue = CatalogueView.from(fetchAllLearningPaths.getAll());
     return ResponseEntity.ok(catalogue);
   }
 
