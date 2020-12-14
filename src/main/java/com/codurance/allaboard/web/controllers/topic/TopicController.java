@@ -25,13 +25,9 @@ public class TopicController {
     public ResponseEntity<TopicDetailView> fetchTopicsById(@PathVariable long id) {
         Optional<Topic> topic = fetchTopicById.execute(id);
         if (topic.isPresent()) {
-            return ResponseEntity.ok(toTopicDetailView(topic.get()));
+            return ResponseEntity.ok(TopicDetailView.from(topic.get()));
         }
-
         return ResponseEntity.notFound().build();
     }
 
-    private TopicDetailView toTopicDetailView(Topic topic) {
-        return TopicDetailView.from(topic);
-    }
 }
