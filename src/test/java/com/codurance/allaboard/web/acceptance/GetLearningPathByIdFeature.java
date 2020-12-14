@@ -7,11 +7,7 @@ import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +40,6 @@ public class GetLearningPathByIdFeature extends WebAcceptanceE2ETestTemplate {
 
   @Test
   @Sql(scripts = "classpath:stub-catalogue.sql")
-  @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void answers_with_learning_path_if_asked_for_an_existent_one() throws IOException {
     RequestSpecification request = httpRequest();
 
