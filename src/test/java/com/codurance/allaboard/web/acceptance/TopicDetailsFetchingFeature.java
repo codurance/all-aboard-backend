@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,6 +39,7 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics.sql")
+    @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void can_access_parse_and_repond_without_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
@@ -50,6 +52,7 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics-resources.sql")
+    @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void can_access_parse_and_repond_with_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
