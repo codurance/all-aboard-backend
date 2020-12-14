@@ -16,13 +16,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Disabled
 public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @LocalServerPort
@@ -36,6 +36,7 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
     }
 
     @Test
+    @Sql(scripts = "classpath:stub-topic-subtopics.sql")
     void given_get_can_access_endpoint() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
@@ -43,12 +44,13 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
         JSONObject responseBody = buildResponseBody(response);
 
         assertThat(response.statusCode(), is(200));
-        assertThat(responseBody.toString(), is(expectedResponseBody()));
+        assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-no-resources.json")));
     }
 
-    private String expectedResponseBody() throws IOException {
+    // todo: can be possibly extracted to e2e parent
+    private String expectedResponseBody(String jsonFileName) throws IOException {
         StringBuilder sb = new StringBuilder();
-        Path filePath = Paths.get("src", "test", "resources", "stub-topic.json");
+        Path filePath = Paths.get("src", "test", "resources", jsonFileName);
 
         try (BufferedReader br = Files.newBufferedReader(
             filePath)) {
