@@ -55,16 +55,14 @@ public class LearningPathController {
 
   @GetMapping("/learningpath/{id}")
   public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
-    Optional<LearningPath> optional = fetchLearningPathById.findById(id);
-    if (optional.isEmpty()) {
+    Optional<LearningPath> learningPath = fetchLearningPathById.findById(id);
+
+    if (learningPath.isEmpty()) {
       logger.info("Learning path with id: [{}] not found", id.toString());
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    LearningPath learningPath = optional.get();
-    LearningPathDetailView learningPathDetailView = new LearningPathDetailView(learningPath.getId(),
-        learningPath.getName(),
-        learningPath.getDescription(),
-        learningPath.getTopics());
+
+    LearningPathDetailView learningPathDetailView = LearningPathDetailView.from(learningPath.get());
     return new ResponseEntity<>(learningPathDetailView, HttpStatus.OK);
   }
 }

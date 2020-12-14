@@ -2,6 +2,7 @@ package com.codurance.allaboard.core.model.catalogue;
 
 import com.codurance.allaboard.core.model.topic.Topic;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,9 +36,9 @@ public class LearningPath implements Serializable {
       name = "catalogue_topic",
       joinColumns = @JoinColumn(name = "t_id"),
       inverseJoinColumns = @JoinColumn(name = "lp_id"))
-  private Set<Topic> topics;
+  private List<Topic> topics;
 
-  public LearningPath(long id, String name, String description, Set<Topic> topics) {
+  public LearningPath(long id, String name, String description, List<Topic> topics) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -74,11 +75,11 @@ public class LearningPath implements Serializable {
     this.name = name;
   }
 
-  public Set<Topic> getTopics() {
+  public List<Topic> getTopics() {
     return topics;
   }
 
-  public void setTopics(Set<Topic> topics) {
+  public void setTopics(List<Topic> topics) {
     this.topics = topics;
   }
 
