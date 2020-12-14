@@ -3,6 +3,7 @@ package com.codurance.allaboard.web.unit;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -17,6 +18,8 @@ import com.codurance.allaboard.web.controllers.learningpath.LearningPathControll
 import com.codurance.allaboard.web.views.LearningPathDetailView;
 import java.util.Optional;
 import java.util.Set;
+
+import com.codurance.allaboard.web.views.LearningPathView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,6 +42,12 @@ public class LearningPathControllerShould {
             new SaveLearningPath(learningPaths),
             new FetchLearningPathById(learningPaths)
     );
+  }
+
+  @Test
+  void save_a_learningpath() {
+    learningPathController.createLearningPath(new LearningPathView());
+    verify(learningPaths, atLeastOnce()).save(any());
   }
 
   @Test
