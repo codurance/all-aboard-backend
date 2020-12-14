@@ -1,4 +1,4 @@
-package com.codurance.allaboard.core.acceptance;
+package com.codurance.allaboard.web.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -25,22 +25,26 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-public class FetchLearningPathByIdFeature {
+public class LearningPathControllerShould {
 
   @Mock
   LearningPaths learningPaths;
-  private FetchAllLearningPaths fetchAllLearningPaths;
+
   private LearningPathController learningPathController;
-  private SaveLearningPath saveLearningPath;
-  private FetchLearningPathById fetchLearningPathById;
 
   @BeforeEach
   void setUp() {
-    fetchAllLearningPaths = new FetchAllLearningPaths(learningPaths);
-    saveLearningPath = new SaveLearningPath(learningPaths);
-    fetchLearningPathById = new FetchLearningPathById(learningPaths);
-    learningPathController =
-        new LearningPathController(fetchAllLearningPaths, saveLearningPath, fetchLearningPathById);
+    learningPathController = new LearningPathController(
+            new FetchAllLearningPaths(learningPaths),
+            new SaveLearningPath(learningPaths),
+            new FetchLearningPathById(learningPaths)
+    );
+  }
+
+  @Test
+  void get_all_learningPaths() {
+    learningPathController.provideCatalog();
+    verify(learningPaths, atLeastOnce()).findAll();
   }
 
   @Test

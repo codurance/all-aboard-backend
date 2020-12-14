@@ -1,7 +1,6 @@
 package com.codurance.allaboard.web.controllers.topic;
 
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
-import com.codurance.allaboard.core.model.topic.Topic;
 import java.util.Optional;
 
 import com.codurance.allaboard.web.views.TopicDetailView;
