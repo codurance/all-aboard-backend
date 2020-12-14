@@ -3,7 +3,7 @@ package com.codurance.allaboard.web.acceptance;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.codurance.allaboard.web.utils.WebAcceptanceTestTemplate;
+import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -24,7 +24,7 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LearningPathsFetchingFeature extends WebAcceptanceTestTemplate {
+public class LearningPathsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
   @LocalServerPort
   private int port;

@@ -1,6 +1,6 @@
 package com.codurance.allaboard.web.acceptance;
 
-import com.codurance.allaboard.web.utils.WebAcceptanceTestTemplate;
+import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Disabled
-public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
+public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @LocalServerPort
     private int port;
