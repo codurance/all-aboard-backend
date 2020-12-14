@@ -6,8 +6,8 @@ import com.codurance.allaboard.core.model.topic.Topic;
 import java.util.List;
 
 public class TopicDetailView {
-    private String name;
-    private List<Subtopic> subtopics;
+    private final String name;
+    private final List<Subtopic> subtopics;
 
     private TopicDetailView(Topic topic) {
         name = topic.getName();
