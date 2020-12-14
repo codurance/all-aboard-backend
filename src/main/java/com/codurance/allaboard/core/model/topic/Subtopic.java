@@ -1,6 +1,7 @@
 package com.codurance.allaboard.core.model.topic;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "subtopics")
@@ -18,9 +19,8 @@ public class Subtopic {
     @Column(nullable = false, name = "s_name")
     private String name;
 
-    public Subtopic(String name) {
-        this.name = name;
-    }
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "subtopic")
+    private List<Resource> resources;
 
     public Subtopic() {}
 

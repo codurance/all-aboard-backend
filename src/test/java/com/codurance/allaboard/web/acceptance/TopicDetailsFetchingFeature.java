@@ -28,7 +28,8 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
     @LocalServerPort
     private int port;
 
-    private static int EXISTING_TOPIC_ID = 1;
+    private static int ID_OF_TOPIC_WITHOUT_RESOURCES = 1;
+    private static int ID_OF_TOPIC_WITH_RESOURCES = 2;
 
     @BeforeEach
     void setUp() {
@@ -37,13 +38,25 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics.sql")
-    void given_get_can_access_endpoint() throws IOException {
+    void can_access_parse_and_repond_without_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
-        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", EXISTING_TOPIC_ID)));
+        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITHOUT_RESOURCES)));
         JSONObject responseBody = buildResponseBody(response);
 
         assertThat(response.statusCode(), is(200));
         assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-no-resources.json")));
+    }
+
+    @Test
+    @Sql(scripts = "classpath:stub-topic-subtopics-resources.sql")
+    void can_access_parse_and_repond_with_resources() throws IOException {
+        RequestSpecification httpRequest = httpRequest();
+
+        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITH_RESOURCES)));
+        JSONObject responseBody = buildResponseBody(response);
+
+        assertThat(response.statusCode(), is(200));
+        assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-with-resources.json")));
     }
 }
