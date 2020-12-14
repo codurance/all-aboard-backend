@@ -39,7 +39,7 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
     void given_get_can_access_endpoint() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
-        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s)", EXISTING_TOPIC_ID)));
+        Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", EXISTING_TOPIC_ID)));
         JSONObject responseBody = buildResponseBody(response);
 
         assertThat(response.statusCode(), is(200));
