@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "topic1",
+  "description": "topic1 description",
+  "subtopics": [
+    {
+      "id": 1,
+      "name": "subtopic 1",
+    },
+    {
+      "id": 2,
+      "name": "subtopic 2",
+    }
+  ]
+}

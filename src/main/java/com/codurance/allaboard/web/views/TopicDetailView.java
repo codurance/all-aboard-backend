@@ -11,7 +11,7 @@ public class TopicDetailView {
   private final String name;
   private final List<SubtopicView> subtopics;
 
-  public TopicDetailView(String name, List<SubtopicView> subtopicViews) {
+  private TopicDetailView(String name, List<SubtopicView> subtopicViews) {
     this.name = name;
     this.subtopics = subtopicViews;
   }
