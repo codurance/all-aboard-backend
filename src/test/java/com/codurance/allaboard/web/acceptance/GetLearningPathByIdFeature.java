@@ -52,20 +52,6 @@ public class GetLearningPathByIdFeature extends WebAcceptanceE2ETestTemplate {
     JSONObject responseBody = buildResponseBody(response);
 
     assertThat(response.statusCode(), is(200));
-    assertThat(responseBody.toString(), is(expectedResponseBody()));
-  }
-
-  private String expectedResponseBody() throws IOException {
-    StringBuilder sb = new StringBuilder();
-    Path filePath = Paths.get("src", "test", "resources", "stub-learningpath.json");
-
-    try (BufferedReader br = Files.newBufferedReader(
-        filePath)) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        sb.append(line);
-      }
-    }
-    return sb.toString();
+    assertThat(responseBody.toString(), is(expectedResponseBody("stub-learningpath.json")));
   }
 }

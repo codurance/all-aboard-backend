@@ -46,20 +46,7 @@ public class LearningPathsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     assertThat(response.statusCode(), is(200));
     assertThat(learningPaths.length(), is(2));
-    assertThat(responseBody.toString(), is(expectedResponseBody()));
+    assertThat(responseBody.toString(), is(expectedResponseBody("stub-catalogue.json")));
   }
 
-  private String expectedResponseBody() throws IOException {
-    StringBuilder sb = new StringBuilder();
-    Path filePath = Paths.get("src", "test", "resources", "stub-catalogue.json");
-
-    try (BufferedReader br = Files.newBufferedReader(
-        filePath)) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        sb.append(line);
-      }
-    }
-    return sb.toString();
-  }
 }

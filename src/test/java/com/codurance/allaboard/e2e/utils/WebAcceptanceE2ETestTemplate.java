@@ -5,6 +5,11 @@ import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -54,5 +59,19 @@ public class WebAcceptanceE2ETestTemplate {
   public RequestSpecification httpRequestWithInvalidAuthorizationHeader() {
     return httpRequest()
         .header(authorization, "invalid token");
+  }
+
+  protected String expectedResponseBody(String jsonFileName) throws IOException {
+    StringBuilder sb = new StringBuilder();
+    Path filePath = Paths.get("src", "test", "resources", jsonFileName);
+
+    try (BufferedReader br = Files.newBufferedReader(
+        filePath)) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        sb.append(line);
+      }
+    }
+    return sb.toString();
   }
 }
