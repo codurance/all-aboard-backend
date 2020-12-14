@@ -7,6 +7,7 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
+import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.topic.TopicController;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public class TopicControllerShould {
   void answers_ok_when_found_if_asked_for_a_existing_topic() {
 
     given(fetchTopicById.execute(EXISTING_TOPIC_ID))
-            .willReturn(Optional.of(new TopicDetailView()));
+            .willReturn(Optional.of(new Topic()));
 
     ResponseEntity<TopicDetailView> responseEntity = topicController.fetchTopicsById(EXISTING_TOPIC_ID);
 

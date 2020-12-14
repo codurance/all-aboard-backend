@@ -1,12 +1,9 @@
 package com.codurance.allaboard.core.model.topic;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
+
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -25,10 +22,14 @@ public class Topic implements Serializable {
   @Type(type = "text")
   private String description;
 
-  public Topic(long id, String name, String description) {
+  @OneToMany(fetch=FetchType.LAZY)
+  private List<Subtopic> subtopics;
+
+  public Topic(long id, String name, String description, List<Subtopic> subtopics) {
     this.id = id;
     this.name = name;
     this.description = description;
+    this.subtopics = subtopics;
   }
 
   public Topic() {
@@ -56,5 +57,13 @@ public class Topic implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public List<Subtopic> getSubtopics() {
+    return subtopics;
+  }
+
+  public void setSubtopics(List<Subtopic> subtopics) {
+    this.subtopics = subtopics;
   }
 }

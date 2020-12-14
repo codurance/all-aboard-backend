@@ -10,6 +10,8 @@ import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
 import com.codurance.allaboard.core.model.topic.Topic;
+
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -42,15 +44,15 @@ public class FetchLearningPathByIdShould {
   @Test
   void return_existing_learningpath_when_requested_by_id() {
     LearningPath expectedLearningPath =
-        new LearningPath(id, "some title", "some description", Set
-            .of(new Topic(1L, "title", "description")));
-    Optional<LearningPath> optional = Optional.of(expectedLearningPath);
+        new LearningPath(id, "some title", "some description", new ArrayList<>());
+    Optional<LearningPath> storedLearningPath = Optional.of(expectedLearningPath);
+
     given(learningPaths.findById(id))
-        .willReturn(optional);
+        .willReturn(storedLearningPath);
 
-    Optional<LearningPath> retrievedOptional = fetchLearningPathById.findById(id);
+    Optional<LearningPath> fetchedLearningPath = fetchLearningPathById.findById(id);
 
-    assertThat(retrievedOptional, is(optional));
+    assertThat(fetchedLearningPath, is(storedLearningPath));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }

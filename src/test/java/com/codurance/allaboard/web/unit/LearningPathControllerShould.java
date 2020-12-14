@@ -13,9 +13,13 @@ import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
+import com.codurance.allaboard.core.model.topic.Subtopic;
 import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -68,9 +72,7 @@ public class LearningPathControllerShould {
   @Test
   void answers_with_learning_path_if_asked_for_an_existent_one() {
     long id = 1;
-    Topic topic = new Topic(1L, "topic name", "topic description");
-    LearningPath learningPath = new LearningPath(id, "some title", "some description", Set.of(
-        topic));
+    LearningPath learningPath = new LearningPath(id, "some title", "some description", new ArrayList<>());
 
     given(learningPaths.findById(id))
         .willReturn(Optional.of(learningPath));
@@ -83,7 +85,7 @@ public class LearningPathControllerShould {
     assertThat(learningPathDetailView.getId(), is(learningPath.getId()));
     assertThat(learningPathDetailView.getName(), is(learningPath.getName()));
     assertThat(learningPathDetailView.getDescription(), is(learningPath.getDescription()));
-    assertThat(learningPathDetailView.getTopics(), contains(topic));
+    assertThat(learningPathDetailView.getTopics().size(), is(0));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }
