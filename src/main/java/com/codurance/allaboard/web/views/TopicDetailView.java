@@ -9,9 +9,9 @@ import java.util.List;
 public class TopicDetailView {
 
   private final String name;
-  private final List<SubtopicView> subtopics;
+  private final List<SubtopicDetailView> subtopics;
 
-  private TopicDetailView(String name, List<SubtopicView> subtopicViews) {
+  private TopicDetailView(String name, List<SubtopicDetailView> subtopicViews) {
     this.name = name;
     this.subtopics = subtopicViews;
   }
@@ -23,10 +23,10 @@ public class TopicDetailView {
     );
   }
 
-  private static List<SubtopicView> buildSubtopicViews(Topic topic) {
+  private static List<SubtopicDetailView> buildSubtopicViews(Topic topic) {
     return topic.getSubtopics()
         .stream()
-        .map(SubtopicView::from)
+        .map(SubtopicDetailView::from)
         .collect(toList());
   }
 
@@ -34,7 +34,7 @@ public class TopicDetailView {
     return name;
   }
 
-  public List<SubtopicView> getSubtopics() {
+  public List<SubtopicDetailView> getSubtopics() {
     return subtopics;
   }
 }
