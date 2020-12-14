@@ -1,28 +1,40 @@
 package com.codurance.allaboard.web.views;
 
-import com.codurance.allaboard.core.model.topic.Subtopic;
+import static java.util.stream.Collectors.toList;
+
 import com.codurance.allaboard.core.model.topic.Topic;
 
 import java.util.List;
 
 public class TopicDetailView {
-    private final String name;
-    private final List<Subtopic> subtopics;
 
-    private TopicDetailView(Topic topic) {
-        name = topic.getName();
-        subtopics = topic.getSubtopics();
-    }
+  private final String name;
+  private final List<SubtopicView> subtopics;
 
-    public static TopicDetailView from(Topic topic) {
-        return new TopicDetailView(topic);
-    }
+  public TopicDetailView(String name, List<SubtopicView> subtopicViews) {
+    this.name = name;
+    this.subtopics = subtopicViews;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public static TopicDetailView from(Topic topic) {
+    return new TopicDetailView(
+        topic.getName(),
+        buildSubtopicViews(topic)
+    );
+  }
 
-    public List<Subtopic> getSubtopics() {
-        return subtopics;
-    }
+  private static List<SubtopicView> buildSubtopicViews(Topic topic) {
+    return topic.getSubtopics()
+        .stream()
+        .map(SubtopicView::from)
+        .collect(toList());
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public List<SubtopicView> getSubtopics() {
+    return subtopics;
+  }
 }
