@@ -1,0 +1,5 @@
+{"name":"second topic name","subtopics":[
+  {"name":"first subtopic of second topic name","id":1, "resources":[
+    {"id": 1, "label": "first resource of first subtopic of second topic", "url": "url of first"}
+  ]}
+]}
