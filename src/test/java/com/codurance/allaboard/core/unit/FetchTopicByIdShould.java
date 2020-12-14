@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @Disabled
 public class FetchTopicByIdShould {
 
-    private static final long NONEXISTEND_TOPIC_ID = 9L;
+    private static final long NONEXISTENT_TOPIC_ID = 9L;
 
     Topics topics;
     FetchTopicById fetchTopicById;
 
     @Test
     void not_find_not_existing_topic() {
-        Optional<Topic> topic = fetchTopicById.execute(NONEXISTEND_TOPIC_ID);
+        Optional<Topic> topic = fetchTopicById.execute(NONEXISTENT_TOPIC_ID);
         assertFalse(topic.isPresent());
     }
 }
