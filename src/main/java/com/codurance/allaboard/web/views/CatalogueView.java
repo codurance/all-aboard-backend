@@ -5,11 +5,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Catalogue implements Serializable {
+public class CatalogueView implements Serializable {
 
   private final List<LearningPathView> learningPaths;
 
-  public Catalogue(List<LearningPath> learningPaths) {
+  public CatalogueView(List<LearningPath> learningPaths) {
     this.learningPaths =
         learningPaths.stream()
             .map(
