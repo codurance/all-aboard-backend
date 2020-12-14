@@ -40,7 +40,7 @@ public class GetLearningPathByIdFeature extends WebAcceptanceE2ETestTemplate {
 
   @Test
   @Sql(scripts = "classpath:stub-catalogue.sql")
-  @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+  @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void answers_with_learning_path_if_asked_for_an_existent_one() throws IOException {
     RequestSpecification request = httpRequest();
 

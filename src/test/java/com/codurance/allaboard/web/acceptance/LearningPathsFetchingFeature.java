@@ -32,7 +32,7 @@ public class LearningPathsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
   @Test
   @Sql(scripts = "classpath:stub-catalogue.sql")
-  @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+  @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void given_get_fetch_catalogue() throws IOException {
     RequestSpecification httpRequest = httpRequestWithoutAuthorizationHeader();
     Response response = httpRequest.get(apiV1Endpoint("learningpath"));

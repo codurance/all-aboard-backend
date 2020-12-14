@@ -4,14 +4,9 @@ import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -39,8 +34,8 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics.sql")
-    @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
-    void can_access_parse_and_repond_without_resources() throws IOException {
+    @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+    void can_access_parse_and_respond_without_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
         Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITHOUT_RESOURCES)));
@@ -52,8 +47,8 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceE2ETestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics-resources.sql")
-    @Sql(scripts = "classpath:empty_catalogue_table.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
-    void can_access_parse_and_repond_with_resources() throws IOException {
+    @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+    void can_access_parse_and_respond_with_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
         Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITH_RESOURCES)));
