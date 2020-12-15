@@ -23,7 +23,7 @@ public class FetchLearningPathByIdShould {
   void query_the_repository_for_a_learningPath() {
     final long id = 1L;
 
-    fetchLearningPathById.findById(id);
+    fetchLearningPathById.execute(id);
 
     verify(learningPaths, atLeastOnce()).findById(id);
   }

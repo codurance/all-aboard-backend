@@ -16,7 +16,7 @@ public class FetchLearningPathById {
     this.learningPaths = learningPaths;
   }
 
-  public Optional<LearningPath> findById(Long id) {
+  public Optional<LearningPath> execute(Long id) {
     return learningPaths.findById(id);
   }
 }

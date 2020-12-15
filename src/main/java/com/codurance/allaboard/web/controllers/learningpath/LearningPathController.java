@@ -41,21 +41,21 @@ public class LearningPathController {
 
   @GetMapping("/learningpath")
   public ResponseEntity<CatalogueView> provideCatalog() {
-    CatalogueView catalogue = CatalogueView.from(fetchAllLearningPaths.getAll());
+    CatalogueView catalogue = CatalogueView.from(fetchAllLearningPaths.execute());
     return ResponseEntity.ok(catalogue);
   }
 
   @PostMapping("/learningpath")
   public ResponseEntity<LearningPathView> createLearningPath(
       @Valid @RequestBody LearningPathView learningPathView) {
-    saveLearningPath.save(
+    saveLearningPath.execute(
         new LearningPath(learningPathView.getName(), learningPathView.getDescription()));
     return new ResponseEntity<>(learningPathView, HttpStatus.CREATED);
   }
 
   @GetMapping("/learningpath/{id}")
   public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
-    Optional<LearningPath> learningPath = fetchLearningPathById.findById(id);
+    Optional<LearningPath> learningPath = fetchLearningPathById.execute(id);
 
     if (learningPath.isEmpty()) {
       logger.info("Learning path with id: [{}] not found", id.toString());
