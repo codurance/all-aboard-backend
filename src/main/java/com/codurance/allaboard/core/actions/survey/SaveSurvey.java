@@ -15,7 +15,7 @@ public class SaveSurvey {
     this.surveys = surveys;
   }
 
-  public void save(Survey survey) {
+  public void execute(Survey survey) {
     surveys.save(survey);
   }
 }

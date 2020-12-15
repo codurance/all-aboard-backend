@@ -21,7 +21,7 @@ public class FetchAllLearningPathsShould {
 
   @Test
   void retrieve_all_learningPaths_from_a_repository() {
-    fetchAllLearningPaths.getAll();
+    fetchAllLearningPaths.execute();
 
     verify(learningPathsRepo, atLeastOnce()).findAll();
   }

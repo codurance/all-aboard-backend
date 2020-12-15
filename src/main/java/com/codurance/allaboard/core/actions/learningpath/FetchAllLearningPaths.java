@@ -16,7 +16,7 @@ public class FetchAllLearningPaths {
     this.learningPaths = learningPaths;
   }
 
-  public List<LearningPath> getAll() {
+  public List<LearningPath> execute() {
     return (List<LearningPath>) learningPaths.findAll();
   }
 }

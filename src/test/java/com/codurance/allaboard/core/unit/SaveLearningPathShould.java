@@ -25,7 +25,7 @@ public class SaveLearningPathShould {
   void call_the_repository_save_method() {
     LearningPath learningPath = mock(LearningPath.class);
 
-    saveLearningPath.save(learningPath);
+    saveLearningPath.execute(learningPath);
 
     verify(learningPaths, atLeastOnce()).save(learningPath);
   }

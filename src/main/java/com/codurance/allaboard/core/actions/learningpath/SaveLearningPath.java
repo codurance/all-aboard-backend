@@ -17,7 +17,7 @@ public class SaveLearningPath {
     this.learningPaths = learningPaths;
   }
 
-  public void save(LearningPath learningPath) {
+  public void execute(LearningPath learningPath) {
     learningPaths.save(learningPath);
   }
 }

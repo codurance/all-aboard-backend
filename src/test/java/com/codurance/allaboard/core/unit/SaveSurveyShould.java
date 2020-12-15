@@ -7,7 +7,6 @@ import static org.mockito.Mockito.verify;
 import com.codurance.allaboard.core.actions.survey.SaveSurvey;
 import com.codurance.allaboard.core.model.survey.Survey;
 import com.codurance.allaboard.core.model.survey.Surveys;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +27,7 @@ public class SaveSurveyShould {
   void save_a_survey() {
     Survey survey = mock(Survey.class);
 
-    saveSurvey.save(survey);
+    saveSurvey.execute(survey);
 
     verify(surveys, atLeastOnce()).save(survey);
   }
