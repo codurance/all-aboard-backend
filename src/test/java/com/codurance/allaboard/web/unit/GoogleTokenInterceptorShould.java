@@ -1,4 +1,4 @@
-package com.codurance.allaboard.core.unit;
+package com.codurance.allaboard.web.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -54,10 +54,8 @@ public class GoogleTokenInterceptorShould {
 
   @Test
   void not_verify_an_empty_token() {
-    var EMPTY_TOKEN = "";
-
     given(request.getHeader("Authorization"))
-        .willReturn(EMPTY_TOKEN);
+        .willReturn("");
 
     assertThat(interceptor.preHandle(request, response, handler), is(false));
 

@@ -1,13 +1,14 @@
 package com.codurance.allaboard.web.acceptance;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
-import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
+import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.io.IOException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GetLearningPathByIdFeature extends WebAcceptanceE2ETestTemplate {
+public class LearningPathFetchFeature extends WebAcceptanceTestTemplate {
 
   @LocalServerPort
   private int port;
@@ -30,24 +31,18 @@ public class GetLearningPathByIdFeature extends WebAcceptanceE2ETestTemplate {
   }
 
   @Test
-  void answers_not_found_if_asked_for_a_nonexistent_learning_path() {
-    RequestSpecification request = httpRequest();
-
-    Response response = request.get(apiV1Endpoint("learningpath/1"));
-
-    assertThat(response.statusCode(), is(404));
-  }
-
-  @Test
   @Sql(scripts = "classpath:stub-catalogue.sql")
   @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
-  void answers_with_learning_path_if_asked_for_an_existent_one() throws IOException {
-    RequestSpecification request = httpRequest();
+  void given_get_fetch_catalogue() throws IOException {
+    RequestSpecification httpRequest = httpRequestWithoutAuthorizationHeader();
+    Response response = httpRequest.get(apiV1Endpoint("learningpath"));
 
-    Response response = request.get(apiV1Endpoint("/learningpath/1"));
     JSONObject responseBody = buildResponseBody(response);
+    JSONArray learningPaths = responseBody.getJSONArray("learningPaths");
 
     assertThat(response.statusCode(), is(200));
-    assertThat(responseBody.toString(), is(expectedResponseBody("stub-learningpath.json")));
+    assertThat(learningPaths.length(), is(2));
+    assertThat(responseBody.toString(), is(expectedResponseBody("stub-catalogue.json")));
   }
+
 }
