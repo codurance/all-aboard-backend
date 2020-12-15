@@ -28,12 +28,6 @@ public class LearningPathDetailView implements Serializable {
     this.topics = topics;
   }
 
-  //[X] in here pass TopicOverviewView insetad of Topic - also List not Set -> we care about ordering.
-  //[X] check parts in which we're returning topics inside of view -> should be using dedicated view.
-  // once done @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  // get back to FetchTopicByIdShould TDD. <- this is potentially misleading (BECAUSE TOPIC MEANS NOW TWO THINGS: overview & details)
-  // to be still implemented Subtopics (currently has only name propery)
-  // to be still implemented Resources (currently nothing)
   public static LearningPathDetailView from(LearningPath learningPath) {
     return new LearningPathDetailView(
       learningPath.getId(),
