@@ -3,7 +3,7 @@ package com.codurance.allaboard.web.acceptance;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.codurance.allaboard.web.utils.RestAssuredUtils;
+import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("dev")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserEngagementSurveyFeature extends RestAssuredUtils {
+public class UserEngagementSurveyFeature extends WebAcceptanceE2ETestTemplate {
 
   private final String EMAIL_FROM_TOKEN = "user@codurance.com";
   @LocalServerPort
@@ -38,7 +38,7 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     requestBody.put("email", email);
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     JSONObject responseBody = buildResponseBody(response);
 
@@ -67,7 +67,7 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     requestBody.put("preference", StringUtils.repeat("f", 1500));
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     JSONObject responseBody = buildResponseBody(response);
     assertThat(response.statusCode(), is(201));
@@ -82,7 +82,7 @@ public class UserEngagementSurveyFeature extends RestAssuredUtils {
     requestBody.put("preference", StringUtils.repeat("f", 1501));
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
 
-    Response response = request.post("api/v1/survey");
+    Response response = request.post(apiV1Endpoint("survey"));
 
     JSONObject responseBody = buildResponseBody(response);
     assertThat(response.getStatusCode(), is(400));

@@ -1,0 +1,31 @@
+{
+  "id": 1,
+  "name": "topic1",
+  "description": "topic1 description",
+  "subtopics": [
+    {
+      "id": 1,
+      "name": "subtopic 1",
+      "resources": [
+        {
+          "label": "resource1 label",
+          "url": "resource1.url"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "subtopic 2",
+      "resources": [
+        {
+          "label": "resource2 label",
+          "url": "resource2.url"
+        },
+        {
+          "label": "resource3 label",
+          "url": "resource3.url"
+        }
+      ]
+    }
+  ]
+}

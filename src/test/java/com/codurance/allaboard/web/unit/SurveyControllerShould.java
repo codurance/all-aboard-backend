@@ -1,4 +1,4 @@
-package com.codurance.allaboard.core.acceptance;
+package com.codurance.allaboard.web.unit;
 
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class SaveSurveyFeature {
+public class SurveyControllerShould {
 
   @Mock
   private HttpServletRequest request;

@@ -1,8 +1,9 @@
-package com.codurance.allaboard.core.acceptance;
+package com.codurance.allaboard.web.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -12,11 +13,17 @@ import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
+import com.codurance.allaboard.core.model.topic.Subtopic;
 import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import com.codurance.allaboard.web.views.LearningPathView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,22 +32,32 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-public class FetchLearningPathByIdFeature {
+public class LearningPathControllerShould {
 
   @Mock
   LearningPaths learningPaths;
-  private FetchAllLearningPaths fetchAllLearningPaths;
+
   private LearningPathController learningPathController;
-  private SaveLearningPath saveLearningPath;
-  private FetchLearningPathById fetchLearningPathById;
 
   @BeforeEach
   void setUp() {
-    fetchAllLearningPaths = new FetchAllLearningPaths(learningPaths);
-    saveLearningPath = new SaveLearningPath(learningPaths);
-    fetchLearningPathById = new FetchLearningPathById(learningPaths);
-    learningPathController =
-        new LearningPathController(fetchAllLearningPaths, saveLearningPath, fetchLearningPathById);
+    learningPathController = new LearningPathController(
+            new FetchAllLearningPaths(learningPaths),
+            new SaveLearningPath(learningPaths),
+            new FetchLearningPathById(learningPaths)
+    );
+  }
+
+  @Test
+  void save_a_learningpath() {
+    learningPathController.createLearningPath(new LearningPathView());
+    verify(learningPaths, atLeastOnce()).save(any());
+  }
+
+  @Test
+  void get_all_learningPaths() {
+    learningPathController.provideCatalog();
+    verify(learningPaths, atLeastOnce()).findAll();
   }
 
   @Test
@@ -55,9 +72,7 @@ public class FetchLearningPathByIdFeature {
   @Test
   void answers_with_learning_path_if_asked_for_an_existent_one() {
     long id = 1;
-    Topic topic = new Topic(1L, "topic name", "topic description");
-    LearningPath learningPath = new LearningPath(id, "some title", "some description", Set.of(
-        topic));
+    LearningPath learningPath = new LearningPath(id, "some title", "some description", new ArrayList<>());
 
     given(learningPaths.findById(id))
         .willReturn(Optional.of(learningPath));
@@ -70,7 +85,7 @@ public class FetchLearningPathByIdFeature {
     assertThat(learningPathDetailView.getId(), is(learningPath.getId()));
     assertThat(learningPathDetailView.getName(), is(learningPath.getName()));
     assertThat(learningPathDetailView.getDescription(), is(learningPath.getDescription()));
-    assertThat(learningPathDetailView.getTopics(), contains(topic));
+    assertThat(learningPathDetailView.getTopics().size(), is(0));
     verify(learningPaths, atLeastOnce()).findById(id);
   }
 }

@@ -4,7 +4,7 @@ import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
 import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
-import com.codurance.allaboard.web.views.Catalogue;
+import com.codurance.allaboard.web.views.CatalogueView;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
 import com.codurance.allaboard.web.views.LearningPathView;
 import java.util.Optional;
@@ -40,8 +40,8 @@ public class LearningPathController {
   }
 
   @GetMapping("/learningpath")
-  public ResponseEntity<Catalogue> provideCatalog() {
-    Catalogue catalogue = new Catalogue(fetchAllLearningPaths.getAll());
+  public ResponseEntity<CatalogueView> provideCatalog() {
+    CatalogueView catalogue = CatalogueView.from(fetchAllLearningPaths.getAll());
     return ResponseEntity.ok(catalogue);
   }
 
@@ -55,16 +55,14 @@ public class LearningPathController {
 
   @GetMapping("/learningpath/{id}")
   public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
-    Optional<LearningPath> optional = fetchLearningPathById.findById(id);
-    if (optional.isEmpty()) {
+    Optional<LearningPath> learningPath = fetchLearningPathById.findById(id);
+
+    if (learningPath.isEmpty()) {
       logger.info("Learning path with id: [{}] not found", id.toString());
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    LearningPath learningPath = optional.get();
-    LearningPathDetailView learningPathDetailView = new LearningPathDetailView(learningPath.getId(),
-        learningPath.getName(),
-        learningPath.getDescription(),
-        learningPath.getTopics());
+
+    LearningPathDetailView learningPathDetailView = LearningPathDetailView.from(learningPath.get());
     return new ResponseEntity<>(learningPathDetailView, HttpStatus.OK);
   }
 }
