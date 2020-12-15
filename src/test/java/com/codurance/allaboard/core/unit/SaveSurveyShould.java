@@ -1,6 +1,7 @@
 package com.codurance.allaboard.core.unit;
 
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.survey.SaveSurvey;
@@ -16,21 +17,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class SaveSurveyShould {
 
-  final String email = "user@codurance.com";
   @Mock
   private Surveys surveys;
+
   @InjectMocks
   private SaveSurvey saveSurvey;
-  private Survey survey;
 
-  @BeforeEach
-  void setUp() {
-    survey = new Survey(email, "any");
-  }
 
   @Test
   void save_a_survey() {
+    Survey survey = mock(Survey.class);
+
     saveSurvey.save(survey);
+
     verify(surveys, atLeastOnce()).save(survey);
   }
 }
