@@ -33,8 +33,8 @@ public class LearningPath implements Serializable {
   @ManyToMany
   @JoinTable(
       name = "catalogue_topic",
-      joinColumns = @JoinColumn(name = "t_id"),
-      inverseJoinColumns = @JoinColumn(name = "lp_id"))
+      joinColumns = @JoinColumn(name = "lp_id"),
+      inverseJoinColumns = @JoinColumn(name = "t_id"))
   private List<Topic> topics;
 
   public LearningPath(long id, String name, String description, List<Topic> topics) {
