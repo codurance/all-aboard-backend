@@ -10,9 +10,8 @@ import static org.mockito.Mockito.verify;
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
 import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.topic.TopicController;
-import java.util.Optional;
-
 import com.codurance.allaboard.web.views.TopicDetailView;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,10 +1,9 @@
 package com.codurance.allaboard.web.controllers.topic;
 
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
-import java.util.Optional;
-
 import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.views.TopicDetailView;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

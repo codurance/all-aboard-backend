@@ -1,7 +1,6 @@
 package com.codurance.allaboard.web.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -13,17 +12,11 @@ import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import com.codurance.allaboard.core.model.catalogue.LearningPaths;
-import com.codurance.allaboard.core.model.topic.Subtopic;
-import com.codurance.allaboard.core.model.topic.Topic;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import com.codurance.allaboard.web.views.LearningPathView;
+import java.util.ArrayList;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
