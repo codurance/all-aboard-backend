@@ -1,4 +1,4 @@
-package com.codurance.allaboard.e2e.utils;
+package com.codurance.allaboard.acceptance.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.codurance.allaboard.web.acceptance;
 
-import com.codurance.allaboard.e2e.utils.WebAcceptanceTestTemplate;
+import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
