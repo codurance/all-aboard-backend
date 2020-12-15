@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 
-public class WebAcceptanceE2ETestTemplate {
+public class WebAcceptanceTestTemplate {
 
   @Value("${server.servlet.context-path}")
   private String apiUrlPrefix;

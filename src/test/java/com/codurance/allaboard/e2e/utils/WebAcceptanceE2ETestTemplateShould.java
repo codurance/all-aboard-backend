@@ -9,11 +9,11 @@ import static org.hamcrest.Matchers.is;
 
 public class WebAcceptanceE2ETestTemplateShould {
 
-    WebAcceptanceE2ETestTemplate utils;
+    WebAcceptanceTestTemplate utils;
 
     @BeforeEach
     private void setUp() {
-        this.utils = new WebAcceptanceE2ETestTemplate();
+        this.utils = new WebAcceptanceTestTemplate();
         ReflectionTestUtils.setField(utils, "apiUrlPrefix", "apiVersion");
     }
 

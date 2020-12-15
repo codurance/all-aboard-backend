@@ -3,7 +3,7 @@ package com.codurance.allaboard.web.acceptance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import com.codurance.allaboard.e2e.utils.WebAcceptanceE2ETestTemplate;
+import com.codurance.allaboard.e2e.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test-auth")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GoogleTokenValidationFeature extends WebAcceptanceE2ETestTemplate {
+public class GoogleTokenValidationFeature extends WebAcceptanceTestTemplate {
 
   @LocalServerPort
   private int port;
