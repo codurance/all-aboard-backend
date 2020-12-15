@@ -1,12 +1,12 @@
 package com.codurance.allaboard.web.views;
 
+import static java.util.stream.Collectors.toList;
+
 import com.codurance.allaboard.core.model.catalogue.LearningPath;
 import java.io.Serializable;
 import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
-import static java.util.stream.Collectors.toList;
 
 public class LearningPathDetailView implements Serializable {
 

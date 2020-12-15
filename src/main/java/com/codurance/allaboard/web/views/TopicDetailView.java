@@ -3,7 +3,6 @@ package com.codurance.allaboard.web.views;
 import static java.util.stream.Collectors.toList;
 
 import com.codurance.allaboard.core.model.topic.Topic;
-
 import java.util.List;
 
 public class TopicDetailView {

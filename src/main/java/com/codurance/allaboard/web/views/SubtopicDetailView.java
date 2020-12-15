@@ -1,7 +1,6 @@
 package com.codurance.allaboard.web.views;
 
 import com.codurance.allaboard.core.model.topic.Subtopic;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
