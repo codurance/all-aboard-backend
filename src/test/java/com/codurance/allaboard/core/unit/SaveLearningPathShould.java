@@ -1,7 +1,7 @@
 package com.codurance.allaboard.core.unit;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
@@ -23,7 +23,10 @@ public class SaveLearningPathShould {
 
   @Test
   void call_the_repository_save_method() {
-    saveLearningPath.save(new LearningPath());
-    verify(learningPaths, atLeastOnce()).save(any());
+    LearningPath learningPath = mock(LearningPath.class);
+
+    saveLearningPath.save(learningPath);
+
+    verify(learningPaths, atLeastOnce()).save(learningPath);
   }
 }
