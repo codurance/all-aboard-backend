@@ -19,6 +19,10 @@ public class SubtopicDetailView {
         this.resources = resources;
     }
 
+    public SubtopicDetailView(String name) {
+        this.name = name;
+    }
+
     public static SubtopicDetailView from(Subtopic subtopic) {
         return new SubtopicDetailView(
             subtopic.getId(),
