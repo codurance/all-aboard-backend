@@ -54,4 +54,4 @@ spring:
 
 cors:
   domain:
-    allowed: localhost:8080,http://all-aboard.codurance.io
+    allowed: http://localhost:8080,http://all-aboard.codurance.io
