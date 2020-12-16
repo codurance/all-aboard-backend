@@ -2,15 +2,19 @@ package com.codurance.allaboard.web.unit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.codurance.allaboard.core.actions.topic.FetchTopicById;
+import com.codurance.allaboard.core.actions.topic.SaveTopic;
 import com.codurance.allaboard.core.model.topic.Topic;
+import com.codurance.allaboard.core.model.topic.Topics;
 import com.codurance.allaboard.web.controllers.topic.TopicController;
 import com.codurance.allaboard.web.views.TopicDetailView;
+import com.codurance.allaboard.web.views.TopicWithSubtopicsView;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +28,10 @@ public class TopicControllerShould {
 
   @Mock
   private FetchTopicById fetchTopicById;
+  @Mock
+  Topics topics;
+  @Mock
+  private SaveTopic saveTopic;
 
   private TopicController topicController;
   private final long NON_EXISTENT_TOPIC_ID = 9L;
@@ -31,7 +39,7 @@ public class TopicControllerShould {
 
   @BeforeEach
   void setUp() {
-    topicController = new TopicController(fetchTopicById);
+    topicController = new TopicController(fetchTopicById, saveTopic);
   }
 
   @Test
@@ -51,5 +59,11 @@ public class TopicControllerShould {
 
     verify(fetchTopicById, atLeastOnce()).execute(EXISTING_TOPIC_ID);
     assertThat(responseEntity.getStatusCode().value(), is(200));
+  }
+
+  @Test
+  void save_a_topic() {
+    topicController.createTopic(new TopicWithSubtopicsView());
+    verify(saveTopic, atLeastOnce()).execute(any());
   }
 }

@@ -31,6 +31,11 @@ public class Subtopic {
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "subtopic")
     private List<Resource> resources;
 
+    public Subtopic(Topic topic, String name) {
+        this.name = name;
+        this.topic=topic;
+    }
+
     public Subtopic() {}
 
     public long getId() {

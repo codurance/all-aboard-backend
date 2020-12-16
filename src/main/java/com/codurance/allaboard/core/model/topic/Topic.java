@@ -38,6 +38,11 @@ public class Topic implements Serializable {
     this.subtopics = subtopics;
   }
 
+  public Topic(String name, String description) {
+    this.name = name;
+    this.description = description;
+  }
+
   public Topic() {
   }
 
