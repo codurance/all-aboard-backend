@@ -28,6 +28,7 @@ public class TopicServirceShould {
   private String name;
   private String description;
   private List<SubtopicDetailView> subtopics;
+  private  TopicWithSubtopicsView topicWithSubtopicsView;
 
   @BeforeEach
   void setUp() {
@@ -36,15 +37,14 @@ public class TopicServirceShould {
     description = "description";
     subtopics = List
         .of(new SubtopicDetailView("first subtopic"), new SubtopicDetailView("second subtopic"));
+    topicWithSubtopicsView = new TopicWithSubtopicsView();
+    topicWithSubtopicsView.setName(name);
+    topicWithSubtopicsView.setDescription(description);
+    topicWithSubtopicsView.setSubtopics(subtopics);
   }
 
   @Test
   void call_the_repository_to_store_the_topic() {
-    TopicWithSubtopicsView topicWithSubtopicsView = new TopicWithSubtopicsView();
-    topicWithSubtopicsView.setName(name);
-    topicWithSubtopicsView.setDescription(description);
-    topicWithSubtopicsView.setSubtopics(subtopics);
-
     topicService.storeTopicWithSubtopics(topicWithSubtopicsView);
 
     verify(topics, atLeastOnce()).save(any());
@@ -52,11 +52,6 @@ public class TopicServirceShould {
 
   @Test
   void should_return_a_topic_with_subtopics() {
-    TopicWithSubtopicsView topicWithSubtopicsView = new TopicWithSubtopicsView();
-    topicWithSubtopicsView.setName(name);
-    topicWithSubtopicsView.setDescription(description);
-    topicWithSubtopicsView.setSubtopics(subtopics);
-
     Topic topic = topicService.storeTopicWithSubtopics(topicWithSubtopicsView);
     Subtopic firstSubtopic = topic.getSubtopics().get(0);
     Subtopic secondSubtopic = topic.getSubtopics().get(1);
