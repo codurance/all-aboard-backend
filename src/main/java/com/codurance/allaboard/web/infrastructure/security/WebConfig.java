@@ -30,7 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Bean
   public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
     return CorsFilterConfiguration
-        .simpleCorsFilter(List.of("http://all-aboard-fe.s3-website.eu-west-2.amazonaws.com",
+        .simpleCorsFilter(List.of("http://all-aboard.codurance.io",
             "http://localhost:8080"));
   }
 }
