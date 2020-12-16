@@ -1,1 +1,1 @@
-{}
+{"name":"lp-name","description":"lp-description","topics":[{"name":"topic1","description":"topic1 description","subtopics":[{"name":"subtopic 1","resources":[{"label":"resource1 label","url":"resource1.url"}]},{"name":"subtopic 2","resources":[{"label":"resource2 label","url":"resource2.url"},{"label":"resource3 label","url":"resource3.url"}]}]}]}

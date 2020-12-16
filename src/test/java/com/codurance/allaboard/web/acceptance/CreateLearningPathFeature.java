@@ -87,10 +87,11 @@ public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
     // when
     RequestSpecification request = httpRequestWithJSONContentType(requestBody);
     Response response = request.post(apiV1Endpoint("fulllearningpath"));
+    JSONObject responseBody = buildResponseBody(response);
     String expectedResponseBody = expectedResponseBody("stub-full-learning-path-response-body.json");
 
     // then make sure the response reflects created entity
     assertThat(response.getStatusCode(), is(201));
-    assertThat(response.body().toString(), is(expectedResponseBody));
+    assertThat(responseBody.toString(), is(expectedResponseBody));
   }
 }

@@ -1,12 +1,5 @@
 package com.codurance.allaboard.web.unit;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
-
 import com.codurance.allaboard.core.actions.learningpath.FetchAllLearningPaths;
 import com.codurance.allaboard.core.actions.learningpath.FetchLearningPathById;
 import com.codurance.allaboard.core.actions.learningpath.SaveLearningPath;
@@ -15,14 +8,21 @@ import com.codurance.allaboard.core.model.catalogue.LearningPaths;
 import com.codurance.allaboard.web.controllers.learningpath.LearningPathController;
 import com.codurance.allaboard.web.views.LearningPathDetailView;
 import com.codurance.allaboard.web.views.LearningPathView;
-import java.util.ArrayList;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class LearningPathControllerShould {
@@ -44,6 +44,12 @@ public class LearningPathControllerShould {
   @Test
   void save_a_learningpath() {
     learningPathController.createLearningPath(new LearningPathView());
+    verify(learningPaths, atLeastOnce()).save(any());
+  }
+
+  @Test
+  void save_full_learningpath() {
+    learningPathController.createFullLearningPath(mock(LearningPath.class));
     verify(learningPaths, atLeastOnce()).save(any());
   }
 

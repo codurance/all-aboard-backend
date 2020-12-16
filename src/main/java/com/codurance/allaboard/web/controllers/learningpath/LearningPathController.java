@@ -54,8 +54,9 @@ public class LearningPathController {
   }
 
   @PostMapping("/fulllearningpath")
-  public void createFullLearningPath() {
-      throw new UnsupportedOperationException();
+  public ResponseEntity<LearningPath> createFullLearningPath(@RequestBody LearningPath learningPath) {
+    saveLearningPath.execute(learningPath);
+    return new ResponseEntity<>(learningPath, HttpStatus.CREATED);
   }
 
   @GetMapping("/learningpath/{id}")

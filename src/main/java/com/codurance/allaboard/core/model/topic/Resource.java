@@ -1,5 +1,7 @@
 package com.codurance.allaboard.core.model.topic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "resources")
-public class Resource {
+public class Resource implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +26,7 @@ public class Resource {
     @JoinColumn(name = "s_id")
     private Subtopic subtopic;
 
+    @JsonProperty("label")
     @Column(name = "r_name")
     private String name;
 

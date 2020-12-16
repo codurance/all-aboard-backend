@@ -3,15 +3,8 @@ package com.codurance.allaboard.core.model.catalogue;
 import com.codurance.allaboard.core.model.topic.Topic;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -30,7 +23,7 @@ public class LearningPath implements Serializable {
   @Column(nullable = false, name = "lp_description")
   private String description;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
       name = "catalogue_topic",
       joinColumns = @JoinColumn(name = "lp_id"),
