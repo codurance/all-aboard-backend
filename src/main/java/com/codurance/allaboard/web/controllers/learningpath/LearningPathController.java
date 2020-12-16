@@ -53,6 +53,11 @@ public class LearningPathController {
     return new ResponseEntity<>(learningPathView, HttpStatus.CREATED);
   }
 
+  @PostMapping("/fulllearningpath")
+  public void createFullLearningPath() {
+      throw new UnsupportedOperationException();
+  }
+
   @GetMapping("/learningpath/{id}")
   public ResponseEntity<LearningPathDetailView> getById(@PathVariable Long id) {
     Optional<LearningPath> learningPath = fetchLearningPathById.execute(id);

@@ -17,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
+
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
@@ -75,5 +77,20 @@ public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
     assertThat(response.getStatusCode(), is(400));
     assertThat(responseBody.get("description"), is("Cannot be bigger than 1500 characters"));
     assertThat(response.contentType(), is(ContentType.JSON.toString()));
+  }
+
+  @Test
+  void create_full_learning_path() throws IOException {
+    // given
+    JSONObject requestBody = new JSONObject(expectedResponseBody("stub-full-learning-path-request-body.json"));
+
+    // when
+    RequestSpecification request = httpRequestWithJSONContentType(requestBody);
+    Response response = request.post(apiV1Endpoint("fulllearningpath"));
+    String expectedResponseBody = expectedResponseBody("stub-full-learning-path-response-body.json");
+
+    // then make sure the response reflects created entity
+    assertThat(response.getStatusCode(), is(201));
+    assertThat(response.body().toString(), is(expectedResponseBody));
   }
 }
