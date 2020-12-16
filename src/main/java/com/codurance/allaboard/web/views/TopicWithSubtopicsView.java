@@ -17,4 +17,8 @@ public class TopicWithSubtopicsView  extends TopicView implements Serializable {
     public List<SubtopicDetailView> getSubtopics() {
         return subtopics;
     }
+
+    public void setSubtopics(List<SubtopicDetailView> subtopics) {
+        this.subtopics = subtopics;
+    }
 }

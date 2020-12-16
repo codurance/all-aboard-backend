@@ -67,3 +67,16 @@ public class TopicControllerShould {
     verify(saveTopic, atLeastOnce()).execute(any());
   }
 }
+
+
+//
+//  Topic topic = new Topic(topicWithSubtopicsView.getName(),
+//      topicWithSubtopicsView.getDescription());
+//
+//;
+//    List<SubtopicDetailView> subtopicsView = topicWithSubtopicsView.getSubtopics();
+//    List<Subtopic> subtopics = subtopicsView.stream()
+//    .map(subtopicView -> new Subtopic(topic, subtopicView.getName())).collect(
+//    Collectors.toList());
+//
+//    topic.setSubtopics(subtopics);
