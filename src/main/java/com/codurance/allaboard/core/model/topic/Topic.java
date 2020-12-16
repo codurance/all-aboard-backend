@@ -11,7 +11,7 @@ import org.hibernate.annotations.Type;
 public class Topic implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.TABLE)
   @Column(name = "t_id")
   private long id;
 

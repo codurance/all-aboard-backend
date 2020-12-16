@@ -1,14 +1,12 @@
 package com.codurance.allaboard.web.acceptance;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,11 +14,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.io.IOException;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
 
   @LocalServerPort
@@ -80,6 +83,7 @@ public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
   }
 
   @Test
+  @Sql(scripts = "classpath:cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
   void create_full_learning_path() throws IOException {
     // given
     JSONObject requestBody = new JSONObject(expectedResponseBody("stub-full-learning-path-request-body.json"));
@@ -94,4 +98,26 @@ public class CreateLearningPathFeature extends WebAcceptanceTestTemplate {
     assertThat(response.getStatusCode(), is(201));
     assertThat(responseBody.toString(), is(expectedResponseBody));
   }
+
+
+  @Test
+  @Sql(scripts = "classpath:cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+  void  create_multilple_full_learning_paths_and_view_them_in_catalogue() throws IOException {
+    // given
+    JSONObject requestBody = new JSONObject(expectedResponseBody("stub-full-learning-path-request-body.json"));
+
+    // when
+    RequestSpecification request = httpRequestWithJSONContentType(requestBody);
+    request.post(apiV1Endpoint("fulllearningpath")); // first insert
+    request.post(apiV1Endpoint("fulllearningpath")); // second insert
+
+    Response catalogueResponse = httpRequest().get(apiV1Endpoint("learningpath"));
+    JSONObject catalogueResponseBody = buildResponseBody(catalogueResponse);
+    JSONArray learningPaths = catalogueResponseBody.getJSONArray("learningPaths");
+
+    // then
+    assertThat(learningPaths.length(), is(2));
+    assertThat(catalogueResponseBody.toString(), is(expectedResponseBody("stub-full-learning-paths-catalogue.json")));
+  }
+
 }

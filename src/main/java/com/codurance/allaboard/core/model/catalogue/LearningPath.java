@@ -12,7 +12,7 @@ import org.hibernate.annotations.Type;
 public class LearningPath implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.TABLE)
   @Column(name = "lp_id")
   private Long id;
 

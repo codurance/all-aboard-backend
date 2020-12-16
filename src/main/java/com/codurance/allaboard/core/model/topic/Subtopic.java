@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Subtopic implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "s_id")
     private long id;
 
