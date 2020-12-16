@@ -4,14 +4,17 @@ import com.codurance.allaboard.core.model.topic.Topic;
 
 public class TopicView {
 
-    private final Long id;
-    private final String name;
-    private final String description;
+    private Long id;
+    private String name;
+    private String description;
 
     private TopicView(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public TopicView() {
     }
 
     public static TopicView from(Topic topic) {
