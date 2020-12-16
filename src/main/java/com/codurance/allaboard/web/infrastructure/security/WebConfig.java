@@ -1,8 +1,9 @@
 package com.codurance.allaboard.web.infrastructure.security;
 
 import com.codurance.allaboard.web.infrastructure.security.interceptors.TokenInterceptor;
-import java.util.List;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
   private final TokenInterceptor tokenInterceptor;
+  @Value("${cors.domain.allowed}")
+  private String[] allowedDomains;
 
   @Autowired
   public WebConfig(TokenInterceptor tokenInterceptor) {
@@ -30,7 +33,6 @@ public class WebConfig implements WebMvcConfigurer {
   @Bean
   public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
     return CorsFilterConfiguration
-        .simpleCorsFilter(List.of("http://all-aboard.codurance.io",
-            "http://localhost:8080"));
+        .simpleCorsFilter(Arrays.asList(allowedDomains));
   }
 }

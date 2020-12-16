@@ -51,3 +51,7 @@ server:
 spring:
   profiles:
     active: prod
+
+cors:
+  domain:
+    allowed: localhost:8080,http://all-aboard.codurance.io
