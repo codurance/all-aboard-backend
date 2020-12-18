@@ -24,18 +24,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class TopicServirceShould {
+public class TopicServiceShould {
 
   private TopicService topicService;
   @Mock
   private Topics topics;
   @Mock
-  private Subtopics subtopics;
-  @Mock
   private SubtopicService subtopicService;
   private String name;
   private String description;
-  private List<SubtopicDetailView> subtopicDetailViews;
   private TopicWithSubtopicsView topicWithSubtopicsView;
 
 
@@ -44,7 +41,7 @@ public class TopicServirceShould {
     topicService = new TopicService(topics, subtopicService);
     name = "name";
     description = "description";
-    subtopicDetailViews = List
+    List<SubtopicDetailView> subtopicDetailViews = List
         .of(new SubtopicDetailView("first subtopic"), new SubtopicDetailView("second subtopic"));
     topicWithSubtopicsView = new TopicWithSubtopicsView();
     topicWithSubtopicsView.setName(name);
