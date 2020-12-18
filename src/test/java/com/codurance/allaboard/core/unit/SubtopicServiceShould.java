@@ -1,9 +1,15 @@
 package com.codurance.allaboard.core.unit;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.codurance.allaboard.core.model.topic.Subtopic;
 import com.codurance.allaboard.core.model.topic.SubtopicService;
 import com.codurance.allaboard.core.model.topic.Subtopics;
 import com.codurance.allaboard.core.model.topic.Topic;
@@ -28,11 +34,16 @@ public class SubtopicServiceShould {
   }
 
   @Test
-  void call_subtopics_repository_to_store_subtopics() {
+  void save_and_return_the_subtopics() {
     List<SubtopicDetailView> subtopicDetailViewList = List.of(new SubtopicDetailView());
     Topic topic = new Topic();
+    Subtopic subtopic = mock(Subtopic.class);
+    List<Subtopic> subtopicList = List.of(subtopic);
+    when(subtopics.saveAll(any())).thenReturn(subtopicList);
 
-    subtopicService.saveSubtopics(subtopicDetailViewList, topic);
+    List<Subtopic> subtopicSavedList = subtopicService.saveSubtopics(subtopicDetailViewList, topic);
+
+    assertThat(subtopicSavedList, is(subtopicList));
     verify(subtopics, atLeastOnce()).saveAll(any());
   }
 }
