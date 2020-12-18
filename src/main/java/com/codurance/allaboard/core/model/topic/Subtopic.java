@@ -35,6 +35,11 @@ public class Subtopic {
         this.name = name;
     }
 
+    public Subtopic(Topic topic, String name) {
+        this.topic = topic;
+        this.name = name;
+    }
+
     public Subtopic() {}
 
     public long getId() {

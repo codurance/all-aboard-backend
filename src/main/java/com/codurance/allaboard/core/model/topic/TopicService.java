@@ -1,32 +1,37 @@
 package com.codurance.allaboard.core.model.topic;
 
-import com.codurance.allaboard.web.views.SubtopicDetailView;
 import com.codurance.allaboard.web.views.TopicWithSubtopicsView;
 import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TopicService {
 
   private Topics topics;
+  private SubtopicService subtopicService;
 
-  public TopicService(Topics topics) {
+  @Autowired
+  public TopicService(Topics topics, SubtopicService subtopicService) {
     this.topics = topics;
+    this.subtopicService = subtopicService;
+  }
+
+  public Topic storeTopic(TopicWithSubtopicsView topicWithSubtopicsView) {
+    Topic topic = new Topic(topicWithSubtopicsView.getName(),
+        topicWithSubtopicsView.getDescription());
+    return topics.save(topic);
   }
 
   public Topic storeTopicWithSubtopics(
       TopicWithSubtopicsView topicWithSubtopicsView) {
 
-    Topic topic = new Topic(topicWithSubtopicsView.getName(),
-        topicWithSubtopicsView.getDescription());
+    Topic topicStored = storeTopic(topicWithSubtopicsView);
 
-    List<SubtopicDetailView> subtopicsDetailView = topicWithSubtopicsView.getSubtopics();
-    List<Subtopic> subtopics = subtopicsDetailView.stream()
-        .map(element -> new Subtopic(element.getName())).collect(
-            Collectors.toList());
+    List<Subtopic> subtopics = subtopicService
+        .saveSubtopics(topicWithSubtopicsView.getSubtopics(), topicStored);
 
-    topic.setSubtopics(subtopics);
-
-    topics.save(topic);
-    return topic;
+    //topicStored.setSubtopics(subtopics);
+    return topics.save(topicStored);
   }
 }
