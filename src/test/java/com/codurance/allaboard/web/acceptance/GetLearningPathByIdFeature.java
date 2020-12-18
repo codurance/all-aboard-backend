@@ -17,9 +17,14 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.test.context.jdbc.SqlMergeMode;
+import org.springframework.test.context.jdbc.SqlMergeMode.MergeMode;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SqlMergeMode(MergeMode.MERGE)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public class GetLearningPathByIdFeature extends WebAcceptanceTestTemplate {
 
   @LocalServerPort
@@ -31,7 +36,6 @@ public class GetLearningPathByIdFeature extends WebAcceptanceTestTemplate {
   }
 
   @Test
-  @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
   void answers_not_found_if_asked_for_a_nonexistent_learning_path() {
     RequestSpecification request = httpRequest();
 
@@ -42,7 +46,6 @@ public class GetLearningPathByIdFeature extends WebAcceptanceTestTemplate {
 
   @Test
   @Sql(scripts = "classpath:stub-catalogue.sql")
-  @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void answers_with_learning_path_if_asked_for_an_existent_one() throws IOException {
     RequestSpecification request = httpRequest();
     JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-learningpath.json");

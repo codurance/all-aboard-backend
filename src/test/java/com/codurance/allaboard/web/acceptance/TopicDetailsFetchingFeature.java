@@ -17,9 +17,14 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.test.context.jdbc.SqlMergeMode;
+import org.springframework.test.context.jdbc.SqlMergeMode.MergeMode;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SqlMergeMode(MergeMode.MERGE)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @LocalServerPort
@@ -35,7 +40,6 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics.sql")
-    @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void can_access_parse_and_respond_without_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
@@ -49,7 +53,6 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics-resources.sql")
-    @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void can_access_parse_and_respond_with_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
