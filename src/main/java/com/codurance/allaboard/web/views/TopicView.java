@@ -14,6 +14,11 @@ public class TopicView {
         this.description = description;
     }
 
+    public TopicView(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public TopicView() {
     }
 

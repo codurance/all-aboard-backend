@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,31 +51,11 @@ public class TopicServiceShould {
   }
 
   @Test
-  void call_the_repository_to_store_the_topic() {
-    topicService.storeTopicWithSubtopics(topicWithSubtopicsView);
-
-    verify(topics, atLeastOnce()).save(any());
-  }
-
-  @Disabled
-  @Test
-  void should_return_a_topic_with_subtopics() {
-    Topic expectedTopic = new Topic();
-    when(topics.save(any())).thenReturn(expectedTopic);
-
-    Topic topic = topicService.storeTopicWithSubtopics(topicWithSubtopicsView);
-    Subtopic firstSubtopic = topic.getSubtopics().get(0);
-    Subtopic secondSubtopic = topic.getSubtopics().get(1);
-
-    assertThat(topic.getName(), is(name));
-    assertThat(topic.getDescription(), is(description));
-    assertThat(firstSubtopic.getName(), is("first subtopic"));
-    assertThat(secondSubtopic.getName(), is("second subtopic"));
-  }
-
-  @Test
   void call_subtopic_service_to_store_subtopics() {
+    when(topics.save(any())).thenReturn(mock(Topic.class));
     topicService.storeTopicWithSubtopics(topicWithSubtopicsView);
     verify(subtopicService, atLeastOnce()).saveSubtopics(any(),any());
   }
+
+
 }

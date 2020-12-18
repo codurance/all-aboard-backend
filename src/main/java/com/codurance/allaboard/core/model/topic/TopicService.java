@@ -31,7 +31,7 @@ public class TopicService {
     List<Subtopic> subtopics = subtopicService
         .saveSubtopics(topicWithSubtopicsView.getSubtopics(), topicStored);
 
-    //topicStored.setSubtopics(subtopics);
+    topicStored.setSubtopics(subtopics);
     return topics.save(topicStored);
   }
 }
