@@ -2,6 +2,7 @@ package com.codurance.allaboard.web.acceptance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
@@ -16,9 +17,14 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.test.context.jdbc.SqlMergeMode;
+import org.springframework.test.context.jdbc.SqlMergeMode.MergeMode;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SqlMergeMode(MergeMode.MERGE)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @LocalServerPort
@@ -34,27 +40,27 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics.sql")
-    @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void can_access_parse_and_respond_without_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
         Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITHOUT_RESOURCES)));
         JSONObject responseBody = buildResponseBody(response);
+        JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-topic-with-subtopics-no-resources.json");
 
         assertThat(response.statusCode(), is(200));
-        assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-no-resources.json")));
+        assertTrue(responseBody.similar(expectedResponseBody));
     }
 
     @Test
     @Sql(scripts = "classpath:stub-topic-subtopics-resources.sql")
-    @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
     void can_access_parse_and_respond_with_resources() throws IOException {
         RequestSpecification httpRequest = httpRequest();
 
         Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITH_RESOURCES)));
         JSONObject responseBody = buildResponseBody(response);
+        JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-topic-with-subtopics-with-resources.json");
 
         assertThat(response.statusCode(), is(200));
-        assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-with-resources.json")));
+        assertTrue(responseBody.similar(expectedResponseBody));
     }
 }
