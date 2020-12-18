@@ -47,20 +47,6 @@ public class WebAcceptanceTestTemplate {
         .body(jsonObject.toString());
   }
 
-  public RequestSpecification httpRequestWithoutAuthorizationHeader() {
-    return httpRequest();
-  }
-
-  public RequestSpecification httpRequestWithEmptyAuthorizationHeader() {
-    return httpRequest()
-        .header(authorization, "");
-  }
-
-  public RequestSpecification httpRequestWithInvalidAuthorizationHeader() {
-    return httpRequest()
-        .header(authorization, "invalid token");
-  }
-
   protected String expectedResponseBody(String jsonFileName) throws IOException {
     StringBuilder sb = new StringBuilder();
     Path filePath = Paths.get("src", "test", "resources", jsonFileName);

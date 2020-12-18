@@ -27,7 +27,7 @@ public class GoogleTokenValidationFeature extends WebAcceptanceTestTemplate {
 
   @Test
   void deny_requests_without_authorization_header() {
-    RequestSpecification request = httpRequestWithoutAuthorizationHeader();
+    RequestSpecification request = httpRequest();
 
     Response response = request.post(apiV1Endpoint("survey"));
 
@@ -36,7 +36,7 @@ public class GoogleTokenValidationFeature extends WebAcceptanceTestTemplate {
 
   @Test
   void deny_requests_with_empty_authorization_header() {
-    RequestSpecification request = httpRequestWithEmptyAuthorizationHeader();
+    RequestSpecification request = httpRequest().header("Authorization", "");
 
     Response response = request.post(apiV1Endpoint("survey"));
 
@@ -45,7 +45,7 @@ public class GoogleTokenValidationFeature extends WebAcceptanceTestTemplate {
 
   @Test
   void deny_requests_with_invalid_authorization_header() {
-    RequestSpecification request = httpRequestWithInvalidAuthorizationHeader();
+    RequestSpecification request = httpRequest();
 
     Response response = request.post(apiV1Endpoint("survey"));
 

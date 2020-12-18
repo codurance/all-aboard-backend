@@ -34,7 +34,7 @@ public class LearningPathsFetchingFeature extends WebAcceptanceTestTemplate {
   @Sql(scripts = "classpath:stub-catalogue.sql")
   @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void given_get_fetch_catalogue() throws IOException {
-    RequestSpecification httpRequest = httpRequestWithoutAuthorizationHeader();
+    RequestSpecification httpRequest = httpRequest();
     Response response = httpRequest.get(apiV1Endpoint("learningpath"));
 
     JSONObject responseBody = buildResponseBody(response);
