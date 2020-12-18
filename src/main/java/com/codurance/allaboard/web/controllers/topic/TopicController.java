@@ -46,8 +46,8 @@ public class TopicController {
   public ResponseEntity<TopicWithSubtopicsView> createTopic(
       @Valid @RequestBody TopicWithSubtopicsView topicWithSubtopicsView) {
 
-    saveTopic.execute(topicWithSubtopicsView);
-    return new ResponseEntity<>(topicWithSubtopicsView, HttpStatus.CREATED);
+    TopicWithSubtopicsView finalTopic = saveTopic.execute(topicWithSubtopicsView);
+    return new ResponseEntity<>(finalTopic, HttpStatus.CREATED);
   }
 
 }

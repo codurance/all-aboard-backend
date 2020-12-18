@@ -23,6 +23,11 @@ public class SubtopicDetailView {
         this.name = name;
     }
 
+    public SubtopicDetailView(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public static SubtopicDetailView from(Subtopic subtopic) {
         return new SubtopicDetailView(
             subtopic.getId(),

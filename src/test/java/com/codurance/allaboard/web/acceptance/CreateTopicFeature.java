@@ -1,7 +1,6 @@
 package com.codurance.allaboard.web.acceptance;
 
 
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -10,6 +9,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,12 +27,19 @@ public class CreateTopicFeature extends WebAcceptanceTestTemplate {
   private JSONObject requestBody;
   private String name = "name";
   private String description = "description";
-  private String[] subtopics = {};
+  private JSONArray subtopics;
+  private JSONObject subtopic;
 
   @BeforeEach
   void setUp() {
     RestAssured.port = port;
     requestBody = new JSONObject();
+    subtopic = new JSONObject();
+    subtopics = new JSONArray();
+    subtopic.put("name", "subtopic name");
+    subtopics.put(new JSONObject().put("name", "subtopic 1 name"));
+    subtopics.put(new JSONObject().put("name", "subtopic  2 name"));
+
   }
 
   @Test
@@ -40,7 +47,6 @@ public class CreateTopicFeature extends WebAcceptanceTestTemplate {
     requestBody.put("name", name);
     requestBody.put("description", description);
     requestBody.put("subtopics", subtopics);
-
 
     RequestSpecification httpRequest = httpRequestWithJSONContentType(requestBody);
     Response response = httpRequest.post(apiV1Endpoint("topic"));
@@ -51,4 +57,6 @@ public class CreateTopicFeature extends WebAcceptanceTestTemplate {
     assertThat(responseBody.get("name"), is(name));
     assertThat(responseBody.get("description"), is(description));
   }
+
+
 }
