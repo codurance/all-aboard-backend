@@ -1,1 +1,14 @@
-{"learningPaths":[{"name":"first learning path title","description":"first learning path description","id":1},{"name":"second learning path title","description":"second learning path description","id":2}]}
+{
+  "learningPaths": [
+    {
+      "name": "first learning path title",
+      "description": "first learning path description",
+      "id": 1
+    },
+    {
+      "name": "second learning path title",
+      "description": "second learning path description",
+      "id": 2
+    }
+  ]
+}

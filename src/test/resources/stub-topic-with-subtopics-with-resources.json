@@ -1,1 +1,16 @@
-{"name":"second topic name","subtopics":[{"name":"first subtopic of second topic name","resources":[{"id":1,"label":"first resource of second topic of third subtopic","url":"url 13"}],"id":3}]}
+{
+  "name": "second topic name",
+  "subtopics": [
+    {
+      "name": "first subtopic of second topic name",
+      "resources": [
+        {
+          "id": 1,
+          "label": "first resource of second topic of third subtopic",
+          "url": "url 13"
+        }
+      ],
+      "id": 3
+    }
+  ]
+}
