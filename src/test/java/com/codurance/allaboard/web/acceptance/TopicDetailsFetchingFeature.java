@@ -2,6 +2,7 @@ package com.codurance.allaboard.web.acceptance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
@@ -40,9 +41,10 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
         Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITHOUT_RESOURCES)));
         JSONObject responseBody = buildResponseBody(response);
+        JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-topic-with-subtopics-no-resources.json");
 
         assertThat(response.statusCode(), is(200));
-        assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-no-resources.json")));
+        assertTrue(responseBody.similar(expectedResponseBody));
     }
 
     @Test
@@ -53,8 +55,9 @@ public class TopicDetailsFetchingFeature extends WebAcceptanceTestTemplate {
 
         Response response = httpRequest.get(apiV1Endpoint(String.format("topic/%s", ID_OF_TOPIC_WITH_RESOURCES)));
         JSONObject responseBody = buildResponseBody(response);
+        JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-topic-with-subtopics-with-resources.json");
 
         assertThat(response.statusCode(), is(200));
-        assertThat(responseBody.toString(), is(expectedResponseBody("stub-topic-with-subtopics-with-resources.json")));
+        assertTrue(responseBody.similar(expectedResponseBody));
     }
 }

@@ -2,6 +2,7 @@ package com.codurance.allaboard.web.acceptance;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
@@ -43,11 +44,12 @@ public class GetLearningPathByIdFeature extends WebAcceptanceTestTemplate {
   @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
   void answers_with_learning_path_if_asked_for_an_existent_one() throws IOException {
     RequestSpecification request = httpRequest();
+    JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-learningpath.json");
 
     Response response = request.get(apiV1Endpoint("/learningpath/1"));
     JSONObject responseBody = buildResponseBody(response);
 
     assertThat(response.statusCode(), is(200));
-    assertThat(responseBody.toString(), is(expectedResponseBody("stub-learningpath.json")));
+    assertTrue(responseBody.similar(expectedResponseBody));
   }
 }

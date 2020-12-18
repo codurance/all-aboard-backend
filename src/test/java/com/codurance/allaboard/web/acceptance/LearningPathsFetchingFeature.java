@@ -2,6 +2,7 @@ package com.codurance.allaboard.web.acceptance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.codurance.allaboard.acceptance.utils.WebAcceptanceTestTemplate;
 import io.restassured.RestAssured;
@@ -36,13 +37,14 @@ public class LearningPathsFetchingFeature extends WebAcceptanceTestTemplate {
   void given_get_fetch_catalogue() throws IOException {
     RequestSpecification httpRequest = httpRequest();
     Response response = httpRequest.get(apiV1Endpoint("learningpath"));
+    JSONObject expectedResponseBody = buildJsonObjectFromFile("stub-catalogue.json");
 
     JSONObject responseBody = buildResponseBody(response);
     JSONArray learningPaths = responseBody.getJSONArray("learningPaths");
 
     assertThat(response.statusCode(), is(200));
     assertThat(learningPaths.length(), is(2));
-    assertThat(responseBody.toString(), is(expectedResponseBody("stub-catalogue.json")));
+    assertTrue(responseBody.similar(expectedResponseBody));
   }
 
 }
