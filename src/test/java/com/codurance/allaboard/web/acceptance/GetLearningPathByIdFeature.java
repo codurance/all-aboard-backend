@@ -31,6 +31,7 @@ public class GetLearningPathByIdFeature extends WebAcceptanceTestTemplate {
   }
 
   @Test
+  @Sql(scripts = "classpath:cleanup.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
   void answers_not_found_if_asked_for_a_nonexistent_learning_path() {
     RequestSpecification request = httpRequest();
 
