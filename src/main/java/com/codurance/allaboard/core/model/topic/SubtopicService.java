@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SubtopicService {
 
-  private Subtopics subtopics;
+  private final Subtopics subtopics;
 
   @Autowired
   public SubtopicService(Subtopics subtopics) {
@@ -21,17 +21,25 @@ public class SubtopicService {
   public List<Subtopic> saveSubtopics(List<SubtopicDetailView> subtopicDetailViewList,
       Topic topic) {
 
-    List<Subtopic> subtopicList = subtopicDetailViewList.stream()
-        .map(element -> new Subtopic(topic, element.getName())).collect(
-            Collectors.toList());
+    List<Subtopic> subtopicList = subtopicDetailViewListToSubtopicList(subtopicDetailViewList,
+        topic);
 
     Iterable<Subtopic> storedSubtopics = this.subtopics.saveAll(subtopicList);
 
-    List<Subtopic> finalSubtopics = StreamSupport
+    return subtopicIterableToSubtopicList(storedSubtopics);
+  }
+
+  private List<Subtopic> subtopicIterableToSubtopicList(Iterable<Subtopic> storedSubtopics) {
+    return StreamSupport
         .stream(storedSubtopics.spliterator(), false)
         .collect(Collectors.toList());
+  }
 
-    return finalSubtopics;
+  private List<Subtopic> subtopicDetailViewListToSubtopicList(
+      List<SubtopicDetailView> subtopicDetailViewList, Topic topic) {
+    return subtopicDetailViewList.stream()
+        .map(element -> new Subtopic(topic, element.getName())).collect(
+            Collectors.toList());
   }
 
 }
