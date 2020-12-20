@@ -12,7 +12,7 @@ import com.codurance.allaboard.core.model.topic.Resource;
 import com.codurance.allaboard.core.model.topic.ResourceService;
 import com.codurance.allaboard.core.model.topic.Resources;
 import com.codurance.allaboard.core.model.topic.Subtopic;
-import java.util.Arrays;
+import com.codurance.allaboard.web.views.ResourceView;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -31,16 +31,17 @@ public class ResourceServiceShould {
 
   @Test
   void save_resources_and_return_them() {
-    Resource resource = mock(Resource.class);
-    List<Resource> resourceList = List.of(resource);
-    Subtopic subtopic = new Subtopic();
-    Iterable<Resource> resourceIterator = Collections.singletonList(resource);
+    ResourceView resource = mock(ResourceView.class);
+    List<ResourceView> resourceList = List.of(resource);
+    Subtopic subtopic = mock(Subtopic.class);
+    Iterable<Resource> resourceIterator = Collections
+        .singletonList(new Resource(subtopic, resource.getLabel(), resource.getUrl()));
 
     when(resources.saveAll(any())).thenReturn(resourceIterator);
 
     List<Resource> expectedResourceList = resourceService.saveResources(resourceList, subtopic);
 
-    assertThat(expectedResourceList, is(resourceList));
+    assertThat(expectedResourceList.size(), is(resourceList.size()));
     verify(resources, atLeastOnce()).saveAll(any());
   }
 }

@@ -4,12 +4,14 @@ import com.codurance.allaboard.web.views.TopicWithSubtopicsView;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class TopicService {
 
-  private Topics topics;
-  private SubtopicService subtopicService;
+  private final Topics topics;
+  private final SubtopicService subtopicService;
 
   @Autowired
   public TopicService(Topics topics, SubtopicService subtopicService) {
@@ -30,8 +32,8 @@ public class TopicService {
 
     List<Subtopic> subtopics = subtopicService
         .saveSubtopics(topicWithSubtopicsView.getSubtopics(), topicStored);
-
     topicStored.setSubtopics(subtopics);
+
     return topics.save(topicStored);
   }
 }

@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class SubtopicService {
 
   private final Subtopics subtopics;
@@ -25,21 +27,24 @@ public class SubtopicService {
     List<Subtopic> subtopicList = subtopicDetailViewListToSubtopicList(subtopicDetailViewList,
         topic);
     Iterable<Subtopic> storedIterableSubtopics = this.subtopics.saveAll(subtopicList);
-
     subtopicList = subtopicIterableToSubtopicList(storedIterableSubtopics);
-    subtopicList = storeResources(subtopicList);
 
+    subtopicList = storeResources(subtopicList, subtopicDetailViewList);
     return subtopicList;
   }
 
-  private List<Subtopic> storeResources(List<Subtopic> subtopicList) {
-    for (Subtopic subtopic : subtopicList) {
-      List<Resource> resourceList = resourceService
-          .saveResources(subtopic.getResources(), subtopic);
-      subtopic.setResources(resourceList);
-    }
+  private List<Subtopic> storeResources(List<Subtopic> subtopicList,
+      List<SubtopicDetailView> subtopicDetailViewList) {
 
+
+    for (int i = 0; i < subtopicDetailViewList.size(); i++) {
+        List<Resource> resourceStoredList = resourceService
+          .saveResources(subtopicDetailViewList.get(i).getResources(), subtopicList.get(i));
+
+        subtopicList.get(i).setResources(resourceStoredList);
+    }
     Iterable<Subtopic> subtopicIterable = this.subtopics.saveAll(subtopicList);
+
     return subtopicIterableToSubtopicList(subtopicIterable);
   }
 

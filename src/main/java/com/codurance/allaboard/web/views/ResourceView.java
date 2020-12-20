@@ -1,21 +1,30 @@
 package com.codurance.allaboard.web.views;
 
 import com.codurance.allaboard.core.model.topic.Resource;
+import java.io.Serializable;
 
-public class ResourceView {
+public class ResourceView implements Serializable {
 
-    private final long id;
-    private final String label;
-    private final String url;
+    private  long id;
+    private  String label;
+    private  String url;
 
-    private ResourceView(long id, String label, String url) {
+    public ResourceView(long id, String label, String url) {
         this.id = id;
         this.label = label;
         this.url = url;
     }
 
+    public ResourceView(String label, String url) {
+        this.label = label;
+        this.url = url;
+    }
+
+    public ResourceView() {
+    }
+
     public static ResourceView from(Resource resource) {
-        return new ResourceView(resource.getId(), resource.getName(), resource.getUrl());
+        return new ResourceView(resource.getId(), resource.getLabel(), resource.getUrl());
     }
 
     public long getId() {

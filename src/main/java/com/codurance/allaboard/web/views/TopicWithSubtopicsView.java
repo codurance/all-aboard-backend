@@ -9,10 +9,6 @@ public class TopicWithSubtopicsView extends TopicView implements Serializable {
   @NotNull(message = "Cannot be null")
   private List<SubtopicDetailView> subtopics;
 
-  public TopicWithSubtopicsView(List<SubtopicDetailView> subtopics) {
-    this.subtopics = subtopics;
-  }
-
   public TopicWithSubtopicsView(String name, String description,
       List<SubtopicDetailView> subtopics) {
     super(name, description);

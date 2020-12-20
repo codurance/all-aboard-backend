@@ -36,7 +36,7 @@ public class CreateTopicFeature extends WebAcceptanceTestTemplate {
   @Test
   void accept_a_valid_topic() throws IOException {
 
-    JSONObject requestBody = buildJsonObjectFromFile("stub-topic.json");
+    JSONObject requestBody = buildJsonObjectFromFile("stub-create-topic.json");
     RequestSpecification httpRequest = httpRequestWithJSONContentType(requestBody);
     Response response = httpRequest.post(apiV1Endpoint("topic"));
     JSONObject responseBody = buildResponseBody(response);
