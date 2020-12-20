@@ -11,23 +11,38 @@ import org.springframework.stereotype.Service;
 public class SubtopicService {
 
   private final Subtopics subtopics;
+  private final ResourceService resourceService;
 
   @Autowired
-  public SubtopicService(Subtopics subtopics) {
-
+  public SubtopicService(Subtopics subtopics,
+      ResourceService resourceService) {
     this.subtopics = subtopics;
+    this.resourceService = resourceService;
   }
 
   public List<Subtopic> saveSubtopics(List<SubtopicDetailView> subtopicDetailViewList,
       Topic topic) {
-
     List<Subtopic> subtopicList = subtopicDetailViewListToSubtopicList(subtopicDetailViewList,
         topic);
+    Iterable<Subtopic> storedIterableSubtopics = this.subtopics.saveAll(subtopicList);
 
-    Iterable<Subtopic> storedSubtopics = this.subtopics.saveAll(subtopicList);
+    subtopicList = subtopicIterableToSubtopicList(storedIterableSubtopics);
+    subtopicList = storeResources(subtopicList);
 
-    return subtopicIterableToSubtopicList(storedSubtopics);
+    return subtopicList;
   }
+
+  private List<Subtopic> storeResources(List<Subtopic> subtopicList) {
+    for (Subtopic subtopic : subtopicList) {
+      List<Resource> resourceList = resourceService
+          .saveResources(subtopic.getResources(), subtopic);
+      subtopic.setResources(resourceList);
+    }
+
+    Iterable<Subtopic> subtopicIterable = this.subtopics.saveAll(subtopicList);
+    return subtopicIterableToSubtopicList(subtopicIterable);
+  }
+
 
   private List<Subtopic> subtopicIterableToSubtopicList(Iterable<Subtopic> storedSubtopics) {
     return StreamSupport
