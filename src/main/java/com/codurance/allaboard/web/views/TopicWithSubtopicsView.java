@@ -2,9 +2,11 @@ package com.codurance.allaboard.web.views;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class TopicWithSubtopicsView extends TopicView implements Serializable {
 
+  @NotNull(message = "Cannot be null")
   private List<SubtopicDetailView> subtopics;
 
   public TopicWithSubtopicsView(List<SubtopicDetailView> subtopics) {

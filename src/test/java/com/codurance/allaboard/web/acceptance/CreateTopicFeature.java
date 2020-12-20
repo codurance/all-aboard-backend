@@ -48,5 +48,17 @@ public class CreateTopicFeature extends WebAcceptanceTestTemplate {
     assertThat(responseBody.get("description"), is("topic description"));
   }
 
+  @Test
+  void error_on_empty_fields() {
+    RequestSpecification httpRequest = httpRequestWithJSONContentType(requestBody);
 
+    Response response = httpRequest.post(apiV1Endpoint("topic"));
+    JSONObject responseBody = buildResponseBody(response);
+
+    assertThat(response.statusCode(), is(400));
+    assertThat(response.contentType(), is(ContentType.JSON.toString()));
+    assertThat(responseBody.get("description"), is("Cannot be null or empty"));
+    assertThat(responseBody.get("name"), is("Cannot be null or empty"));
+    assertThat(responseBody.get("subtopics"), is("Cannot be null"));
+  }
 }

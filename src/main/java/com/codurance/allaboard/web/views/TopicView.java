@@ -1,11 +1,14 @@
 package com.codurance.allaboard.web.views;
 
 import com.codurance.allaboard.core.model.topic.Topic;
+import javax.validation.constraints.NotEmpty;
 
 public class TopicView {
 
     private Long id;
+    @NotEmpty(message = "Cannot be null or empty")
     private String name;
+    @NotEmpty(message = "Cannot be null or empty")
     private String description;
 
     private TopicView(Long id, String name, String description) {
