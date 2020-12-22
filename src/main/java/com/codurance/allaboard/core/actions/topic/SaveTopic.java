@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SaveTopic {
 
-
   private final TopicService topicService;
 
   @Autowired
@@ -24,22 +23,33 @@ public class SaveTopic {
     this.topicService = topicService;
   }
 
-
   public TopicWithSubtopicsView execute(TopicWithSubtopicsView topicWithSubtopicsView) {
     Topic topic = topicService.storeTopicWithSubtopics(topicWithSubtopicsView);
-    List<SubtopicDetailView> subtopicsDetailView = topic.getSubtopics().stream()
-        .map(item -> new SubtopicDetailView(item.getId(), item.getName(), buildResourceViewList(item))).collect(
-            Collectors.toList());
 
-    TopicWithSubtopicsView topicToReturn = new TopicWithSubtopicsView(topic.getName(),
+    List<SubtopicDetailView> subtopicsDetailView = buildSubtopicDetailViewList(topic);
+
+    return buildTopicWithSubtopicView(topic, subtopicsDetailView);
+  }
+
+  private TopicWithSubtopicsView buildTopicWithSubtopicView(Topic topic,
+      List<SubtopicDetailView> subtopicsDetailView) {
+    TopicWithSubtopicsView topicWithSubtopicsView = new TopicWithSubtopicsView(topic.getName(),
         topic.getDescription(), subtopicsDetailView);
-    topicToReturn.setId(topic.getId());
+    topicWithSubtopicsView.setId(topic.getId());
 
-    return topicToReturn;
+    return topicWithSubtopicsView;
+  }
+
+  private List<SubtopicDetailView> buildSubtopicDetailViewList(Topic topic) {
+    return topic.getSubtopics().stream()
+        .map(item -> new SubtopicDetailView(item.getId(), item.getName(),
+            buildResourceViewList(item))).collect(
+            Collectors.toList());
   }
 
   private List<ResourceView> buildResourceViewList(Subtopic subtopic) {
-    return subtopic.getResources().stream().map(item-> new ResourceView(item.getId(), item.getLabel(), item.getUrl())).collect(
-        Collectors.toList());
+    return subtopic.getResources().stream()
+        .map(item -> new ResourceView(item.getId(), item.getLabel(), item.getUrl())).collect(
+            Collectors.toList());
   }
 }
