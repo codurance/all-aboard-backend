@@ -19,21 +19,21 @@ public class TopicService {
     this.subtopicService = subtopicService;
   }
 
-  public Topic storeTopic(TopicWithSubtopicsView topicWithSubtopicsView) {
-    Topic topic = new Topic(topicWithSubtopicsView.getName(),
-        topicWithSubtopicsView.getDescription());
-    return topics.save(topic);
-  }
-
   public Topic storeTopicWithSubtopics(
       TopicWithSubtopicsView topicWithSubtopicsView) {
 
-    Topic topicStored = storeTopic(topicWithSubtopicsView);
+    Topic topicToSave = topicWithSubtopicViewToTopic(topicWithSubtopicsView);
+    Topic topicStored = topics.save(topicToSave);
 
     List<Subtopic> subtopics = subtopicService
         .saveSubtopics(topicWithSubtopicsView.getSubtopics(), topicStored);
     topicStored.setSubtopics(subtopics);
 
     return topics.save(topicStored);
+  }
+
+  private Topic topicWithSubtopicViewToTopic(TopicWithSubtopicsView topicWithSubtopicsView) {
+    return new Topic(topicWithSubtopicsView.getName(),
+        topicWithSubtopicsView.getDescription());
   }
 }
