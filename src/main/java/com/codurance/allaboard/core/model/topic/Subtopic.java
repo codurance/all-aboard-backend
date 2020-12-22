@@ -16,52 +16,58 @@ import javax.persistence.Table;
 @Table(name = "subtopics")
 public class Subtopic {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "s_id")
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "s_id")
+  private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "t_id")
-    private Topic topic;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "t_id")
+  private Topic topic;
 
-    @Column(nullable = false, name = "s_name")
-    private String name;
+  @Column(nullable = false, name = "s_name")
+  private String name;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "subtopic")
-    private List<Resource> resources;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "subtopic")
+  private List<Resource> resources;
 
-    public Subtopic() {}
+  public Subtopic(Topic topic, String name) {
+    this.topic = topic;
+    this.name = name;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public Subtopic() {
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public Topic getTopic() {
-        return topic;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
+  public Topic getTopic() {
+    return topic;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setTopic(Topic topic) {
+    this.topic = topic;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public List<Resource> getResources() {
-        return resources;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setResources(List<Resource> resources) {
-        this.resources = resources;
-    }
+  public List<Resource> getResources() {
+    return resources;
+  }
+
+  public void setResources(List<Resource> resources) {
+    this.resources = resources;
+  }
 }

@@ -3,39 +3,51 @@ package com.codurance.allaboard.web.views;
 import com.codurance.allaboard.core.model.topic.Subtopic;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.constraints.NotEmpty;
 
 public class SubtopicDetailView {
 
-    private long id;
-    private String name;
-    private List<ResourceView> resources;
+  private long id;
+  @NotEmpty(message = "Cannot be null or empty")
+  private String name;
+  private List<ResourceView> resources;
 
-    public SubtopicDetailView() {
-    }
+  public SubtopicDetailView() {
+  }
 
-    private SubtopicDetailView(long id, String name, List<ResourceView> resources) {
-        this.id = id;
-        this.name = name;
-        this.resources = resources;
-    }
+  public SubtopicDetailView(long id, String name, List<ResourceView> resources) {
+    this.id = id;
+    this.name = name;
+    this.resources = resources;
+  }
 
-    public static SubtopicDetailView from(Subtopic subtopic) {
-        return new SubtopicDetailView(
-            subtopic.getId(),
-            subtopic.getName(),
-            subtopic.getResources().stream().map(ResourceView::from).collect(Collectors.toList())
-        );
-    }
+  public SubtopicDetailView(String name) {
+    this.name = name;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public SubtopicDetailView(String name,
+      List<ResourceView> resources) {
+    this.name = name;
+    this.resources = resources;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public static SubtopicDetailView from(Subtopic subtopic) {
+    return new SubtopicDetailView(
+        subtopic.getId(),
+        subtopic.getName(),
+        subtopic.getResources().stream().map(ResourceView::from).collect(Collectors.toList())
+    );
+  }
 
-    public List<ResourceView> getResources() {
-        return resources;
-    }
+  public long getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public List<ResourceView> getResources() {
+    return resources;
+  }
 }

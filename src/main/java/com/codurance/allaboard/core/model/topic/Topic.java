@@ -28,7 +28,7 @@ public class Topic implements Serializable {
   @Type(type = "text")
   private String description;
 
-  @OneToMany(fetch=FetchType.LAZY, mappedBy = "topic")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic")
   private List<Subtopic> subtopics;
 
   public Topic(long id, String name, String description, List<Subtopic> subtopics) {
@@ -36,6 +36,11 @@ public class Topic implements Serializable {
     this.name = name;
     this.description = description;
     this.subtopics = subtopics;
+  }
+
+  public Topic(String name, String description) {
+    this.name = name;
+    this.description = description;
   }
 
   public Topic() {

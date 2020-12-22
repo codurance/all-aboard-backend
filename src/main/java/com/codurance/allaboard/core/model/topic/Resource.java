@@ -14,59 +14,59 @@ import javax.persistence.Table;
 @Table(name = "resources")
 public class Resource {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "r_id")
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "r_id")
+  private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_id")
-    private Subtopic subtopic;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "s_id")
+  private Subtopic subtopic;
 
-    @Column(name = "r_name")
-    private String name;
+  @Column(name = "r_label")
+  private String label;
 
-    @Column(name = "r_url")
-    private String url;
+  @Column(name = "r_url")
+  private String url;
 
-    public Resource(Subtopic subtopic, String name, String url) {
-        this.subtopic = subtopic;
-        this.name = name;
-        this.url = url;
-    }
+  public Resource(Subtopic subtopic, String label, String url) {
+    this.subtopic = subtopic;
+    this.label = label;
+    this.url = url;
+  }
 
-    public Resource() {
-    }
+  public Resource() {
+  }
 
-    public long getId() {
-        return id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public Subtopic getSubtopic() {
-        return subtopic;
-    }
+  public Subtopic getSubtopic() {
+    return subtopic;
+  }
 
-    public void setSubtopic(Subtopic subtopic) {
-        this.subtopic = subtopic;
-    }
+  public void setSubtopic(Subtopic subtopic) {
+    this.subtopic = subtopic;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getLabel() {
+    return label;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setLabel(String label) {
+    this.label = label;
+  }
 
-    public String getUrl() {
-        return url;
-    }
+  public String getUrl() {
+    return url;
+  }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+  public void setUrl(String url) {
+    this.url = url;
+  }
 }
