@@ -21,14 +21,16 @@ public class ResourceService {
 
 
   public List<Resource> saveResources(List<ResourceView> resourceViewList, Subtopic subtopic) {
+    List<Resource> resourceList = resourceViewListToResourceList(resourceViewList, subtopic);
+    Iterable<Resource> resourceIterable = this.resources.saveAll(resourceList);
+    return resourceIterableToResourceList(resourceIterable);
+  }
 
-    List<Resource> resourceList = resourceViewList.stream()
+  private List<Resource> resourceViewListToResourceList(List<ResourceView> resourceViewList,
+      Subtopic subtopic) {
+    return resourceViewList.stream()
         .map(item -> new Resource(subtopic, item.getLabel(), item.getUrl())).collect(
             Collectors.toList());
-
-    Iterable<Resource> resourceIterable = this.resources.saveAll(resourceList);
-
-   return resourceIterableToResourceList(resourceIterable);
   }
 
   private List<Resource> resourceIterableToResourceList(Iterable<Resource> storedResources) {

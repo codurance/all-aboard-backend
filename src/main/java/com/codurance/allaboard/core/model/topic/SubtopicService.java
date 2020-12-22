@@ -36,15 +36,14 @@ public class SubtopicService {
   private List<Subtopic> storeResources(List<Subtopic> subtopicList,
       List<SubtopicDetailView> subtopicDetailViewList) {
 
-
     for (int i = 0; i < subtopicDetailViewList.size(); i++) {
-        List<Resource> resourceStoredList = resourceService
+      List<Resource> resourceStoredList = resourceService
           .saveResources(subtopicDetailViewList.get(i).getResources(), subtopicList.get(i));
 
-        subtopicList.get(i).setResources(resourceStoredList);
+      subtopicList.get(i).setResources(resourceStoredList);
     }
-    Iterable<Subtopic> subtopicIterable = this.subtopics.saveAll(subtopicList);
 
+    Iterable<Subtopic> subtopicIterable = this.subtopics.saveAll(subtopicList);
     return subtopicIterableToSubtopicList(subtopicIterable);
   }
 
